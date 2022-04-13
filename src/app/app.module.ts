@@ -15,10 +15,12 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { HomeModule } from "./home/home.module";
 import { DetailModule } from "./detail/detail.module";
+import { LoginModule } from "./login/login.module";
 
 import { AppComponent } from "./app.component";
 
 import { APP_CONFIG } from "./../environments/environment";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -34,6 +36,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     SharedModule,
     HomeModule,
     DetailModule,
+    LoginModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
@@ -42,8 +45,9 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
         deps: [HttpClient],
       },
     }),
+    NgbModule,
   ],
   providers: APP_CONFIG.IOC,
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
