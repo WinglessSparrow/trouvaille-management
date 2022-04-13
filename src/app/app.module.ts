@@ -15,6 +15,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 import { HomeModule } from "./home/home.module";
 import { DetailModule } from "./detail/detail.module";
+import { LoginModule } from "./login/login.module";
 
 import { AppComponent } from "./app.component";
 
@@ -35,6 +36,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     SharedModule,
     HomeModule,
     DetailModule,
+    LoginModule,
     AppRoutingModule,
     TranslateModule.forRoot({
       loader: {
@@ -48,4 +50,4 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   providers: APP_CONFIG.IOC,
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
