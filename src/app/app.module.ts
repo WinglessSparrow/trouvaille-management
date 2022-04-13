@@ -19,6 +19,7 @@ import { DetailModule } from "./detail/detail.module";
 import { AppComponent } from "./app.component";
 
 import { APP_CONFIG } from "./../environments/environment";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -42,6 +43,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
         deps: [HttpClient],
       },
     }),
+    NgbModule,
   ],
   providers: APP_CONFIG.IOC,
   bootstrap: [AppComponent],
