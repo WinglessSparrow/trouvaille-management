@@ -1,8 +1,35 @@
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:visited {
+  background-color: #9c4eff !important;
+  border-color: #9e56fc !important;
+  color: white !important;
+  border-radius: 0% !important;
+}
+
+/* this is for clicked or active tabs */
+.nav-pills .nav-link.active,
+.nav-pills .nav-item.show .nav-link {
+  background-color: #9c4eff !important;
+  border-color: #9e56fc !important;
+  color: white !important;
+  border-radius: 0% !important;
+}
+
+/* this is for normal tabs */
+.nav-tabs .nav-link {
+  border-radius: 0% !important;
+}
+
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+
 /* You can add global styles to this file, and also import other style files */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 
