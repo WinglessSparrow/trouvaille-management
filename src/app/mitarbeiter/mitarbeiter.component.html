@@ -1,5 +1,5 @@
-<p>mitarbeiter works!</p>
-
-<ngb-rating [(rate)]="currentRate"></ngb-rating>
-<hr>
-<pre>Rate: <b>{{currentRate}}</b></pre>
+<app-subnavbar [topTitle]="topTitle" [midTitle]="midTitle" [botTitle]="botTitle">
+    <app-listview top></app-listview>
+    <p middle>middle content</p>
+    <p bottom>bottom content</p>
+</app-subnavbar>
