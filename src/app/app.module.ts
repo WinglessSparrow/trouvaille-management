@@ -13,7 +13,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { TranslateModule, TranslateLoader } from "@ngx-translate/core";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
-import { HomeModule } from "./home/home.module";
 import { DetailModule } from "./detail/detail.module";
 import { LoginModule } from "./login/login.module";
 
@@ -21,20 +20,26 @@ import { AppComponent } from "./app.component";
 
 import { APP_CONFIG } from "./../environments/environment";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StatistikComponent } from './statistik/statistik.component';
+import { MitarbeiterComponent } from './mitarbeiter/mitarbeiter.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { LieferungenComponent } from './lieferungen/lieferungen.component';
+import { AutosComponent } from './autos/autos.component';
+import { RoutenComponent } from './routen/routen.component';
+import { MainElementComponent } from './main-element/main-element.component';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     CoreModule,
     SharedModule,
-    HomeModule,
     DetailModule,
     LoginModule,
     AppRoutingModule,

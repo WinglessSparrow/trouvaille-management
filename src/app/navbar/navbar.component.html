@@ -1,0 +1,38 @@
+<div class="d-inline-flex">
+    <p class="btn btn-primary hello">Hallo, Mirarbeiter</p>
+
+    <ul ngbNav #nav="ngbNav" class="nav-pills">
+        <li ngbNavItem>
+            <a ngbNavLink>Statistik</a>
+            <ng-template ngbNavContent>
+                <app-statistik></app-statistik>
+            </ng-template>
+        </li>
+        <li ngbNavItem>
+            <a ngbNavLink>Mitarbeiter</a>
+            <ng-template ngbNavContent>
+                <app-mitarbeiter></app-mitarbeiter>
+            </ng-template>
+        </li>
+        <li ngbNavItem>
+            <a ngbNavLink>Lieferungen</a>
+            <ng-template ngbNavContent>
+                <app-lieferungen></app-lieferungen>
+            </ng-template>
+        </li>
+        <li ngbNavItem>
+            <a ngbNavLink>Autos</a>
+            <ng-template ngbNavContent>
+                <app-autos>
+                </app-autos>
+            </ng-template>
+        </li>
+        <li ngbNavItem>
+            <a ngbNavLink>Routen</a>
+            <ng-template ngbNavContent>
+                <app-routen></app-routen>
+            </ng-template>
+        </li>
+    </ul>
+</div>
+<div [ngbNavOutlet]="nav"></div>
