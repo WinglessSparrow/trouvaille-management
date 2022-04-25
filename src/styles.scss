@@ -15,11 +15,42 @@
   border-color: #9e56fc !important;
   color: white !important;
   border-radius: 0% !important;
+
+}
+
+.nav-item .nav-link {
+  width: 300px !important;
+  height: 100px !important;
+  background-color: #ffffff !important;
+  border-color: #9e56fc !important;
+  color: rgb(0, 0, 0) !important;
+  border-radius: 0% !important;
+  text-align: center;
+  line-height: 82px;
+  font-size: x-large;
+}
+
+
+.nav-pills .nav-item.show .nav-link {
+  background-color: #9c4eff !important;
+  border-color: #9e56fc !important;
+  color: white !important;
+  border-radius: 0% !important;
+  max-width: 300px !important;
+  height: 100px !important;
+
 }
 
 /* this is for normal tabs */
 .nav-tabs .nav-link {
   border-radius: 0% !important;
+  max-width: 300px !important;
+  height: 100px !important;
+}
+
+.navBtn {
+  width: 300px !important;
+  height: 100px !important;
 }
 
 
@@ -32,7 +63,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-
   height: 100%;
   font-family: Arial, Helvetica, sans-serif;
 }
