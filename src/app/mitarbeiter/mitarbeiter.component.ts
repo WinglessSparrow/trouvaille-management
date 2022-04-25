@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./mitarbeiter.component.scss']
 })
 export class MitarbeiterComponent implements OnInit {
-  currentRate = 8;
+  topTitle = 'Mitarbeiter';
+  midTitle = 'Gruppen';
+  botTitle = 'Schichtplan';
+
   constructor() { }
 
   ngOnInit(): void {
