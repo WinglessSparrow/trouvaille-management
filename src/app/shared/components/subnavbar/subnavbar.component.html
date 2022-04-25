@@ -1,0 +1,24 @@
+<div class="d-flex">
+    <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills" orientation="vertical">
+        <li *ngIf="topCon" ngbNavItem="top">
+            <a ngbNavLink>{{topTitle}}</a>
+            <ng-template ngbNavContent>
+                <ng-content select="[top]"></ng-content>
+            </ng-template>
+        </li>
+        <li *ngIf="midCon" ngbNavItem="middle">
+            <a ngbNavLink>{{midTitle}}</a>
+            <ng-template ngbNavContent>
+                <ng-content select="[middle]"></ng-content>
+            </ng-template>
+        </li>
+        <li *ngIf="botCon" ngbNavItem="bottom">
+            <a ngbNavLink>{{botTitle}}</a>
+            <ng-template ngbNavContent>
+                <ng-content select="[bottom]"></ng-content>
+            </ng-template>
+        </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav" class="ms-4"></div>
+</div>
