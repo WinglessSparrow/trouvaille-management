@@ -18,29 +18,12 @@
     </div>
     <div class="panel-body">
         <ul class="list-group">
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
-            <li class="list-group-item"><strong>Max Mustermann </strong>| mehr...</li>
+            <li *ngFor="let entry of list" class="list-group-item">
+                <div [innerHTML]="icon"></div>
+                <strong> {{entry.text}} </strong>|
+                mehr...
+            </li>
+
         </ul>
         <button class="btn btn-primary mx-auto m-2 w-100">{{buttonTitle}}</button>
     </div>

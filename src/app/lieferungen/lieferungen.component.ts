@@ -6,6 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./lieferungen.component.scss']
 })
 export class LieferungenComponent implements OnInit {
+  iconName = "lieferungen";
+  lieferungenList = [
+    {
+      text: "Paket text",
+    },
+  ]
+  topTitle = 'Lieferungen';
 
   constructor() { }
 
