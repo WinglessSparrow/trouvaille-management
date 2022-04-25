@@ -18,13 +18,14 @@
     </div>
     <div class="panel-body">
         <ul class="list-group">
-            <li *ngFor="let entry of list" class="list-group-item">
-                <div [innerHTML]="icon"></div>
-                <strong> {{entry.text}} </strong>|
+            <li *ngFor="let entry of list" class="list-group-item d-flex justify-content-between">
+                <div [innerHTML]="icon" class="d-inline-flex"></div>
+                <strong class="d-inline-flex"> {{entry.text}} </strong>|
                 mehr...
             </li>
 
         </ul>
         <button class="btn btn-primary mx-auto m-2 w-100">{{buttonTitle}}</button>
+        <button *ngIf="showBtn2" class="btn btn-primary mx-auto m-2 w-100">{{buttonTitle2}}</button>
     </div>
 </div>

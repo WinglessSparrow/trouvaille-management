@@ -11,8 +11,29 @@ export class LieferungenComponent implements OnInit {
     {
       text: "Paket text",
     },
+    {
+      text: "Paket text",
+    },
+    {
+      text: "Paket text",
+    },
+    {
+      text: "Paket text",
+    },
+    {
+      text: "Paket text",
+    },
+    {
+      text: "Paket text",
+    },
+    {
+      text: "Paket text",
+    },
+
   ]
   topTitle = 'Lieferungen';
+  buttonTitle = 'Neues Paket';
+  buttonTitle2 = 'Paket scannen';
 
   constructor() { }
 
