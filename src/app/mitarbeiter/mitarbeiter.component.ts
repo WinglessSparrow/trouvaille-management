@@ -10,6 +10,10 @@ export class MitarbeiterComponent implements OnInit {
   midTitle = 'Gruppen';
   botTitle = 'Schichtplan';
 
+  buttonTitleNewWorker = 'Neuer Mitarbeiter';
+  buttonTitleGroup = 'Mitarbeiter in dieser Gruppe verwalten';
+  buttonTitleWorker = 'Neuer Mitarbeiter';
+
   constructor() { }
 
   ngOnInit(): void {
