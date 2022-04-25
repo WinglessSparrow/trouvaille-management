@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-listview',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./listview.component.scss']
 })
 export class ListviewComponent implements OnInit {
+  @Input() buttonTitle = '';
 
   constructor() { }
 

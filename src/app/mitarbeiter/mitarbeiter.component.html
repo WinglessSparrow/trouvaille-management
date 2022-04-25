@@ -1,5 +1,27 @@
 <app-subnavbar [topTitle]="topTitle" [midTitle]="midTitle" [botTitle]="botTitle">
-    <app-listview top></app-listview>
-    <p middle>middle content</p>
+    <div top class="d-flex flex-row">
+        <div class="flex-md-fill border-2 border-primary rounded-0">
+            <div class="container-fluid border-2 border-primary rounded-0">
+                <app-listview [buttonTitle]="buttonTitleNewWorker"></app-listview>
+            </div>
+        </div>
+        <div class="flex-grow-1">
+            <div class="container-fluid border-2 border-primary rounded-0 ms-4">
+                <app-worker-form></app-worker-form>
+            </div>
+        </div>
+    </div>
+
+    <div middle class="d-flex flex-row">
+        <div class="container-fluid border-2 border-primary rounded-0">
+            <p class="text-center p-2">Mitarbeiter</p>
+            <app-listview [buttonTitle]="buttonTitleWorker"></app-listview>
+        </div>
+        <div class="container-fluid border-2 border-primary rounded-0 ms-4">
+            <p class="text-center p-2">Gruppen</p>
+            <app-listview [buttonTitle]="buttonTitleGroup"></app-listview>
+        </div>
+    </div>
+
     <p bottom>bottom content</p>
 </app-subnavbar>
