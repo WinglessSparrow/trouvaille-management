@@ -1,5 +1,5 @@
 .hello {
-    max-width: 300px !important;
+    width: 300px !important;
     height: 100px !important;
     background-color: #9c4eff !important;
     border-color: #9e56fc !important;
@@ -8,4 +8,11 @@
     text-align: center;
     line-height: 82px;
     font-size: x-large
+}
+
+.nav-item .nav-link {
+    width: 300px !important;
+    height: 100px !important;
+    line-height: 82px;
+    font-size: x-large;
 }
