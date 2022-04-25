@@ -27,13 +27,14 @@ import { LieferungenComponent } from './lieferungen/lieferungen.component';
 import { AutosComponent } from './autos/autos.component';
 import { RoutenComponent } from './routen/routen.component';
 import { MainElementComponent } from './main-element/main-element.component';
+import { WorkerFormComponent } from "./mitarbeiter/worker-form/worker-form.component";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 
 @NgModule({
-  declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent],
+  declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent, WorkerFormComponent],
   imports: [
     BrowserModule,
     FormsModule,
