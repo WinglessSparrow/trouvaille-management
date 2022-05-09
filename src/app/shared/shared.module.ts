@@ -9,10 +9,11 @@ import { WebviewDirective } from './directives/';
 import { FormsModule } from '@angular/forms';
 import { SubnavbarComponent } from './components/subnavbar/subnavbar.component';
 import { ListviewComponent } from './components/listview/listview.component';
+import { ScannerComponent } from './components/scanner/scanner.component';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, SubnavbarComponent, ListviewComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, SubnavbarComponent, ListviewComponent, ScannerComponent],
   imports: [CommonModule, TranslateModule, FormsModule, NgbModule],
-  exports: [TranslateModule, WebviewDirective, FormsModule, SubnavbarComponent, ListviewComponent]
+  exports: [TranslateModule, WebviewDirective, FormsModule, SubnavbarComponent, ListviewComponent, ScannerComponent]
 })
 export class SharedModule { }
