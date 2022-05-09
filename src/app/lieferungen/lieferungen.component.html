@@ -1,11 +1,13 @@
 <app-subnavbar [topTitle]="topTitle">
     <div top class=" d-flex flex-row gray">
         <app-listview [showBtn2]="true" [buttonTitle2]="buttonTitle2" [buttonTitle]="buttonTitle"
-            [list]="lieferungenList" [iconName]="iconName">
+            [list]="lieferungenList" [iconName]="iconName" (showButton2Value)="showNewPackageForm($event)">
         </app-listview>
         <div class="flex-grow-1">
             <div class="border-2 border-primary rounded-0 ms-4 gray">
                 <app-lieferungen-form></app-lieferungen-form>
+                <!--show new package or scanner here-->
+                <scanner *ngIf="showNewPackage"></scanner>
             </div>
         </div>
     </div>

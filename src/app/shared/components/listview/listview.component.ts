@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-listview',
@@ -12,6 +13,13 @@ export class ListviewComponent implements OnInit {
   @Input() list = [];
   @Input() iconName;
   @Input() showBtn2 = false;
+  tmp: boolean = false;
+  @Output() showButton2Value = new EventEmitter<boolean>(false);
+  onPress() {
+    this.showButton2Value.emit(!this.tmp);
+    this.tmp = !this.tmp;
+  }
+
   icon: SafeHtml;
   icons =
     {

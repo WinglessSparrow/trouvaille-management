@@ -2,14 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { LieferungenFormComponent } from './lieferungen-form/lieferungen-form.component';
+import { ListviewComponent } from '../shared/components/listview/listview.component';
 
 @NgModule({
   declarations: [
-    LieferungenFormComponent
+    LieferungenFormComponent,
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class LieferungenModule { }
