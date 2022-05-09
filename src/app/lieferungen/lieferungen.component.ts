@@ -35,10 +35,19 @@ export class LieferungenComponent implements OnInit {
   topTitle = 'Lieferungen';
   buttonTitle = 'Neues Paket';
   buttonTitle2 = 'Paket scannen';
-  showNewPackage: boolean = false;
-  showNewPackageForm(value) {
-    this.showNewPackage = value;
+
+  showScanner: boolean = false;
+  showNeuesPaketForm: boolean = false;
+
+  showScannerFunc(value) {
+    this.showScanner = value;
   }
+  showNeuesPaketFormFunc(value) {
+    this.showNeuesPaketForm = value;
+  }
+
+
+
   constructor() { }
 
   ngOnInit(): void {
