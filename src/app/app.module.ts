@@ -29,6 +29,8 @@ import { RoutenComponent } from './routen/routen.component';
 import { MainElementComponent } from './main-element/main-element.component';
 import { WorkerFormComponent } from "./mitarbeiter/worker-form/worker-form.component";
 import { LieferungenFormComponent } from "./lieferungen/lieferungen-form/lieferungen-form.component";
+import { AuthService } from "./shared/services/auth-service";
+import { EmployeeService } from "./shared/services/employee-service";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -54,7 +56,11 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     }),
     NgbModule,
   ],
-  providers: APP_CONFIG.IOC,
+  providers: [
+    APP_CONFIG.IOC,
+    AuthService,
+    EmployeeService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

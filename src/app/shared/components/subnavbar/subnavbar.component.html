@@ -18,6 +18,11 @@
                 <ng-content select="[bottom]"></ng-content>
             </ng-template>
         </li>
+
+        <li>
+            <button (click)="logout()">Logout</button>
+            <button (click)="employee()">Employee</button>
+        </li>
     </ul>
 
     <div [ngbNavOutlet]="nav" class="ms-4"></div>

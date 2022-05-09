@@ -2,7 +2,8 @@
     <div top class="d-flex flex-row">
         <div class="flex-md-fill border-2 border-primary rounded-0">
             <div class="container-fluid border-2 border-primary rounded-0">
-                <app-listview [buttonTitle]="buttonTitleNewWorker"></app-listview>
+                <app-listview [buttonTitle]="buttonTitleNewWorker" [list]="workerList" [iconName]="iconMitarbeiter">
+                </app-listview>
             </div>
         </div>
         <div class="flex-grow-1">
@@ -12,15 +13,20 @@
         </div>
     </div>
 
-    <div middle class="d-flex flex-row">
+    <div *ngIf="toggleGroup" middle class="d-flex flex-row">
         <div class="container-fluid border-2 border-primary rounded-0">
             <p class="text-center p-2">Mitarbeiter</p>
-            <app-listview [buttonTitle]="buttonTitleWorker"></app-listview>
+            <app-listview [buttonTitle]="buttonTitleWorker" [list]="workerList" [iconName]="iconMitarbeiter">
+            </app-listview>
         </div>
         <div class="container-fluid border-2 border-primary rounded-0 ms-4">
             <p class="text-center p-2">Gruppen</p>
-            <app-listview [buttonTitle]="buttonTitleGroup"></app-listview>
+            <app-listview [buttonTitle]="buttonTitleGroup" [list]="groupList" [iconName]="iconGroup"></app-listview>
         </div>
+    </div>
+
+    <div *ngIf="!toggleGroup">
+
     </div>
 
     <p bottom>bottom content</p>
