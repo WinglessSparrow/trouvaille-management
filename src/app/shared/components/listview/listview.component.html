@@ -24,7 +24,8 @@
                 mehr...
             </li>
         </ul>
-        <button class="btn btn-primary mx-auto m-2 w-100">{{buttonTitle}}</button>
-        <button *ngIf="showBtn2" class="btn btn-primary mx-auto m-2 w-100">{{buttonTitle2}}</button>
+        <button (click)="onPress1()" class="btn btn-primary mx-auto m-2 w-100">{{buttonTitle}}</button>
+        <button *ngIf="showBtn2" class="btn btn-primary mx-auto m-2 w-100"
+            (click)="onPress2()">{{buttonTitle2}}</button>
     </div>
 </div>

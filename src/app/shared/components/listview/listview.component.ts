@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
@@ -12,6 +12,22 @@ export class ListviewComponent implements OnInit {
   @Input() list = [];
   @Input() iconName;
   @Input() showBtn2 = false;
+  tmp1: boolean = false;
+  tmp2: boolean = false;
+  @Output() showButton1Value = new EventEmitter<boolean>(false);
+  @Output() showButton2Value = new EventEmitter<boolean>(false);
+
+  onPress1() {
+    this.showButton1Value.emit(!this.tmp1);
+    this.tmp1 = !this.tmp1;
+  }
+
+  onPress2() {
+    this.showButton2Value.emit(!this.tmp2);
+    this.tmp2 = !this.tmp2;
+  }
+
+
   icon: SafeHtml;
   icons =
     {

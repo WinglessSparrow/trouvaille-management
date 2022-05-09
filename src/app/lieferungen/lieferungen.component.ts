@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ListviewComponent } from '../shared/components/listview/listview.component';
 
 @Component({
   selector: 'app-lieferungen',
@@ -34,6 +35,18 @@ export class LieferungenComponent implements OnInit {
   topTitle = 'Lieferungen';
   buttonTitle = 'Neues Paket';
   buttonTitle2 = 'Paket scannen';
+
+  showScanner: boolean = false;
+  showNeuesPaketForm: boolean = false;
+
+  showScannerFunc(value) {
+    this.showScanner = value;
+  }
+  showNeuesPaketFormFunc(value) {
+    this.showNeuesPaketForm = value;
+  }
+
+
 
   constructor() { }
 

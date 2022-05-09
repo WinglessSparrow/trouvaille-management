@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
-import { LieferungenFormComponent } from './lieferungen-form/lieferungen-form.component';
+import { QrFormComponent } from './qr-form/qr-form.component';
 
 @NgModule({
   declarations: [
-    LieferungenFormComponent
+  
+    QrFormComponent
   ],
   imports: [
     CommonModule,
-    SharedModule
+    SharedModule,
   ]
 })
 export class LieferungenModule { }
