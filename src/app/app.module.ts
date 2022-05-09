@@ -29,13 +29,15 @@ import { RoutenComponent } from './routen/routen.component';
 import { MainElementComponent } from './main-element/main-element.component';
 import { WorkerFormComponent } from "./mitarbeiter/worker-form/worker-form.component";
 import { LieferungenFormComponent } from "./lieferungen/lieferungen-form/lieferungen-form.component";
+import { NeuesPaketFormComponent } from "./lieferungen/neues-paket-form/neues-paket-form.component";
+import { QrFormComponent } from "./lieferungen/qr-form/qr-form.component";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 
 @NgModule({
-  declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent, WorkerFormComponent, LieferungenFormComponent],
+  declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent, WorkerFormComponent, LieferungenFormComponent, NeuesPaketFormComponent, QrFormComponent],
   imports: [
     BrowserModule,
     FormsModule,
