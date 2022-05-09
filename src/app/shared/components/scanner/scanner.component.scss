@@ -1,0 +1,69 @@
+$distance-from-border: 30px;
+$width-aim: 45px;
+
+.video-outline {
+    position: relative;
+    border: 2px solid purple;
+}
+
+.corner-top-left {
+    position: absolute;
+    top: $distance-from-border;
+    left: $distance-from-border;
+
+    width: $width-aim;
+    height: $width-aim;
+
+    border-top: solid red 2px;
+    border-left: solid red 2px;
+}
+
+.corner-top-right {
+    position: absolute;
+    top: $distance-from-border;
+    right: $distance-from-border;
+
+    width: $width-aim;
+    height: $width-aim;
+
+    border-top: solid red 2px;
+    border-right: solid red 2px;
+}
+
+.corner-bottom-left {
+    position: absolute;
+    bottom: $distance-from-border;
+    left: $distance-from-border;
+
+    width: $width-aim;
+    height: $width-aim;
+
+    border-bottom: solid red 2px;
+    border-left: solid red 2px;
+}
+
+.corner-bottom-right {
+    position: absolute;
+    bottom: $distance-from-border;
+    right: $distance-from-border;
+
+    width: $width-aim;
+    height: $width-aim;
+
+    border-bottom: solid red 2px;
+    border-right: solid red 2px;
+}
+
+.video-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    width: 85vw;
+    height: 85vw;
+}
+
+video {
+    height: 100%;
+}
