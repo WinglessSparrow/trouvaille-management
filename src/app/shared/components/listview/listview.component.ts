@@ -12,10 +12,12 @@ export class ListviewComponent implements OnInit {
   @Input() list = [];
   @Input() iconName;
   @Input() showBtn2 = false;
+
   tmp1: boolean = false;
   tmp2: boolean = false;
   @Output() showButton1Value = new EventEmitter<boolean>(false);
   @Output() showButton2Value = new EventEmitter<boolean>(false);
+  @Output() itemEvent = new EventEmitter<any>();
 
   onPress1() {
     this.showButton1Value.emit(!this.tmp1);
@@ -40,6 +42,10 @@ export class ListviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.icon = this.sanitizer.bypassSecurityTrustHtml(this.icons[this.iconName]);
+  }
+
+  itemDetailsEvent(value: any) {
+    this.itemEvent.emit(value);
   }
 
 }

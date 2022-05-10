@@ -1,32 +1,23 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { AuthService } from "./auth-service";
+import { Employee } from "../models/employee";
+import { GlobalResponse } from "../models/global-response";
 
 @Injectable()
 export class EmployeeService {
-    url = 'http://td.vvjm.dev/api/v1/employee';
-    body;
-    header;
-    authService;
 
-    constructor(private http: HttpClient, aService: AuthService) {
-        this.authService = aService;
+    constructor(private http: HttpClient) {
     }
 
-    public getEmployee() {
-        var tk = this.authService.getToken();
-        var headers_object = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': tk
+    public getAllEmployees(): Employee[] {
+        var employees = [] as Employee[];
+        this.http.post<GlobalResponse>("https://td.vvjm.dev/api/v1/employee/filter", {}).subscribe(data => {
+            data.data[0].forEach(element => {
+                element as Employee;
+                element.text = element.firstname + " " + element.lastname;
+                employees.push(element);
+            });
         });
-
-        const httpOptions = {
-            headers: headers_object
-        };
-
-        console.log(this.authService.getToken());
-        this.http.post(this.url, { limit: 10 }, httpOptions).subscribe();
+        return employees;
     }
-
-    //data => {console.log(data);}
 }

@@ -3,13 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router, Routes } from "@angular/router";
 import { LoginComponent } from "../../login/login.component";
 import { MainElementComponent } from "../../main-element/main-element.component";
-
-interface Auth {
-    hasError: boolean;
-    hasWarning: boolean;
-    warnings: string[];
-    data: UserData[];
-}
+import { GlobalResponse } from "../models/global-response";
 
 interface UserData {
     email: string;
@@ -28,7 +22,7 @@ const USER_KEY = 'auth-user';
 
 @Injectable()
 export class AuthService {
-    authResp: Auth;
+    authResp: GlobalResponse;
     authData: UserData;
 
     constructor(private http: HttpClient, private router: Router) {
@@ -36,7 +30,7 @@ export class AuthService {
 
     public login(username: string, password: string) {
         return this.http
-            .post<Auth>('https://td.vvjm.dev/api/auth', { username, password }).subscribe(data => {
+            .post<GlobalResponse>('https://td.vvjm.dev/api/auth', { username, password }).subscribe(data => {
                 this.authData = data.data[0];
                 this.authResp = data;
                 if (!this.authResp.hasError) {
