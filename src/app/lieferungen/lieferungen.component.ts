@@ -38,12 +38,40 @@ export class LieferungenComponent implements OnInit {
 
   showScanner: boolean = false;
   showNeuesPaketForm: boolean = false;
+  showLieferungenForm: boolean = true;
 
   showScannerFunc(value) {
     this.showScanner = value;
+    if (value == true) {
+      this.showLieferungenForm = false;
+      this.showNeuesPaketForm = false;
+    } else {
+      this.showLieferungenForm = true;
+      this.showNeuesPaketForm = false;
+    }
+
   }
   showNeuesPaketFormFunc(value) {
     this.showNeuesPaketForm = value;
+    if (value == true) {
+      this.showScanner = false;
+      this.showLieferungenForm = false;
+    } else {
+      this.showScanner = false;
+      this.showLieferungenForm = true;
+    }
+
+  }
+  showLieferungenFunc(value) {
+    this.showLieferungenForm = value;
+    if (value == true) {
+      this.showScanner = false;
+      this.showNeuesPaketForm = false;
+    } else {
+      this.showScanner = true;
+      this.showNeuesPaketForm = true;
+    }
+
   }
 
 

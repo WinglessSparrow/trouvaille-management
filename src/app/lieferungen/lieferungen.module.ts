@@ -5,8 +5,6 @@ import { QrFormComponent } from './qr-form/qr-form.component';
 
 @NgModule({
   declarations: [
-  
-    QrFormComponent
   ],
   imports: [
     CommonModule,
