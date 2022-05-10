@@ -1,10 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Employee } from '../shared/models/employee';
+import { EmployeeService } from '../shared/services/employee-service';
+import { WorkerFormComponent } from './worker-form/worker-form.component';
 
 @Component({
   selector: 'app-mitarbeiter',
   templateUrl: './mitarbeiter.component.html',
   styleUrls: ['./mitarbeiter.component.scss']
 })
+
 export class MitarbeiterComponent implements OnInit {
   toggleGroup = true;
 
@@ -19,41 +23,7 @@ export class MitarbeiterComponent implements OnInit {
   iconMitarbeiter = "mitarbeiter";
   iconGroup = "group";
 
-  workerList = [
-    {
-      text: "Max Mustermann"
-    },
-    {
-      text: "Max Mustermann"
-    },
-    {
-      text: "Max Mustermann"
-    },
-    {
-      text: "Max Mustermann"
-    },
-    {
-      text: "Max Mustermann"
-    },
-    {
-      text: "Max Mustermann"
-    },
-    {
-      text: "Max Mustermann"
-    },
-    {
-      text: "Max Mustermann"
-    },
-    {
-      text: "Max Mustermann"
-    },
-    {
-      text: "Max Mustermann"
-    },
-    {
-      text: "Max Mustermann"
-    },
-  ]
+  employeeList: Employee[];
 
   groupList = [
     {
@@ -73,9 +43,19 @@ export class MitarbeiterComponent implements OnInit {
     },
   ]
 
-  constructor() { }
+  employeeService;
+  constructor(eService: EmployeeService) {
+    this.employeeService = eService;
+    this.employeeList = this.employeeService.getAllEmployees();
+  }
 
   ngOnInit(): void {
   }
 
+  @ViewChild(WorkerFormComponent) wfc: WorkerFormComponent;
+
+  itemDetails(value: any) {
+    document.getElementById("workerForm").removeAttribute("hidden");
+    this.wfc.changeEntrys(value);
+  }
 }

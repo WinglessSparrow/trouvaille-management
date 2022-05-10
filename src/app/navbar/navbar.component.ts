@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../shared/services/auth-service';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  userName: string;
+  authService: AuthService;
+
+  constructor(aService: AuthService) {
+    this.authService = aService;
+  }
 
   ngOnInit(): void {
+    this.userName = this.authService.getUserData().email;
   }
 
 }

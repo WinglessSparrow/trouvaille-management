@@ -1,23 +1,30 @@
 <form class="w-100 p-2">
     <div class="form-group">
         <label for="firstname">Vorname</label>
-        <input type="text" class="form-control" id="firstname" placeholder="Max">
+        <input type="text" class="form-control" id="firstname" placeholder="Max" value={{employee.firstname}}>
     </div>
 
     <div class="form-group">
         <label for="lastname">Nachname</label>
-        <input type="text" class="form-control" id="lastname" placeholder="Mustermann">
+        <input type="text" class="form-control" id="lastname" placeholder="Mustermann" value={{employee.lastname}}>
+    </div>
+
+    <div class="form-group">
+        <label for="lastname">E-Mail</label>
+        <input type="text" class="form-control" id="lastname" placeholder="Mustermann" value={{employee.email}}>
     </div>
 
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
-                <label for="street">Straße</label>
-                <input type="text" class="form-control" id="street" placeholder="Musterstraße">
+                <label for="phonenumber">Telefonnummer</label>
+                <input type="text" class="form-control" id="phonenumber" placeholder="01234567"
+                    value={{employee.phonenumber}}>
             </div>
             <div class="col-sm">
-                <label for="streetnr">Str. Nummer</label>
-                <input type="text" class="form-control" id="streetnr" placeholder="69">
+                <label for="targetweeklyworkinghours">Wochenarbeitsstunden</label>
+                <input type="text" class="form-control" id="targetweeklyworkinghours" placeholder="40"
+                    value={{employee.targetweeklyworkinghours}}>
             </div>
         </div>
     </div>
@@ -25,12 +32,12 @@
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
-                <label for="location">Ort</label>
-                <input type="text" class="form-control" id="location" placeholder="Berlin">
+                <label for="passwordNew">neues Passwort</label>
+                <input type="password" class="form-control" id="passwordNew" placeholder="*********">
             </div>
             <div class="col-sm">
-                <label for="zip">Postleitzahl</label>
-                <input type="text" class="form-control" id="zip" placeholder="1337">
+                <label for="passwordAgain">Passwort wiederholen</label>
+                <input type="password" class="form-control" id="passwordAgain" placeholder="*********">
             </div>
         </div>
     </div>
@@ -38,47 +45,13 @@
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
-                <label for="vacationSelect">Im Urlaub</label>
-                <select class="form-control" id="vacationSelect">
-                    <option>Verfügbar</option>
-                    <option>Urlaub</option>
-                </select>
+                <label for="employeeStatus">nicht Aktiv</label>
+                <input disabled type="text" class="form-control" id="employeeStatus" placeholder="aktiv" value="">
             </div>
             <div class="col-sm">
-                <label for="vacationSelectFrom">Von:</label>
-                <div class="col-12">
-                    <div class="input-group">
-                        <input class="form-control" placeholder="yyyy-mm-dd" name="dpFrom" [(ngModel)]="modelFrom"
-                            ngbDatepicker #d1="ngbDatepicker">
-                        <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-calendar-date" viewBox="0 0 16 16">
-                                <path
-                                    d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
-                                <path
-                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm">
-                <label for="vacationSelectTo">Bis:</label>
-                <div class="col-12">
-                    <div class="input-group">
-                        <input class="form-control" placeholder="yyyy-mm-dd" name="dpFrom" [(ngModel)]="modelTo"
-                            ngbDatepicker #d2="ngbDatepicker">
-                        <button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-calendar-date" viewBox="0 0 16 16">
-                                <path
-                                    d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
-                                <path
-                                    d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+                <label for="birthday">Geburtstag</label>
+                <input disabled type="text" class="form-control" id="birthday" placeholder="01.01.2022"
+                    value={{employee.birthday}}>
             </div>
         </div>
     </div>
