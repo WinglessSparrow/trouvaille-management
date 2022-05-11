@@ -36,6 +36,7 @@ import { QrFormComponent } from "./lieferungen/qr-form/qr-form.component";
 import { AuthInterceptor } from "./shared/services/auth-interceptor";
 import { NewemployeeFormComponent } from "./mitarbeiter/newemployee-form/newemployee-form.component";
 import { GroupService } from "./shared/services/group-service";
+import { DeliveryService } from "./shared/services/delivery-service";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -68,6 +69,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     AuthService,
     EmployeeService,
     GroupService,
+    DeliveryService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],

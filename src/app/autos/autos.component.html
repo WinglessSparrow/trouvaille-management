@@ -1,1 +1,17 @@
-<p>autos works!</p>
+<app-subnavbar [topTitle]="topTitle">
+    <div top class=" d-flex flex-row gray">
+        <app-listview (itemEvent)="itemDetails($event)" [showBtn2]="true" [buttonTitle2]="buttonTitle2"
+            [buttonTitle]="buttonTitle" [list]="lieferungenList" [iconName]="iconName"
+            (showButton2Value)="showScannerFunc($event)" (showButton1Value)="showNeuesPaketFormFunc($event)">
+        </app-listview>
+        <div class="flex-grow-1">
+            <div class="border-2 border-primary rounded-0 ms-4 gray">
+                <app-lieferungen-form *ngIf="showLieferungenForm" id="lieferungenForm" hidden></app-lieferungen-form>
+                <!--show new package form or scanner here-->
+                <app-qr-form *ngIf="showScanner" (showButton2Value)="showScannerFunc($event)"></app-qr-form>
+                <app-neues-paket-form *ngIf="showNeuesPaketForm" (showButton1Value)="showNeuesPaketFormFunc($event)">
+                </app-neues-paket-form>
+            </div>
+        </div>
+    </div>
+</app-subnavbar>
