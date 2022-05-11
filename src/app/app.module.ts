@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/quotes */
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { CoreModule } from "./core/core.module";
 import { SharedModule } from "./shared/shared.module";
@@ -34,14 +34,18 @@ import { EmployeeService } from "./shared/services/employee-service";
 import { NeuesPaketFormComponent } from "./lieferungen/neues-paket-form/neues-paket-form.component";
 import { QrFormComponent } from "./lieferungen/qr-form/qr-form.component";
 import { AuthInterceptor } from "./shared/services/auth-interceptor";
+import { NewemployeeFormComponent } from "./mitarbeiter/newemployee-form/newemployee-form.component";
+import { GroupService } from "./shared/services/group-service";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 
 @NgModule({
-  declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent, WorkerFormComponent, LieferungenFormComponent, NeuesPaketFormComponent, QrFormComponent],
+  declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent, WorkerFormComponent, LieferungenFormComponent, NeuesPaketFormComponent, QrFormComponent,
+    NewemployeeFormComponent],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
     FormsModule,
     HttpClientModule,
@@ -63,6 +67,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     APP_CONFIG.IOC,
     AuthService,
     EmployeeService,
+    GroupService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],

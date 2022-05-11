@@ -4,12 +4,11 @@ import { Employee } from '../../shared/models/employee';
 import { EmployeeService } from '../../shared/services/employee-service';
 
 @Component({
-  selector: 'app-worker-form',
-  templateUrl: './worker-form.component.html',
-  styleUrls: ['./worker-form.component.scss']
+  selector: 'app-newemployee-form',
+  templateUrl: './newemployee-form.component.html',
+  styleUrls: ['./newemployee-form.component.scss']
 })
-
-export class WorkerFormComponent implements OnInit {
+export class NewemployeeFormComponent implements OnInit {
   employee: Employee;
   employeeService: EmployeeService;
   employeeForm: FormGroup;
@@ -32,10 +31,6 @@ export class WorkerFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  public changeEntrys(e: Employee) {
-    this.employee = e;
   }
 
   propsToRemove = [
