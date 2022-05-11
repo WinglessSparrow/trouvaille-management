@@ -7,7 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AutosComponent implements OnInit {
 
-  constructor() { }
+  iconName = "lieferungen";
+  lieferungenList: Delivery[];
+
+  topTitle = 'Lieferungen';
+
+  buttonTitle = 'Neues Paket';
+  buttonTitle2 = 'Paket scannen';
+
+  showScanner: boolean = false;
+  showNeuesPaketForm: boolean = false;
+  showLieferungenForm: boolean = true;
+
+  deliveryService: DeliveryService;
+
+  constructor(dService: DeliveryService) {
+    this.deliveryService = dService;
+    this.lieferungenList = this.deliveryService.getAllDeliveries();
+  }
 
   ngOnInit(): void {
   }
