@@ -16,13 +16,14 @@
 
     <div *ngIf="toggleGroup" middle class="d-flex flex-row">
         <div class="container-fluid border-2 border-primary rounded-0">
-            <p class="text-center p-2">Mitarbeiter</p>
-            <app-listview [buttonTitle]="buttonTitleWorker" [list]="employeeList" [iconName]="iconMitarbeiter">
+            <p class="text-center p-2">Gruppen</p>
+            <app-listview [showBtn1]="false" [buttonTitle]="buttonTitleGroup" [list]="groupList" [iconName]="iconGroup">
             </app-listview>
         </div>
         <div class="container-fluid border-2 border-primary rounded-0 ms-4">
-            <p class="text-center p-2">Gruppen</p>
-            <app-listview [buttonTitle]="buttonTitleGroup" [list]="groupList" [iconName]="iconGroup"></app-listview>
+            <p class="text-center p-2">Gruppenname</p>
+            <app-listview [buttonTitle]="buttonTitleWorker" [list]="employeeList" [iconName]="iconMitarbeiter">
+            </app-listview>
         </div>
     </div>
 

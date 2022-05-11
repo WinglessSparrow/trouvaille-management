@@ -11,6 +11,7 @@ export class ListviewComponent implements OnInit {
   @Input() buttonTitle2 = '';
   @Input() list = [];
   @Input() iconName;
+  @Input() showBtn1 = true;
   @Input() showBtn2 = false;
 
   tmp1: boolean = false;

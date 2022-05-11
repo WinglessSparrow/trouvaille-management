@@ -20,4 +20,10 @@ export class EmployeeService {
         });
         return employees;
     }
+
+    public changeEmployee(employee: Employee): void {
+        console.log(JSON.stringify(employee));
+        this.http.put<GlobalResponse>("https://td.vvjm.dev/api/v1/employee", JSON.stringify(employee))
+            .subscribe();
+    }
 }

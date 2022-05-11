@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Employee } from '../shared/models/employee';
+import { Group } from '../shared/models/group';
 import { EmployeeService } from '../shared/services/employee-service';
+import { GroupService } from '../shared/services/group-service';
 import { WorkerFormComponent } from './worker-form/worker-form.component';
 
 @Component({
@@ -24,29 +26,15 @@ export class MitarbeiterComponent implements OnInit {
   iconGroup = "group";
 
   employeeList: Employee[];
+  groupList: Group[];
 
-  groupList = [
-    {
-      text: "Gruppe 1"
-    },
-    {
-      text: "Gruppe 2"
-    },
-    {
-      text: "Gruppe 3"
-    },
-    {
-      text: "Gruppe 4"
-    },
-    {
-      text: "Gruppe 5"
-    },
-  ]
-
+  groupService;
   employeeService;
-  constructor(eService: EmployeeService) {
+  constructor(eService: EmployeeService, gService: GroupService) {
     this.employeeService = eService;
+    this.groupService = gService;
     this.employeeList = this.employeeService.getAllEmployees();
+    this.groupList = this.groupService.getAllGroups();
   }
 
   ngOnInit(): void {
@@ -58,4 +46,5 @@ export class MitarbeiterComponent implements OnInit {
     document.getElementById("workerForm").removeAttribute("hidden");
     this.wfc.changeEntrys(value);
   }
+
 }
