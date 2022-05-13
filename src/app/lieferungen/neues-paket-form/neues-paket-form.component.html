@@ -1,77 +1,103 @@
-<form class="w-100 p-2">
+<form [formGroup]="newDeliveryForm" class="w-100 p-2">
     <div class="form-group">
         <h2 class="text-center">Versender</h2>
         <div class="row">
             <div class="col-sm">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Name">
+                <label for="name">Vorname</label>
+                <input formControlName="customerfirstname" type="text" class="form-control" id="name"
+                    placeholder="Vorname">
             </div>
             <div class="col-sm">
-                <label for="vorname">Vorname</label>
-                <input type="text" class="form-control" id="vorname" placeholder="Vorname">
+                <label for="lastname">Nachname</label>
+                <input formControlName="customerlastname" type="text" class="form-control" id="lastname"
+                    placeholder="Nachname">
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
-                <label for="adresse">Lieferadresse</label>
-                <input type="text" class="form-control" id="adresse" placeholder="Lieferadresse">
+                <label for="email">E-Mail</label>
+                <input formControlName="customeremail" type="text" class="form-control" id="email"
+                    placeholder="mail@mail.de">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <label for="adresse">Straße</label>
+                <input formControlName="srcstreetname" type="text" class="form-control" id="adresse"
+                    placeholder="Straße">
+            </div>
+            <div class="col-sm">
+                <label for="number">Hausnummer</label>
+                <input formControlName="srcstreetnumber" type="text" class="form-control" id="number" placeholder="69">
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
                 <label for="plz">Postleitzahl</label>
-                <input type="text" class="form-control" id="plz" placeholder="PLZ">
+                <input formControlName="srczipcode" type="text" class="form-control" id="plz" placeholder="PLZ">
             </div>
             <div class="col-sm">
                 <label for="ort">Ort</label>
-                <input type="text" class="form-control" id="ort" placeholder="Ort">
+                <input formControlName="srccity" type="text" class="form-control" id="ort" placeholder="Ort">
+            </div>
+            <div class="col-sm">
+                <label for="country">Land</label>
+                <input formControlName="srccountry" type="text" class="form-control" id="country" placeholder="Land">
             </div>
         </div>
     </div>
     <h2 class="text-center pt-3">Empfänger</h2>
     <div class="row">
         <div class="col-sm">
-            <label for="recname">Name</label>
-            <input type="text" class="form-control" id="recname" placeholder="Name">
+            <label for="adresse">Straße</label>
+            <input formControlName="dststreetname" type="text" class="form-control" id="adresse" placeholder="Straße">
         </div>
         <div class="col-sm">
-            <label for="recvorname">Vorname</label>
-            <input type="text" class="form-control" id="recvorname" placeholder="Vorname">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm">
-            <label for="recadresse">Lieferadresse</label>
-            <input type="text" class="form-control" id="recadresse" placeholder="Lieferadresse">
+            <label for="number">Hausnummer</label>
+            <input formControlName="dststreetnumber" type="text" class="form-control" id="number" placeholder="69">
         </div>
     </div>
     <div class="row">
         <div class="col-sm">
-            <label for="recplz">Postleitzahl</label>
-            <input type="text" class="form-control" id="recplz" placeholder="PLZ">
+            <label for="plz">Postleitzahl</label>
+            <input formControlName="dstzipcode" type="text" class="form-control" id="plz" placeholder="PLZ">
         </div>
         <div class="col-sm">
-            <label for="recort">Ort</label>
-            <input type="text" class="form-control" id="recort" placeholder="Ort">
+            <label for="ort">Ort</label>
+            <input formControlName="dstcity" type="text" class="form-control" id="ort" placeholder="Ort">
+        </div>
+        <div class="col-sm">
+            <label for="country">Land</label>
+            <input formControlName="dstCountry" type="text" class="form-control" id="country" placeholder="Land">
         </div>
     </div>
 
     <h2 class="text-center pt-3">Lieferung</h2>
     <div class="row">
         <div class="col-sm">
-            <label for="measure">Abmessungen</label>
-            <input type="text" class="form-control" id="measure" placeholder="LxBxH">
+            <label for="measure">Länge</label>
+            <input formControlName="depth" type="text" class="form-control" id="measure" placeholder="LxBxH">
+            <label for="measure">Breite</label>
+            <input formControlName="width" type="text" class="form-control" id="measure" placeholder="LxBxH">
+            <label for="measure">Höhe</label>
+            <input formControlName="height" type="text" class="form-control" id="measure" placeholder="LxBxH">
         </div>
         <div class="col-sm">
             <label for="weight">Gewicht</label>
-            <input type="text" class="form-control" id="weight" placeholder="..in gramm?">
+            <input formControlName="weight" type="text" class="form-control" id="weight" placeholder="..in gramm?">
         </div>
     </div>
     <div class="row">
-        <div class="col-sm">
-            <label for="cost">Kosten</label>
-            <input type="text" class="form-control" id="cost" placeholder="Lieferadresse">
-        </div>
+        <label for="ispickup">Abholung?</label>
+        <select formControlName="ispickup" type="text" class="form-control" id="measispickupure" placeholder="Abholung">
+            <option value="true">ja</option>
+            <option value="false">nein</option>
+        </select>
+        <label for="payment">Zahlungsmethode</label>
+        <select formControlName="payment" type="text" class="form-control" id="payment">
+            <option value="PAYPAL">Paypal</option>
+            <option value="DIRECT_DEBIT">Überweisung</option>
+        </select>
     </div>
     <div class="form-group">
         <div class="row">
@@ -79,7 +105,8 @@
                 <button class="btn btn-danger mt-4 w-10" (click)="closeForm()">Abbrechen</button>
             </div>
             <div class="col-sm">
-                <button class="btn btn-primary mt-4 w-10">Bestätigen</button>
+                <button type="submit" (click)="createDelivery(newDeliveryForm.value)"
+                    class="btn btn-primary mt-4 w-10">Bestätigen</button>
             </div>
         </div>
     </div>

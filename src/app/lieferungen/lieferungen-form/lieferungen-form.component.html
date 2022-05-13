@@ -1,72 +1,124 @@
-<form class="w-100 p-2">
+<form [formGroup]="deliveryForm" class="w-100 p-2">
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
                 <label for="trackingnumber">Sendungsnummer</label>
-                <input type="text" class="form-control" id="trackingnumber" placeholder="12345">
+                <input value={{delivery.packageid}} formControlName="packageid" type="text" class="form-control"
+                    id="trackingnumber" placeholder="12345">
             </div>
             <div class="col-sm">
                 <label for="id">Id</label>
-                <input type="text" class="form-control" id="id" placeholder="69">
+                <input value={{delivery.iddelivery}} formControlName="iddelivery" type="text" class="form-control"
+                    id="id" placeholder="69">
             </div>
         </div>
     </div>
 
     <div class="form-group">
         <div class="row">
+            <h3>Empfänger</h3>
             <div class="col-sm">
-                <label for="receiveraddr">Empfängeradresse</label>
-                <input type="text" class="form-control" id="receveraddr" placeholder="Musterstraße 52">
+                <label for="receiveraddr">Straße</label>
+                <input value={{delivery.dstAddress.streetname}} formControlName="dstAddressstreetname" type="text"
+                    class="form-control" id="receveraddr" placeholder="Musterstraße">
+            </div>
+            <div class="col-sm">
+                <label for="receiveraddr">Straßennummer</label>
+                <input value={{delivery.dstAddress.streetnumber}} formControlName="dstAddressstreetnumber" type="text"
+                    class="form-control" id="streetnumber" placeholder="69">
             </div>
             <div class="col-sm">
                 <label for="receiverplz">Postleitzahl</label>
-                <input type="text" class="form-control" id="plz" placeholder="79336">
+                <input value={{delivery.dstAddress.zipcode}} formControlName="dstAddresszipcode" type="text"
+                    class="form-control" id="plz" placeholder="79336">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <label for="dstAddresscity">Stadt</label>
+                <input value={{delivery.dstAddress.city}} formControlName="dstAddresscity" type="text"
+                    class="form-control" id="dstAddresscity" placeholder="Freiburg">
+            </div>
+            <div class="col-sm">
+                <label for="dstAddresscountry">Land</label>
+                <input value={{delivery.dstAddress.country}} formControlName="dstAddresscountry" type="text"
+                    class="form-control" id="dstAddresscountry" placeholder="Freiburg">
             </div>
         </div>
     </div>
 
     <div class="form-group">
         <div class="row">
+            <h3>Absender</h3>
             <div class="col-sm">
-                <label for="senderaddr">Absenderadresse</label>
-                <input type="text" class="form-control" id="senderaddr" placeholder="Musterstraße">
+                <label for="senderaddr">Straße</label>
+                <input value={{delivery.srcAddress.streetname}} formControlName="srcAddressstreetname" type="text"
+                    class="form-control" id="senderaddr" placeholder="Musterstraße">
+            </div>
+            <div class="col-sm">
+                <label for="receiveraddr">Straßennummer</label>
+                <input value={{delivery.srcAddress.streetnumber}} formControlName="srcAddressstreetnumber" type="text"
+                    class="form-control" id="streetnumber" placeholder="69">
             </div>
             <div class="col-sm">
                 <label for="senderplz">Postleitzahl</label>
-                <input type="text" class="form-control" id="senderplz" placeholder="79365">
+                <input value={{delivery.srcAddress.zipcode}} type="text" formControlName="srcAddresszipcode"
+                    class="form-control" id="senderplz" placeholder="79365">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <label for="srcAddresscity">Stadt</label>
+                <input value={{delivery.srcAddress.city}} formControlName="srcAddresscity" type="text"
+                    class="form-control" id="srcAddresscity" placeholder="Freiburg">
+            </div>
+            <div class="col-sm">
+                <label for="srcAddresscountry">Land</label>
+                <input value={{delivery.srcAddress.country}} formControlName="srcAddresscountry" type="text"
+                    class="form-control" id="srcAddresscountry" placeholder="Freiburg">
             </div>
         </div>
     </div>
 
     <div class="form-group">
         <div class="row">
+            <h3>Paketdetails</h3>
             <div class="col-sm">
-                <label for="size">Abmaße</label>
-                <input type="text" class="form-control" id="size" placeholder="10x10x100">
+                <label for="size">Länge</label>
+                <input value={{delivery.depth}} formControlName="depth" type="text" class="form-control" id="size"
+                    placeholder="10">
+                <label for="size">Breite</label>
+                <input value={{delivery.width}} formControlName="width" type="text" class="form-control" id="size"
+                    placeholder="10">
+                <label for="size">Höhe</label>
+                <input value={{delivery.height}} formControlName="height" type="text" class="form-control" id="size"
+                    placeholder="100">
             </div>
             <div class="col-sm">
                 <label for="weight">Gewicht</label>
-                <input type="text" class="form-control" id="weight" placeholder="5kg">
+                <input value={{delivery.weight}} formControlName="weight" type="text" class="form-control" id="weight"
+                    placeholder="5kg">
             </div>
         </div>
     </div>
     <div class="d-flex justify-content-center">
         <button class="btn btn-primary m-3 w-10">QR-Code ausdrucken</button>
         <button class="btn btn-primary m-3 w-10">Abbrechen</button>
-        <button class="btn btn-primary m-3 w-10">Speichern</button>
+        <button type="submit" class="btn btn-primary m-3 w-10">Speichern</button>
     </div>
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
                 <label for="pickup">Ist Abholung</label>
-                <input type="text" class="form-control" id="pickup" placeholder="Ja">
+                <input value={{delivery.isPickup}} formControlName="isPickup" type="text" class="form-control"
+                    id="pickup" placeholder="Ja">
             </div>
             <div class="col-sm">
                 <label for="pickuptime">Abholzeitpunkt</label>
                 <div class="col-12">
                     <div class="input-group">
-                        <input class="form-control" placeholder="yyyy-mm-dd" name="dpFrom" [(ngModel)]="modelFrom"
-                            ngbDatepicker #d1="ngbDatepicker">
+                        <input value={{delivery.pickupDate}} formControlName="pickupDate" class="form-control"
+                            placeholder="yyyy-mm-dd" name="dpFrom" ngbDatepicker #d1="ngbDatepicker">
                         <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-calendar-date" viewBox="0 0 16 16">
@@ -90,7 +142,8 @@
             </div>
             <div class="col-sm">
                 <label for="selectstate">Status ändern</label>
-                <select class="form-control" id="selectstate">
+                <select value={{delivery.currentState}} formControlName="currentState" class="form-control"
+                    id="selectstate">
                     <option>Abgegeben</option>
                     <option>In Basis</option>
                     <option>Verarbeitet</option>

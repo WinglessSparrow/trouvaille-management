@@ -46,12 +46,13 @@ export class MitarbeiterComponent implements OnInit {
 
   itemDetails(value: any) {
     document.getElementById("workerForm").removeAttribute("hidden");
+    this.showNewEmployeeForm = false;
     this.wfc.changeEntrys(value);
   }
 
   showForms(value) {
-    this.showWorkerForm = !value;
-    this.showNewEmployeeForm = value;
+    this.showNewEmployeeForm = true;
+    document.getElementById("workerForm").setAttribute("hidden", "true");
   }
 
 }

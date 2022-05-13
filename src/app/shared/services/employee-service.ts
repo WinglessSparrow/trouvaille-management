@@ -25,4 +25,9 @@ export class EmployeeService {
         this.http.put<GlobalResponse>("https://td.vvjm.dev/api/v1/employee", employee)
             .subscribe();
     }
+
+    public createEmployee(employee: Employee): void {
+        this.http.post<GlobalResponse>("https://td.vvjm.dev/api/v1/employee", employee)
+            .subscribe();
+    }
 }

@@ -1,4 +1,4 @@
-<form [formGroup]="employeeForm" (ngSubmit)="changeEmployee(employeeForm.value)" class="w-100 p-2">
+<form [formGroup]="employeeForm" (ngSubmit)="createEmployee(employeeForm.value)" class="w-100 p-2">
     <div class="form-group">
         <label for="firstname">Vorname</label>
         <input type="text" class="form-control" formControlName="firstname" placeholder="Max"
@@ -35,8 +35,8 @@
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
-                <label for="passwordNew">neues Passwort</label>
-                <input type="password" class="form-control" formControlName="passwordNew" placeholder="*********">
+                <label for="password">Passwort</label>
+                <input type="password" class="form-control" formControlName="password" placeholder="*********">
             </div>
             <div class="col-sm">
                 <label for="passwordAgain">Passwort wiederholen</label>
@@ -48,16 +48,18 @@
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
-                <label for="employeeStatus">nicht Aktiv</label>
-                <input ng-disabled="all" type="text" class="form-control" formControlName="employeeStatus"
-                    placeholder="aktiv" value="">
-            </div>
-            <div class="col-sm">
                 <label for="birthday">Geburtstag</label>
                 <input ng-disabled="all" type="text" class="form-control" formControlName="birthday"
                     placeholder="01.01.2022" value={{employee.birthday}}>
             </div>
         </div>
+        <label for="groupIdgroup">Gruppe</label>
+        <select value={{employee.groupIdgroup}} formControlName="groupIdgroup" class="form-control" style="width:auto;"
+            id="statusSelect">
+            <option value="1">Admin</option>
+            <option value="2">Management</option>
+            <option ng-selected="selected" value="3">Driver</option>
+        </select>
     </div>
 
     <div class="form-group">
