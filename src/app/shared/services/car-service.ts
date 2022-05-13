@@ -33,7 +33,7 @@ export class CarService {
 
   public getAllCars() {
     var cars = [] as Car[];
-    var countAll: number = this.getDeliveriesCount()
+    var countAll: number = this.getCarsCount()
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/0/" + countAll, {}).subscribe(data => {
       data.data[0].forEach(element => {
         element as Car;

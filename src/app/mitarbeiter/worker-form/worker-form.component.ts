@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Employee } from '../../shared/models/employee';
 import { EmployeeService } from '../../shared/services/employee-service';
@@ -65,8 +65,8 @@ export class WorkerFormComponent implements OnInit {
         }
       }
     }
-
     this.employeeService.changeEmployee(this.employee);
+    this.employee.text = this.employee.firstname + " " + this.employee.lastname;
   }
 
 }
