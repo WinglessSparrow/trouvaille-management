@@ -9,8 +9,8 @@
         </div>
         <div class="flex-grow-1">
             <div class="container-fluid border-2 border-primary rounded-0 ms-4">
-                <app-worker-form *ngIf="showWorkerForm" id="workerForm"></app-worker-form>
-                <app-newemployee-form *ngIf="showNewEmployeeForm"></app-newemployee-form>
+                <app-worker-form hidden id="workerForm"></app-worker-form>
+                <app-newemployee-form id="newEmployeeForm" *ngIf="showNewEmployeeForm"></app-newemployee-form>
             </div>
         </div>
     </div>

@@ -23,10 +23,11 @@ export class NewemployeeFormComponent implements OnInit {
       email: new FormControl(),
       phonenumber: new FormControl(),
       targetweeklyworkinghours: new FormControl(),
-      passwordNew: new FormControl(),
+      password: new FormControl(),
       passwordAgain: new FormControl(),
       employeeStatus: new FormControl(),
-      birthday: new FormControl()
+      birthday: new FormControl(),
+      groupIdgroup: new FormControl()
     });
   }
 
@@ -34,6 +35,7 @@ export class NewemployeeFormComponent implements OnInit {
   }
 
   propsToRemove = [
+    "idemployee",
     "group",
     "loginfailedcounter",
     "usersafetycode",
@@ -46,7 +48,7 @@ export class NewemployeeFormComponent implements OnInit {
     "text"
   ]
 
-  public changeEmployee(employeeForm): void {
+  public createEmployee(employeeForm): void {
     for (let [key, value] of Object.entries(employeeForm)) {
       for (let [keyOld] of Object.entries(this.employee)) {
         this.propsToRemove.forEach(element => {
@@ -60,8 +62,7 @@ export class NewemployeeFormComponent implements OnInit {
         }
       }
     }
-
-    this.employeeService.changeEmployee(this.employee);
+    this.employeeService.createEmployee(this.employee);
   }
 
 }

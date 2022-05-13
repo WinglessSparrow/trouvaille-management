@@ -43,4 +43,9 @@ export class DeliveryService {
     return deliveries;
   }
 
+  public createDelivery(delivery: Delivery): void {
+    this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/order", delivery)
+      .subscribe();
+  }
+
 }
