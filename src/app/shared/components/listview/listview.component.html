@@ -19,11 +19,10 @@
     <div class="panel-body">
         <ul class="list-group">
             <li *ngFor="let entry of list" class="list-group-item d-flex justify-content-between">
-                <button (click)="itemDetailsEvent(entry)"
+                <button type="button" (click)="itemDetailsEvent(entry)"
                     class="btn btn-primary text-black w-100 d-flex justify-content-start">
                     <div [innerHTML]="icon" class="d-inline-flex"></div>
-                    <strong class="d-inline-flex"> {{entry.text}} </strong>|
-                    mehr...
+                    <strong class="d-inline-flex"> {{entry.text}} </strong>
                 </button>
             </li>
         </ul>

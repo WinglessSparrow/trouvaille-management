@@ -12,11 +12,13 @@ import { WorkerFormComponent } from './worker-form/worker-form.component';
 })
 
 export class MitarbeiterComponent implements OnInit {
-  toggleGroup = true;
+  showWorkerForm: boolean = false;
+  showNewEmployeeForm: boolean = false;
+  toggleGroup: boolean = true;
 
-  topTitle = 'Mitarbeiter';
-  midTitle = 'Gruppen';
-  botTitle = 'Schichtplan';
+  topTitle: string = 'Mitarbeiter';
+  midTitle: string = 'Gruppen';
+  botTitle: string = 'Schichtplan';
 
   buttonTitleNewWorker = 'Neuer Mitarbeiter';
   buttonTitleGroup = 'Mitarbeiter in dieser Gruppe verwalten';
@@ -45,6 +47,11 @@ export class MitarbeiterComponent implements OnInit {
   itemDetails(value: any) {
     document.getElementById("workerForm").removeAttribute("hidden");
     this.wfc.changeEntrys(value);
+  }
+
+  showForms(value) {
+    this.showWorkerForm = !value;
+    this.showNewEmployeeForm = value;
   }
 
 }

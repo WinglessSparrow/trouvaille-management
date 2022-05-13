@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Delivery } from '../shared/models/delivery';
+import { DeliveryService } from '../shared/services/delivery-service';
 
 @Component({
   selector: 'app-autos',
@@ -23,7 +25,6 @@ export class AutosComponent implements OnInit {
 
   constructor(dService: DeliveryService) {
     this.deliveryService = dService;
-    this.lieferungenList = this.deliveryService.getAllDeliveries();
   }
 
   ngOnInit(): void {

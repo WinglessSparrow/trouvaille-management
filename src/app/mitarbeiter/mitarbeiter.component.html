@@ -2,14 +2,15 @@
     <div top class="d-flex flex-row">
         <div class="flex-md-fill border-2 border-primary rounded-0">
             <div class="container-fluid border-2 border-primary rounded-0">
-                <app-listview (itemEvent)="itemDetails($event)" [buttonTitle]="buttonTitleNewWorker"
-                    [list]="employeeList" [iconName]="iconMitarbeiter">
+                <app-listview (itemEvent)="itemDetails($event)" (showButton1Value)="showForms($event)"
+                    [buttonTitle]="buttonTitleNewWorker" [list]="employeeList" [iconName]="iconMitarbeiter">
                 </app-listview>
             </div>
         </div>
         <div class="flex-grow-1">
             <div class="container-fluid border-2 border-primary rounded-0 ms-4">
-                <app-worker-form id="workerForm" hidden></app-worker-form>
+                <app-worker-form *ngIf="showWorkerForm" id="workerForm"></app-worker-form>
+                <app-newemployee-form *ngIf="showNewEmployeeForm"></app-newemployee-form>
             </div>
         </div>
     </div>
