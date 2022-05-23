@@ -48,4 +48,25 @@ export class DeliveryService {
       .subscribe();
   }
 
+  public getOne1(id: String) {
+    var delivery: Delivery;
+    this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/" + id, {}).subscribe(data => {
+      delivery = data.data[0];
+      delivery.text = "Paket: " + delivery.packageid
+    });
+    return delivery;
+  }
+
+  public async getOne(id: String) {
+    var delivery: Delivery;
+    await new Promise<GlobalResponse>(resolve => {
+      this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/" + id).subscribe(val => {
+        resolve(val);
+        delivery = val.data[0];
+      })
+    })
+    console.log("del", delivery);
+    return delivery;
+  }
+
 }
