@@ -17,10 +17,6 @@ export class LieferungenComponent implements OnInit {
   buttonTitle = 'Neues Paket';
   buttonTitle2 = 'Paket scannen';
 
-  showScanner: boolean = false;
-  showNeuesPaketForm: boolean = false;
-  showLieferungenForm: boolean = true;
-
   deliveryService: DeliveryService;
 
   constructor(dService: DeliveryService) {

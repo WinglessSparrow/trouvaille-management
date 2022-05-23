@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Car } from '../models/car';
-import { Delivery } from '../models/delivery';
 import { GlobalResponse } from "../models/global-response";
 
 @Injectable({
@@ -20,10 +19,10 @@ export class CarService {
   }
 
   public getCars(from: number, to: number) {
-    var deliveries = [] as Delivery[];
+    var deliveries = [] as Car[];
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/" + from + "/" + to, {}).subscribe(data => {
       data.data[0].forEach(element => {
-        element as Delivery;
+        element as Car;
         element.text = "Paket: " + element.trackingNumber;
         deliveries.push(element);
       });
@@ -33,15 +32,19 @@ export class CarService {
 
   public getAllCars() {
     var cars = [] as Car[];
-    var countAll: number = this.getCarsCount()
+    var countAll = 2147483647;
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/0/" + countAll, {}).subscribe(data => {
       data.data[0].forEach(element => {
         element as Car;
-        element.text = "Auto: " + element.trackingNumber;
+        element.text = "Auto: " + element.licenceplate;
         cars.push(element);
       });
     });
     return cars;
   }
 
+  public createCar(car: Car): void {
+    this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car)
+      .subscribe();
+  }
 }
