@@ -6,10 +6,11 @@
         </app-listview>
         <div class="flex-grow-1">
             <div class="border-2 border-primary rounded-0 ms-4 gray">
-                <app-lieferungen-form *ngIf="showLieferungenForm" id="lieferungenForm" hidden></app-lieferungen-form>
-                <!--show new package form or scanner here-->
-                <app-qr-form *ngIf="showScanner" (showButton2Value)="showScannerFunc($event)"></app-qr-form>
-                <app-neues-paket-form *ngIf="showNeuesPaketForm" (showButton1Value)="showNeuesPaketFormFunc($event)">
+                <app-lieferungen-form id="lieferungenForm"></app-lieferungen-form>
+                <app-qr-form id="qrForm" (showButton2Value)="showScannerFunc($event)"
+                    (itemEvent)="itemDetailsStringEvent()">
+                </app-qr-form>
+                <app-neues-paket-form id="neuesPaketForm" (showButton1Value)="showNeuesPaketFormFunc($event)">
                 </app-neues-paket-form>
             </div>
         </div>

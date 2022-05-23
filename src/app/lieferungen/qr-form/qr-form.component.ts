@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { LieferungenComponent } from '../lieferungen.component';
 
 @Component({
   selector: 'app-qr-form',
@@ -7,12 +8,18 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 })
 export class QrFormComponent implements OnInit {
   @Output() showButton2Value = new EventEmitter<boolean>(false);
+  @Output() itemEvent = new EventEmitter<String>();
   constructor() { }
 
   ngOnInit(): void {
   }
   closeForm() {
     this.showButton2Value.emit(false);
+  }
+
+
+  itemDetailsStringEvent() {
+    this.itemEvent.emit('manualTracking');
   }
 
 }
