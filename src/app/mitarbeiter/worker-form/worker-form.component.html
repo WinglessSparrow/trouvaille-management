@@ -69,14 +69,11 @@
         </select>
     </div>
 
-    <div class="form-group mb-6">
-        <button id="changePw" class="btn btn-primary mr-3 mt-3">Passwort ändern</button>
-    </div>
-
     <div class="form-group">
         <button id="disableWorker" class="btn btn-danger mr-3 mt-3 mb-3">Mitarbeiter deaktiveren</button>
         <div class="float-end">
-            <button id="cancle" class="btn btn-danger m-3">Abbrechen</button>
+            <button (click)="resetEmployee(employeeForm.value)" id="cancle"
+                class="btn btn-danger m-3">Abbrechen</button>
             <button (click)="changeEmployee(employeeForm.value)" type="submit" id="save"
                 class="btn btn-primary m-3">Speichern</button>
         </div>

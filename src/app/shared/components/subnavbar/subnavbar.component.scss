@@ -2,5 +2,46 @@
     width: 300px !important;
     height: 100px !important;
     line-height: 82px;
+    font-size: x-large;
+}
+
+/* this is for clicked or active tabs */
+.nav-pills .nav-link.active,
+.nav-pills .nav-item.show .nav-link {
+    background-color: #9c4eff !important;
+    border-color: #9e56fc !important;
+    color: white !important;
+    border-radius: 0% !important;
+
+}
+
+.nav-item .nav-link {
+    background-color: #ffffff !important;
+    border-color: #9e56fc !important;
+    color: rgb(0, 0, 0) !important;
+    border-radius: 0% !important;
+    text-align: center;
+}
+
+.logout {
+    width: 300px !important;
+    height: 100px !important;
+    line-height: 82px;
     font-size: larger;
+    text-align: center;
+    background-color: #9c4eff;
+    color: white;
+    position: fixed;
+    left: 0px;
+    bottom: 120px;
+}
+
+.subnav {
+    background-color: white;
+}
+
+.full {
+    display: flex;
+    height: 100%;
+    background-color: #e8d6ff;
 }

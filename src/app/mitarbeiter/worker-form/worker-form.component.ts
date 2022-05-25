@@ -10,6 +10,7 @@ import { EmployeeService } from '../../shared/services/employee-service';
 })
 
 export class WorkerFormComponent implements OnInit {
+  oldEmployee: Employee;
   employee: Employee;
   employeeService: EmployeeService;
   employeeForm: FormGroup;
@@ -17,6 +18,7 @@ export class WorkerFormComponent implements OnInit {
   constructor(eService: EmployeeService) {
     this.employeeService = eService;
     this.employee = new Employee();
+    this.oldEmployee = new Employee();
 
     this.employeeForm = new FormGroup({
       firstname: new FormControl(),
@@ -36,6 +38,7 @@ export class WorkerFormComponent implements OnInit {
 
   public changeEntrys(e: Employee) {
     this.employee = e;
+    this.oldEmployee = e;
   }
 
   propsToRemove = [
@@ -67,6 +70,15 @@ export class WorkerFormComponent implements OnInit {
     }
     this.employeeService.changeEmployee(this.employee);
     this.employee.text = this.employee.firstname + " " + this.employee.lastname;
+  }
+
+  resetEmployee(employeeForm): void {
+    for (let [key, value] of Object.entries(employeeForm)) {
+      for (let [keyEmployee] of Object.entries(this.oldEmployee)) {
+
+      }
+    }
+    this.employee = this.oldEmployee;
   }
 
 }
