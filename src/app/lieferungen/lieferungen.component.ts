@@ -17,10 +17,6 @@ export class LieferungenComponent implements OnInit {
   buttonTitle = 'Neues Paket';
   buttonTitle2 = 'Paket scannen';
 
-  showScanner: boolean = false;
-  showNeuesPaketForm: boolean = false;
-  showLieferungenForm: boolean = true;
-
   deliveryService: DeliveryService;
 
   constructor(dService: DeliveryService) {
@@ -28,46 +24,68 @@ export class LieferungenComponent implements OnInit {
     this.lieferungenList = this.deliveryService.getAllDeliveries();
   }
 
-  showScannerFunc(value) {
-    this.showScanner = value;
-    if (value == true) {
-      this.showLieferungenForm = false;
-      this.showNeuesPaketForm = false;
-    } else {
-      this.showLieferungenForm = true;
-      this.showNeuesPaketForm = false;
-    }
 
-  }
-  showNeuesPaketFormFunc(value) {
-    this.showNeuesPaketForm = value;
-    if (value == true) {
-      this.showScanner = false;
-      this.showLieferungenForm = false;
+  showScannerFunc(value) {
+    if (value) {
+      document.getElementById("qrForm").setAttribute("style", "display:inline");
+      document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+      document.getElementById("lieferungenForm").setAttribute("style", "display:none");
     } else {
-      this.showScanner = false;
-      this.showLieferungenForm = true;
+      document.getElementById("qrForm").setAttribute("style", "display:none");
+      document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+      document.getElementById("lieferungenForm").setAttribute("style", "display:none");
+    }
+  }
+
+  showNeuesPaketFormFunc(value) {
+    if (value) {
+      document.getElementById("qrForm").setAttribute("style", "display:none");
+      document.getElementById("neuesPaketForm").setAttribute("style", "display:inline");
+      document.getElementById("lieferungenForm").setAttribute("style", "display:none");
+    } else {
+      document.getElementById("qrForm").setAttribute("style", "display:none");
+      document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+      document.getElementById("lieferungenForm").setAttribute("style", "display:none");
     }
 
   }
   showLieferungenFunc(value) {
-    this.showLieferungenForm = value;
-    if (value == true) {
-      this.showScanner = false;
-      this.showNeuesPaketForm = false;
+    if (value) {
+      document.getElementById("qrForm").setAttribute("style", "display:none");
+      document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+      document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
     } else {
-      this.showScanner = true;
-      this.showNeuesPaketForm = true;
+      document.getElementById("qrForm").setAttribute("style", "display:none");
+      document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+      document.getElementById("lieferungenForm").setAttribute("style", "display:none");
     }
 
   }
 
-  ngOnInit(): void {
+  async itemDetailsStringEvent() {
+    document.getElementById("qrForm").setAttribute("style", "display:none");
+    document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+    document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
+    const trackingNumber = (<HTMLInputElement>document.getElementById("manualTrackingId")).value;
+    const lieferung = this.deliveryService.getOne(trackingNumber);
+    this.itemDetails(lieferung);
   }
 
+  ngOnInit(): void {
+
+  }
+
+  ngAfterViewInit(): void {
+    document.getElementById("qrForm").setAttribute("style", "display:none");
+    document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+    document.getElementById("lieferungenForm").setAttribute("style", "display:none");
+  }
   @ViewChild(LieferungenFormComponent) lfc: LieferungenFormComponent;
   itemDetails(value: any) {
-    document.getElementById("lieferungenForm").removeAttribute("hidden");
+    document.getElementById("qrForm").setAttribute("style", "display:none");
+    document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+    document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
+    console.log("delivery: ", value)
     this.lfc.changeEntrys(value);
   }
 

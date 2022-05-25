@@ -7,11 +7,11 @@
         <div class="row">
             <div class="col-sm">
                 <label for="trackingnumber">Sendungsnummer</label>
-                <input type="text" class="form-control" id="trackingnumber" placeholder="12345">
+                <input type="text" class="form-control" id="trackingnumber" placeholder="12345" id="manualTrackingId">
 
             </div>
             <div class="col-sm">
-                <button class="btn btn-primary m-4" label="search">
+                <button (click)="itemDetailsStringEvent()" class=" btn btn-primary m-4" label="search">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-arrow-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"

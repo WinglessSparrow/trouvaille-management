@@ -45,7 +45,7 @@ export class LieferungenFormComponent implements OnInit {
 
   public changeEntrys(d: Delivery) {
     this.delivery = d;
-    console.log(this.delivery);
+    console.log("changeEntries: ", this.delivery);
   }
 
   propsToRemove = [
@@ -75,11 +75,5 @@ export class LieferungenFormComponent implements OnInit {
         }
       }
     }
-
-    console.log(this.delivery);
-
-
-    //this.deliveryService.changeEmployee(this.employee);
-    //this.employee.text = this.employee.firstname + " " + this.employee.lastname;
   }
 }

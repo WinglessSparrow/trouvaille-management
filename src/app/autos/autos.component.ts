@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Delivery } from '../shared/models/delivery';
-import { DeliveryService } from '../shared/services/delivery-service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Car } from '../shared/models/car';
+import { CarService } from '../shared/services/car-service';
+import { CarFormComponent } from './car-form/car-form.component';
 
 @Component({
   selector: 'app-autos',
@@ -9,25 +10,46 @@ import { DeliveryService } from '../shared/services/delivery-service';
 })
 export class AutosComponent implements OnInit {
 
-  iconName = "lieferungen";
-  lieferungenList: Delivery[];
+  carService: CarService;
+  carList: Car[];
 
-  topTitle = 'Lieferungen';
+  iconName = "lierferwagen";
+  topTitle = 'Lieferwagen';
+  buttonTitle = 'Neuer Lieferwagen';
 
-  buttonTitle = 'Neues Paket';
-  buttonTitle2 = 'Paket scannen';
+  constructor(cService: CarService) {
+    console.log("Car constructor")
+    this.carService = cService;
+    this.carList = this.carService.getAllCars();
+    console.log("cars", this.carList)
+  }
 
-  showScanner: boolean = false;
-  showNeuesPaketForm: boolean = false;
-  showLieferungenForm: boolean = true;
 
-  deliveryService: DeliveryService;
-
-  constructor(dService: DeliveryService) {
-    this.deliveryService = dService;
+  showNewCarFormFunc(value) {
+    if (value) {
+      document.getElementById("carForm").setAttribute("style", "display:none");
+      document.getElementById("newCarForm").setAttribute("style", "display:inline");
+    } else {
+      document.getElementById("carForm").setAttribute("style", "display:none");
+      document.getElementById("newCarForm").setAttribute("style", "display:none");
+    }
   }
 
   ngOnInit(): void {
   }
+
+  ngAfterViewInit(): void {
+    document.getElementById("carForm").setAttribute("style", "display:none");
+    document.getElementById("newCarForm").setAttribute("style", "display:none");
+  }
+
+  @ViewChild(CarFormComponent) cfc: CarFormComponent;
+  itemDetails(value: any) {
+    document.getElementById("carForm").setAttribute("style", "display:inline");
+    document.getElementById("newCarForm").setAttribute("style", "display:none");
+    this.cfc.changeEntrys(value);
+  }
+
+
 
 }

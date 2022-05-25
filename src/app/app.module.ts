@@ -37,6 +37,8 @@ import { AuthInterceptor } from "./shared/services/auth-interceptor";
 import { NewemployeeFormComponent } from "./mitarbeiter/newemployee-form/newemployee-form.component";
 import { GroupService } from "./shared/services/group-service";
 import { DeliveryService } from "./shared/services/delivery-service";
+import { CarFormComponent } from './autos/car-form/car-form.component';
+import { NewCarFormComponent } from './autos/new-car-form/new-car-form.component';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -44,7 +46,9 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
 
 @NgModule({
   declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent, WorkerFormComponent, LieferungenFormComponent, NeuesPaketFormComponent, QrFormComponent,
-    NewemployeeFormComponent],
+    NewemployeeFormComponent,
+    CarFormComponent,
+    NewCarFormComponent],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
