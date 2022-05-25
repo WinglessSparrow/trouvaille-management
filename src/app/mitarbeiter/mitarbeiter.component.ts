@@ -72,6 +72,7 @@ export class MitarbeiterComponent implements OnInit {
 
   swapGroup() {
     if (this.selectedEmployee == null) {
+      //TODO:
       console.log("bitte einen employee auswählen");
     } else {
       const modalRef = this.modalService.open(ListviewComponent);
