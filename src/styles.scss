@@ -8,6 +8,14 @@
   border-radius: 0% !important;
 }
 
+.btn-transparent-primary,
+.btn-transparent-primary:hover,
+.btn-transparent-primary:active,
+.btn-transparent-primary:visited {
+  color: #9c4eff !important;
+  border-radius: 0% !important;
+}
+
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
