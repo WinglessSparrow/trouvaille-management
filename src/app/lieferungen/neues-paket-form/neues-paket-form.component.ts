@@ -81,7 +81,7 @@ export class NeuesPaketFormComponent implements OnInit {
     this.delivery.pack.weight = newDeliveryForm.weight;
     this.delivery.isPickup = newDeliveryForm.ispickup;
     this.delivery.paymentMethod = newDeliveryForm.payment;
-    this.delivery.pickupDate = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+    this.delivery.pickupDate = new Date().toJSON().slice(0, 10).replace(/-/g, '.');
 
     this.propsToRemove.forEach(element => {
       delete this.delivery[element];

@@ -10,7 +10,8 @@
         <div class="flex-grow-1">
             <div class="container-fluid border-2 border-primary rounded-0 ms-4">
                 <app-worker-form hidden id="workerForm"></app-worker-form>
-                <app-newemployee-form id="newEmployeeForm" *ngIf="showNewEmployeeForm"></app-newemployee-form>
+                <app-newemployee-form [employeeList]="employeeList" id="newEmployeeForm" *ngIf="showNewEmployeeForm">
+                </app-newemployee-form>
             </div>
         </div>
     </div>
@@ -18,12 +19,23 @@
     <div *ngIf="toggleGroup" middle class="d-flex flex-row">
         <div class="container-fluid border-2 border-primary rounded-0">
             <p class="text-center p-2">Gruppen</p>
-            <app-listview [showBtn1]="false" [buttonTitle]="buttonTitleGroup" [list]="groupList" [iconName]="iconGroup">
+            <app-listview (itemEvent)="showGroupMembers($event)" [showBtn1]="false" [buttonTitle]="buttonTitleGroup"
+                [list]="groupList" [iconName]="iconGroup">
             </app-listview>
         </div>
+        <div class="vstack gap-2 col-md-5 mx-auto justify-content-center">
+            <button (click)="swapGroup()" type="button" class="btn btn-transparent-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="55" height="55" fill="currentColor"
+                    class="bi bi-arrow-left-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1 11.5a.5.5 0 0 0 .5.5h11.793l-3.147 3.146a.5.5 0 0 0 .708.708l4-4a.5.5 0 0 0 0-.708l-4-4a.5.5 0 0 0-.708.708L13.293 11H1.5a.5.5 0 0 0-.5.5zm14-7a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H14.5a.5.5 0 0 1 .5.5z" />
+                </svg>
+            </button>
+        </div>
         <div class="container-fluid border-2 border-primary rounded-0 ms-4">
-            <p class="text-center p-2">Gruppenname</p>
-            <app-listview [buttonTitle]="buttonTitleWorker" [list]="employeeList" [iconName]="iconMitarbeiter">
+            <p class="text-center p-2">Mitglieder</p>
+            <app-listview (itemEvent)="setEmployee($event)" [showBtn1]="false" [buttonTitle]="buttonTitleWorker"
+                [list]="groupEmployeeList" [iconName]="iconMitarbeiter">
             </app-listview>
         </div>
     </div>

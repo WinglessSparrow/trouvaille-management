@@ -8,23 +8,14 @@
   border-radius: 0% !important;
 }
 
-/* this is for clicked or active tabs */
-.nav-pills .nav-link.active,
-.nav-pills .nav-item.show .nav-link {
-  background-color: #9c4eff !important;
-  border-color: #9e56fc !important;
-  color: white !important;
+.btn-transparent-primary,
+.btn-transparent-primary:hover,
+.btn-transparent-primary:active,
+.btn-transparent-primary:visited {
+  color: #9c4eff !important;
   border-radius: 0% !important;
-
 }
 
-.nav-item .nav-link {
-  background-color: #ffffff !important;
-  border-color: #9e56fc !important;
-  color: rgb(0, 0, 0) !important;
-  border-radius: 0% !important;
-  text-align: center;
-}
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';

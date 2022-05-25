@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Employee } from '../../shared/models/employee';
 import { EmployeeService } from '../../shared/services/employee-service';
@@ -9,6 +9,8 @@ import { EmployeeService } from '../../shared/services/employee-service';
   styleUrls: ['./newemployee-form.component.scss']
 })
 export class NewemployeeFormComponent implements OnInit {
+  @Input() employeeList: Employee[];
+
   employee: Employee;
   employeeService: EmployeeService;
   employeeForm: FormGroup;
@@ -63,6 +65,9 @@ export class NewemployeeFormComponent implements OnInit {
       }
     }
     this.employeeService.createEmployee(this.employee);
+    // add new employee to employeelist
+    this.employee.text = this.employee.firstname + " " + this.employee.lastname;
+    this.employeeList.push(this.employee);
   }
 
 }
