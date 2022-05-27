@@ -19,6 +19,8 @@ export class ListviewComponent implements OnInit {
   tmpList = [];
   searchTerm: string;
 
+  firstTime: boolean = true;
+
   @Output() showButton1Value = new EventEmitter<boolean>(false);
   @Output() showButton2Value = new EventEmitter<boolean>(false);
   @Output() itemEvent = new EventEmitter<any>();
@@ -58,9 +60,17 @@ export class ListviewComponent implements OnInit {
   }
 
   search() {
-    console.log(this.searchTerm)
-    this.tmpList = this.list.filter(() => true);
-    this.list = this.filterByValue(this.list, this.searchTerm);
+    if (this.firstTime) {
+      this.tmpList = this.list.filter(() => true);
+      this.firstTime = false;
+    }
+    if (this.searchTerm) {
+      this.list = this.filterByValue(this.list, this.searchTerm);
+    } else {
+      console.log(this.searchTerm)
+      this.list = this.tmpList.filter(() => true);
+    }
+
   }
 
   filterByValue(array, string) {
