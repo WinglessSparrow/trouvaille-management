@@ -37,8 +37,6 @@ export class AuthService {
                     this.saveToken(this.authData.token);
                     this.saveUserData(this.authData);
                     this.router.navigate(['/main-element']);
-
-                    console.log(this.getToken());
                 }
             });
     }
@@ -65,6 +63,8 @@ export class AuthService {
     public getUserData(): UserData {
         const userData = window.sessionStorage.getItem(USER_KEY);
         if (userData) {
+
+            console.log(JSON.parse(userData));
             return JSON.parse(userData);
         }
         return null;
