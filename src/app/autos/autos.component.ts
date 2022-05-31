@@ -29,6 +29,7 @@ export class AutosComponent implements OnInit {
     if (value) {
       document.getElementById("carForm").setAttribute("style", "display:none");
       document.getElementById("newCarForm").setAttribute("style", "display:inline");
+
     } else {
       document.getElementById("carForm").setAttribute("style", "display:none");
       document.getElementById("newCarForm").setAttribute("style", "display:none");
@@ -41,6 +42,7 @@ export class AutosComponent implements OnInit {
   ngAfterViewInit(): void {
     document.getElementById("carForm").setAttribute("style", "display:none");
     document.getElementById("newCarForm").setAttribute("style", "display:none");
+    document.getElementById("driverHistory").setAttribute("style", "display:none");
   }
 
   @ViewChild(CarFormComponent) cfc: CarFormComponent;
@@ -48,6 +50,11 @@ export class AutosComponent implements OnInit {
     document.getElementById("carForm").setAttribute("style", "display:inline");
     document.getElementById("newCarForm").setAttribute("style", "display:none");
     this.cfc.changeEntrys(value);
+  }
+  showDriverHistory() {
+    document.getElementById("carForm").setAttribute("style", "display:none");
+    document.getElementById("newCarForm").setAttribute("style", "display:none");
+    document.getElementById("driverHistory").setAttribute("style", "display:inline");
   }
 
 

@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Delivery } from '../../shared/models/delivery';
+import { Employee } from '../../shared/models/employee';
 import { DeliveryService } from '../../shared/services/delivery-service';
 
 @Component({
@@ -12,6 +13,7 @@ export class NeuesPaketFormComponent implements OnInit {
   delivery: Delivery;
   newDeliveryForm: FormGroup;
   deliveryService: DeliveryService;
+  @Input() lieferungenList: Delivery[];
 
   @Output() showButton1Value = new EventEmitter<boolean>(false);
   constructor(dService: DeliveryService) {
@@ -92,21 +94,9 @@ export class NeuesPaketFormComponent implements OnInit {
     }
 
 
-    //for (let [key, value] of Object.entries(newDeliveryForm)) {
-    //  for (let [keyOld] of Object.entries(this.delivery)) {
-    //    this.propsToRemove.forEach(element => {
-    //      delete this.delivery[element];
-    //    });
-    //
-    //    if (key === keyOld) {
-    //      if (value !== null) {
-    //        this.delivery[key] = value;
-    //      }
-    //    }
-    //  }
-    //}
     this.deliveryService.createDelivery(this.delivery);
-    //this.delivery.text = this.delivery.firstname + " " + this.delivery.lastname;
+    //TODO: Geht mmn nicht ohne watchquery, da weder iddelivery noch packageid zu diesem punkt vorhanden  
+    this.lieferungenList.push(this.delivery);
     console.log(this.delivery);
   }
 

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Delivery } from '../models/delivery';
 import { GlobalResponse } from "../models/global-response";
 import { firstValueFrom } from 'rxjs';
+import { HistoryEntry } from '../models/historyEntry';
 
 @Injectable({
   providedIn: 'root'
@@ -48,15 +49,6 @@ export class DeliveryService {
       .subscribe();
   }
 
-  public getOne1(id: String) {
-    var delivery: Delivery;
-    this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/" + id, {}).subscribe(data => {
-      delivery = data.data[0];
-      delivery.text = "Paket: " + delivery.packageid
-    });
-    return delivery;
-  }
-
   public async getOne(id: String) {
     var delivery: Delivery;
     await new Promise<GlobalResponse>(resolve => {
@@ -65,8 +57,30 @@ export class DeliveryService {
         delivery = val.data[0];
       })
     })
-    console.log("del", delivery);
     return delivery;
+  }
+
+  public getDeliveryHistory1(iddelivery: String) {
+    var historyEntries = [] as HistoryEntry[];
+    this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/history/" + iddelivery, {}).subscribe(data => {
+      data.data[0].forEach(element => {
+        element as HistoryEntry;
+        element.text = element.created + " : " + element.status;
+        historyEntries.push(element);
+      });
+    });
+    return historyEntries;
+  }
+
+  public async getDeliveryHistory(iddelivery: String) {
+    var historyEntries = [] as HistoryEntry[];
+    await new Promise<GlobalResponse>(resolve => {
+      this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/history/" + iddelivery).subscribe(val => {
+        resolve(val);
+        historyEntries = val.data[0];
+      })
+    })
+    return historyEntries;
   }
 
 }
