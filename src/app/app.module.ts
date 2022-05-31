@@ -39,16 +39,19 @@ import { GroupService } from "./shared/services/group-service";
 import { DeliveryService } from "./shared/services/delivery-service";
 import { CarFormComponent } from './autos/car-form/car-form.component';
 import { NewCarFormComponent } from './autos/new-car-form/new-car-form.component';
+import { DriverHistoryComponent } from './autos/driver-history/driver-history.component';
+import { DeliveryHistoryComponent } from "./lieferungen/delivery-history/delivery-history.component";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
   new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 
 @NgModule({
-  declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent, WorkerFormComponent, LieferungenFormComponent, NeuesPaketFormComponent, QrFormComponent,
+  declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent, WorkerFormComponent, LieferungenFormComponent, NeuesPaketFormComponent, QrFormComponent, DeliveryHistoryComponent,
     NewemployeeFormComponent,
     CarFormComponent,
-    NewCarFormComponent],
+    NewCarFormComponent,
+    DriverHistoryComponent],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
@@ -59,6 +62,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     DetailModule,
     LoginModule,
     AppRoutingModule,
+
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

@@ -23,7 +23,7 @@ export class CarService {
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/" + from + "/" + to, {}).subscribe(data => {
       data.data[0].forEach(element => {
         element as Car;
-        element.text = "Paket: " + element.trackingNumber;
+        element.text = "Auto: " + element.trackingNumber;
         deliveries.push(element);
       });
     });

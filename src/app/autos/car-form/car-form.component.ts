@@ -14,7 +14,7 @@ export class CarFormComponent implements OnInit {
   carService: CarService;
   carForm: FormGroup;
   @Output() showButton1Value = new EventEmitter<boolean>(false);
-
+  @Output() showDriverHistory = new EventEmitter<Car>(false);
 
   constructor(cService: CarService) {
     this.carService = cService;
@@ -36,6 +36,10 @@ export class CarFormComponent implements OnInit {
 
   closeForm() {
     this.showButton1Value.emit(false);
+  }
+
+  showHistoryEvent() {
+    this.showDriverHistory.emit(this.car);
   }
 
 

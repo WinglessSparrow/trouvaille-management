@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Delivery } from '../../shared/models/delivery';
 import { DeliveryService } from '../../shared/services/delivery-service';
@@ -9,6 +9,7 @@ import { DeliveryService } from '../../shared/services/delivery-service';
   styleUrls: ['./lieferungen-form.component.scss']
 })
 export class LieferungenFormComponent implements OnInit {
+  @Output() clickedHistoryEvent = new EventEmitter<string>();
   delivery: Delivery;
   deliveryService: DeliveryService;
   deliveryForm: FormGroup;
@@ -75,5 +76,9 @@ export class LieferungenFormComponent implements OnInit {
         }
       }
     }
+  }
+
+  packageHistoryEvent() {
+    this.clickedHistoryEvent.emit(this.delivery.iddelivery);
   }
 }
