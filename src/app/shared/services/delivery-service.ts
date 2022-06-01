@@ -44,9 +44,17 @@ export class DeliveryService {
     return deliveries;
   }
 
-  public createDelivery(delivery: Delivery): void {
+  public createDelivery1(delivery: Delivery): void {
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/order", delivery)
       .subscribe();
+  }
+
+  public async createDelivery(delivery: Delivery) {
+    await new Promise<GlobalResponse>(resolve => {
+      this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/order", delivery).subscribe(val => {
+        resolve(val);
+      })
+    })
   }
 
   public async getOne(id: String) {
