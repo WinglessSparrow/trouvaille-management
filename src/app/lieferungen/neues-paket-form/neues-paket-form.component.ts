@@ -63,7 +63,7 @@ export class NeuesPaketFormComponent implements OnInit {
     "dstAddress"
   ]
 
-  public createDelivery(newDeliveryForm): void {
+  public async createDelivery(newDeliveryForm) {
     this.delivery.customer.firstname = newDeliveryForm.customerfirstname;
     this.delivery.customer.lastname = newDeliveryForm.customerlastname;
     this.delivery.customer.email = newDeliveryForm.customeremail;
@@ -84,6 +84,7 @@ export class NeuesPaketFormComponent implements OnInit {
     this.delivery.isPickup = newDeliveryForm.ispickup;
     this.delivery.paymentMethod = newDeliveryForm.payment;
     this.delivery.pickupDate = new Date().toJSON().slice(0, 10).replace(/-/g, '.');
+    console.log("pickupdate: ", this.delivery.pickupDate);
 
     this.propsToRemove.forEach(element => {
       delete this.delivery[element];
@@ -94,9 +95,9 @@ export class NeuesPaketFormComponent implements OnInit {
     }
 
 
-    this.deliveryService.createDelivery(this.delivery);
-    //TODO: Geht mmn nicht ohne watchquery, da weder iddelivery noch packageid zu diesem punkt vorhanden  
-    this.lieferungenList.push(this.delivery);
+    await this.deliveryService.createDelivery(this.delivery);
+    //TODO: Neues paket wird nicht in liste angezeigt..
+    this.lieferungenList = await this.deliveryService.getAllDeliveries();
     console.log(this.delivery);
   }
 

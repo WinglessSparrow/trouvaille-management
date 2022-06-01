@@ -77,7 +77,16 @@ export class LieferungenComponent implements OnInit {
     this.itemDetails(lieferung);
     console.log("del:", lieferung)
     document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
+  }
 
+  async showFormByQR($event) {
+    console.log("IN showFormByQR with code", $event);
+    document.getElementById("qrForm").setAttribute("style", "display:none");
+    document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+    const lieferung = this.deliveryService.getOne($event);
+    this.itemDetails(lieferung);
+    console.log("del:", lieferung);
+    document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
   }
 
   ngOnInit(): void {

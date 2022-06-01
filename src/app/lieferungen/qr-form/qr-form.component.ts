@@ -9,6 +9,7 @@ import { LieferungenComponent } from '../lieferungen.component';
 export class QrFormComponent implements OnInit {
   @Output() showButton2Value = new EventEmitter<boolean>(false);
   @Output() itemEvent = new EventEmitter<String>();
+  @Output() qrSend = new EventEmitter<String>();
   constructor() { }
 
   ngOnInit(): void {
@@ -22,4 +23,8 @@ export class QrFormComponent implements OnInit {
     this.itemEvent.emit('manualTracking');
   }
 
+  sendQRToForm($event) {
+    console.log("QR CODE?", $event)
+    this.qrSend.emit($event);
+  }
 }
