@@ -83,9 +83,8 @@ export class NeuesPaketFormComponent implements OnInit {
     this.delivery.pack.weight = newDeliveryForm.weight;
     this.delivery.isPickup = newDeliveryForm.ispickup;
     this.delivery.paymentMethod = newDeliveryForm.payment;
+    // TODO: Fix this date, sollte irgendwo schon mal gemacht wordens ein
     this.delivery.pickupDate = new Date().toJSON().slice(0, 10).replace(/-/g, '.');
-    console.log("pickupdate: ", this.delivery.pickupDate);
-
     this.propsToRemove.forEach(element => {
       delete this.delivery[element];
     });
@@ -98,7 +97,7 @@ export class NeuesPaketFormComponent implements OnInit {
     await this.deliveryService.createDelivery(this.delivery);
     //TODO: Neues paket wird nicht in liste angezeigt..
     this.lieferungenList = await this.deliveryService.getAllDeliveries();
-    console.log(this.delivery);
+
   }
 
 }

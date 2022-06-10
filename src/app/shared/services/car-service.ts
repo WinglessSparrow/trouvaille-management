@@ -60,7 +60,6 @@ export class CarService {
       this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/driverHistory/" + carid, {})
         .subscribe(val => resolve(val.data[0]))
     });
-    console.log("tempDriver: ", tempDriver);
     return Promise.all(tempDriver.map(async v => {
       var driver: Employee = await this.employeeService.getOneEmployee(v.employeeId);
       driver.text = driver.firstname + " " + driver.lastname;

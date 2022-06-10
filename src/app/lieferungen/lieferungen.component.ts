@@ -75,17 +75,15 @@ export class LieferungenComponent implements OnInit {
     const trackingNumber = (<HTMLInputElement>document.getElementById("manualTrackingId")).value;
     const lieferung = await this.deliveryService.getOne(trackingNumber);
     this.itemDetails(lieferung);
-    console.log("del:", lieferung);
+
     document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
   }
 
   async showFormByQR($event) {
-    console.log("IN showFormByQR with code", $event);
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
     const lieferung = await this.deliveryService.getOne($event).then(del => console.log("del:", del));
     this.itemDetails(lieferung);
-
     document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
   }
 

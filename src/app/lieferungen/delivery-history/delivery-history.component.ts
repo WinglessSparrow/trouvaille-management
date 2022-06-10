@@ -23,7 +23,6 @@ export class DeliveryHistoryComponent implements OnInit {
 
   async getHistory() {
     this.historyEntries = await this.deliveryService.getDeliveryHistory(this.iddelivery);
-    console.log("history: ", this.historyEntries);
   }
 
 }

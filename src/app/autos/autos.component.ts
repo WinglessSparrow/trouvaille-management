@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { WorkerFormComponent } from '../mitarbeiter/worker-form/worker-form.component';
 import { Car } from '../shared/models/car';
 import { CarService } from '../shared/services/car-service';
 import { CarFormComponent } from './car-form/car-form.component';
@@ -20,10 +21,8 @@ export class AutosComponent implements OnInit {
   buttonTitle = 'Neuer Lieferwagen';
 
   constructor(cService: CarService, private modalService: NgbModal) {
-    console.log("Car constructor")
     this.carService = cService;
     this.carList = this.carService.getAllCars();
-    console.log("cars", this.carList)
   }
 
   ngOnInit(): void {
@@ -42,11 +41,8 @@ export class AutosComponent implements OnInit {
 
 
   showDriverHistory(carid) {
-    const modalRef = this.modalService.open(DriverHistoryComponent, { centered: true });
+    const modalRef = this.modalService.open(DriverHistoryComponent, { centered: true, size: 'xl' });
     modalRef.componentInstance.carid = carid;
-    //document.getElementById("carForm").setAttribute("style", "display:none");
-    //document.getElementById("newCarForm").setAttribute("style", "display:none");
-    //document.getElementById("driverHistory").setAttribute("style", "display:inline");
   }
 
 
@@ -62,8 +58,4 @@ export class AutosComponent implements OnInit {
     document.getElementById("newCarForm").setAttribute("style", "display:none");
     this.cfc.changeEntrys(value);
   }
-
-
-
-
 }

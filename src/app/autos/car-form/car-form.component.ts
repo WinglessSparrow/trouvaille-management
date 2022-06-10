@@ -45,7 +45,6 @@ export class CarFormComponent implements OnInit {
 
   public changeEntrys(c: Car) {
     this.car = c;
-    console.log("changeEntries: ", this.car);
   }
 
 }

@@ -60,11 +60,6 @@ export class NewCarFormComponent implements OnInit {
     }
     datebuilder = newCarForm.lastcheck.year + 2 + "-" + tempmonth + "-" + newCarForm.lastcheck.day + "T00:00:00.000Z";
     this.car.nextcheck = datebuilder;
-    console.log(this.car);
-    //this.car.lastcheck = "2022-05-23T16:25:38.223Z";
-    //2022-05-23T16:25:38.223Z
-    //2022-6-15T00:00:00.000Z
-    //this.car.nextcheck = "2022-05-23T16:25:38.223Z";
     this.car.isdeleted = false;
 
     this.propsToRemove.forEach(element => {
@@ -72,7 +67,6 @@ export class NewCarFormComponent implements OnInit {
     });
 
     this.carService.createCar(this.car);
-    console.log(this.car);
   }
 
   ngOnInit(): void {
