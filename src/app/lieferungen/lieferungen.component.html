@@ -6,7 +6,8 @@
         </app-listview>
         <div class="flex-grow-1">
             <div class="border-2 border-primary rounded-0 ms-4 gray">
-                <app-lieferungen-form id="lieferungenForm" (clickedHistoryEvent)="showHistoryForm($event)">
+                <app-lieferungen-form id="lieferungenForm" (closedForm)="showScannerFunc($event)"
+                    (clickedHistoryEvent)="showHistoryForm($event)">
                 </app-lieferungen-form>
                 <app-qr-form id="qrForm" (showButton2Value)="showScannerFunc($event)"
                     (itemEvent)="itemDetailsStringEvent()" (qrSend)="showFormByQR($event)">

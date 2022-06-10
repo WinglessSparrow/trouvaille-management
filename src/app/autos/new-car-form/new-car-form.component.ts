@@ -43,7 +43,6 @@ export class NewCarFormComponent implements OnInit {
     this.car.status = newCarForm.status;
     this.car.isdeleted = newCarForm.isdeleted;
     this.car.maxvolume = parseInt(newCarForm.maxvolume);
-    //TODO: Fix car date, get form date, also do this for deliveries
     var tempmonth = "";
     if (newCarForm.lastcheck.month < 10) {
       tempmonth = "0" + newCarForm.lastcheck.month;

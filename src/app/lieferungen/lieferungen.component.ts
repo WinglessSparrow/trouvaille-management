@@ -73,9 +73,9 @@ export class LieferungenComponent implements OnInit {
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
     const trackingNumber = (<HTMLInputElement>document.getElementById("manualTrackingId")).value;
-    const lieferung = this.deliveryService.getOne(trackingNumber);
+    const lieferung = await this.deliveryService.getOne(trackingNumber);
     this.itemDetails(lieferung);
-    console.log("del:", lieferung)
+    console.log("del:", lieferung);
     document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
   }
 
@@ -83,9 +83,9 @@ export class LieferungenComponent implements OnInit {
     console.log("IN showFormByQR with code", $event);
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
-    const lieferung = this.deliveryService.getOne($event);
+    const lieferung = await this.deliveryService.getOne($event).then(del => console.log("del:", del));
     this.itemDetails(lieferung);
-    console.log("del:", lieferung);
+
     document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
   }
 

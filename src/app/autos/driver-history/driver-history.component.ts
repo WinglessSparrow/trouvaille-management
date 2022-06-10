@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Employee } from '../../shared/models/employee';
+import { CarService } from '../../shared/services/car-service';
 
 @Component({
   selector: 'app-driver-history',
@@ -7,11 +8,23 @@ import { Employee } from '../../shared/models/employee';
   styleUrls: ['./driver-history.component.scss']
 })
 export class DriverHistoryComponent implements OnInit {
-  @Input() driverHistoryList: Employee[] = []
+  @Input() carid: Number;
+  driverHistoryList: Employee[] = [];
+  carService: CarService;
+  iconname = "mitarbeiter"
 
-  constructor() { }
+  constructor(cService: CarService) {
+    this.carService = cService;
+  }
 
-  ngOnInit(): void {
+  public async getDriverHistory(carid: Number) {
+    this.driverHistoryList = await this.carService.getDriverHistory(carid);
+    this.driverHistoryList = [...this.driverHistoryList]
+    console.log("drivers: ", this.driverHistoryList);
+  }
+
+  ngOnInit() {
+    this.getDriverHistory(this.carid);
   }
 
 }

@@ -13,6 +13,7 @@ import QRCode from 'qrcode'
 })
 export class LieferungenFormComponent implements OnInit {
   @Output() clickedHistoryEvent = new EventEmitter<string>();
+  @Output() closedForm = new EventEmitter<boolean>(false);
   delivery: Delivery;
   deliveryService: DeliveryService;
   deliveryForm: FormGroup;
@@ -97,6 +98,10 @@ export class LieferungenFormComponent implements OnInit {
   showModal(code: string) {
     const modalRef = this.modalService.open(ShowQRComponent, { centered: true });
     modalRef.componentInstance.code = code;
+  }
+
+  closeForm() {
+    this.closedForm.emit(false);
   }
 
 }

@@ -30,4 +30,13 @@ export class EmployeeService {
         this.http.post<GlobalResponse>("https://td.vvjm.dev/api/v1/employee", employee)
             .subscribe();
     }
+
+    public async getOneEmployee(employeeId: Number) {
+        const employee: Employee = await new Promise<Employee>(resolve => {
+            this.http.post<GlobalResponse>("https://td.vvjm.dev/api/v1/employee/filter", { "idemployee": employeeId }).subscribe(val => {
+                resolve(val.data[0][0]);
+            })
+        })
+        return employee;
+    }
 }
