@@ -58,11 +58,9 @@ export class DeliveryService {
   }
 
   public async getOne(id: String) {
-    var delivery: Delivery;
-    await new Promise<GlobalResponse>(resolve => {
+    const delivery: Delivery = await new Promise<Delivery>(resolve => {
       this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/" + id).subscribe(val => {
-        resolve(val);
-        delivery = val.data[0];
+        resolve(val.data[0]);
       })
     })
     return delivery;
@@ -84,8 +82,9 @@ export class DeliveryService {
     var historyEntries = [] as HistoryEntry[];
     await new Promise<GlobalResponse>(resolve => {
       this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/history/" + iddelivery).subscribe(val => {
-        resolve(val);
+
         historyEntries = val.data[0];
+        resolve(val);
       })
     })
     return historyEntries;
