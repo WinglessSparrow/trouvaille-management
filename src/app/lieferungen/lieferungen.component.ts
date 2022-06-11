@@ -73,11 +73,18 @@ export class LieferungenComponent implements OnInit {
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
     const trackingNumber = (<HTMLInputElement>document.getElementById("manualTrackingId")).value;
-    const lieferung = this.deliveryService.getOne(trackingNumber);
+    const lieferung = await this.deliveryService.getOne(trackingNumber);
     this.itemDetails(lieferung);
-    console.log("del:", lieferung)
-    document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
 
+    document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
+  }
+
+  async showFormByQR($event) {
+    document.getElementById("qrForm").setAttribute("style", "display:none");
+    document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+    const lieferung = await this.deliveryService.getOne($event).then(del => console.log("del:", del));
+    this.itemDetails(lieferung);
+    document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
   }
 
   ngOnInit(): void {

@@ -1,14 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { DriverHistoryComponent } from '../../autos/driver-history/driver-history.component';
 import { Car } from '../models/car';
+import { Employee } from '../models/employee';
 import { GlobalResponse } from "../models/global-response";
+import { TempDriverEntry } from '../models/tempdriverentry';
+import { EmployeeService } from './employee-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarService {
+  employeeService: EmployeeService;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, eService: EmployeeService) {
+    this.employeeService = eService;
+  }
 
   public getCarsCount(): number {
     var carsCount = 0;
@@ -46,5 +53,17 @@ export class CarService {
   public createCar(car: Car): void {
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car)
       .subscribe();
+  }
+
+  public async getDriverHistory(carid: Number) {
+    var tempDriver = await new Promise<TempDriverEntry[]>(resolve => {
+      this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/driverHistory/" + carid, {})
+        .subscribe(val => resolve(val.data[0]))
+    });
+    return Promise.all(tempDriver.map(async v => {
+      var driver: Employee = await this.employeeService.getOneEmployee(v.employeeId);
+      driver.text = driver.firstname + " " + driver.lastname;
+      return driver;
+    }));
   }
 }

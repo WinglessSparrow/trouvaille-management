@@ -20,7 +20,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
   @Output() isActiveChange = new EventEmitter();
 
   //communicate new QR Code
-  @Output() qrCodeRead = new EventEmitter<QRCode>();
+  @Output() qrCodeRead = new EventEmitter<String>();
 
   @ViewChild('video', { static: false }) video: ElementRef;
   @ViewChild('canvas', { static: false }) canvas: ElementRef;
@@ -99,7 +99,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
         this.isActive = false;
 
         //found, pass Data upwards
-        this.qrCodeRead.emit(code);
+        this.qrCodeRead.emit(code.data);
         this.stopScan();
       } else {
         if (this.isActive) {

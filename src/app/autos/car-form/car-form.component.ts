@@ -14,7 +14,7 @@ export class CarFormComponent implements OnInit {
   carService: CarService;
   carForm: FormGroup;
   @Output() showButton1Value = new EventEmitter<boolean>(false);
-  @Output() showDriverHistory = new EventEmitter<Car>(false);
+  @Output() showDriverHistory = new EventEmitter<Number>(false);
 
   constructor(cService: CarService) {
     this.carService = cService;
@@ -39,13 +39,12 @@ export class CarFormComponent implements OnInit {
   }
 
   showHistoryEvent() {
-    this.showDriverHistory.emit(this.car);
+    this.showDriverHistory.emit(this.car.idvehicle);
   }
 
 
   public changeEntrys(c: Car) {
     this.car = c;
-    console.log("changeEntries: ", this.car);
   }
 
 }

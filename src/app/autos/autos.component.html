@@ -6,7 +6,7 @@
         <div class="flex-grow-1">
             <div class="border-2 border-primary rounded-0 ms-4 gray">
                 <app-car-form id="carForm" (showButton1Value)="showNewCarFormFunc($event)"
-                    (showDriverHistory)="showDriverHistory()"></app-car-form>
+                    (showDriverHistory)="showDriverHistory($event)"></app-car-form>
                 <app-new-car-form id="newCarForm" (showButton1Value)="showNewCarFormFunc($event)"></app-new-car-form>
                 <app-driver-history id="driverHistory"></app-driver-history>
             </div>

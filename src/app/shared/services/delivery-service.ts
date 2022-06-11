@@ -44,17 +44,23 @@ export class DeliveryService {
     return deliveries;
   }
 
-  public createDelivery(delivery: Delivery): void {
+  public createDelivery1(delivery: Delivery): void {
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/order", delivery)
       .subscribe();
   }
 
-  public async getOne(id: String) {
-    var delivery: Delivery;
+  public async createDelivery(delivery: Delivery) {
     await new Promise<GlobalResponse>(resolve => {
-      this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/" + id).subscribe(val => {
+      this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/order", delivery).subscribe(val => {
         resolve(val);
-        delivery = val.data[0];
+      })
+    })
+  }
+
+  public async getOne(id: String) {
+    const delivery: Delivery = await new Promise<Delivery>(resolve => {
+      this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/" + id).subscribe(val => {
+        resolve(val.data[0]);
       })
     })
     return delivery;
@@ -76,8 +82,9 @@ export class DeliveryService {
     var historyEntries = [] as HistoryEntry[];
     await new Promise<GlobalResponse>(resolve => {
       this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/history/" + iddelivery).subscribe(val => {
-        resolve(val);
+
         historyEntries = val.data[0];
+        resolve(val);
       })
     })
     return historyEntries;
