@@ -1,1 +1,10 @@
-<p>routen works!</p>
+<app-subnavbar [topTitle]="topTitle">
+    <div top class=" d-flex flex-row gray">
+        <app-listview [showBtn1]="false" [showBtn2]="false" [list]="routeList" [iconName]="iconName">
+        </app-listview>
+        <div class="flex-grow-1">
+            <app-route-view></app-route-view>
+        </div>
+    </div>
+
+</app-subnavbar>
