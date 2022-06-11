@@ -41,6 +41,7 @@ import { CarFormComponent } from './autos/car-form/car-form.component';
 import { NewCarFormComponent } from './autos/new-car-form/new-car-form.component';
 import { DriverHistoryComponent } from './autos/driver-history/driver-history.component';
 import { DeliveryHistoryComponent } from "./lieferungen/delivery-history/delivery-history.component";
+import { RouteViewComponent } from './routen/route-view/route-view.component';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -51,7 +52,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     NewemployeeFormComponent,
     CarFormComponent,
     NewCarFormComponent,
-    DriverHistoryComponent],
+    DriverHistoryComponent,
+    RouteViewComponent],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
