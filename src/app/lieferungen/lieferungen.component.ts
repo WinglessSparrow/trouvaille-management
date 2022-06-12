@@ -14,6 +14,7 @@ export class LieferungenComponent implements OnInit {
   iconName = "lieferungen";
   lieferungenList: Delivery[];
 
+
   topTitle = 'Lieferungen';
 
   buttonTitle = 'Neues Paket';
@@ -75,7 +76,6 @@ export class LieferungenComponent implements OnInit {
     const trackingNumber = (<HTMLInputElement>document.getElementById("manualTrackingId")).value;
     const lieferung = await this.deliveryService.getOne(trackingNumber);
     this.itemDetails(lieferung);
-
     document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
   }
 

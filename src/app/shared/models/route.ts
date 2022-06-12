@@ -1,7 +1,15 @@
 export class Route {
-    text: String = "";
-    idroute: Number = 0;
-    idvehicle: Number = 0;
-    narrowpass: Number = 0;
+    text: string = "";
+    idroute: number = 0;
+    idvehicle: number = 0;
+    narrowpass: number = 0;
     nodes: Node[] = [];
+}
+
+export class Node {
+    idnode: number = 0;
+    idroute: number = 0;
+    position: number = 0;
+    latitude: number = 0;
+    longitude: number = 0;
 }
