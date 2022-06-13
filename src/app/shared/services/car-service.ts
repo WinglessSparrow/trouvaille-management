@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { resolve } from 'path';
 import { DriverHistoryComponent } from '../../autos/driver-history/driver-history.component';
 import { Car } from '../models/car';
 import { Employee } from '../models/employee';
@@ -65,5 +66,13 @@ export class CarService {
       driver.text = driver.firstname + " " + driver.lastname;
       return driver;
     }));
+  }
+
+  public deactivateCar(carid: number): void {
+    this.http.delete<GlobalResponse>("https://td.vvjm.dev/api/vehicle/" + carid).subscribe(val => resolve(val.data[0]));
+  }
+
+  public changeCar(car: Car) {
+    this.http.put<GlobalResponse>("", car);
   }
 }
