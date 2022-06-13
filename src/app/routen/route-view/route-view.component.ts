@@ -12,12 +12,14 @@ export class RouteViewComponent implements OnInit {
   private map: L.Map;
   private centroid: L.LatLngExpression = [48, 8];
   private waypoints: L.LatLng[] = [];
+  private route: Route = new Route();
 
 
 
   constructor() { }
 
   ngOnInit(): void {
+    this.route.idroute = -1;
   }
 
   public initMap(): void {
@@ -50,8 +52,14 @@ export class RouteViewComponent implements OnInit {
   }
 
   public setNewRoute(route: Route): void {
+    if (this.route.idroute == route.idroute) {
+      this.map.flyTo(this.centroid);
+      return;
+    };
+    this.route = route;
+
     this.map.invalidateSize();
-    console.log("setNewRoute with Route: ", route);
+
     this.centroid = [route.nodes[0].latitude, route.nodes[0].longitude];
 
     route.nodes.forEach(node => {
@@ -65,7 +73,5 @@ export class RouteViewComponent implements OnInit {
     }).addTo(this.map);
 
     this.map.flyTo(this.centroid);
-
-
   }
 }
