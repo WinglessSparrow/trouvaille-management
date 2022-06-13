@@ -55,13 +55,13 @@ export class RouteViewComponent implements OnInit {
     this.centroid = [route.nodes[0].latitude, route.nodes[0].longitude];
 
     route.nodes.forEach(node => {
-      var marker = L.marker([node.latitude, node.longitude]).addTo(this.map);
+      var marker = L.marker([node.latitude, node.longitude], { draggable: false }).addTo(this.map);
+      marker.dragging.disable;
       this.waypoints.push(new L.LatLng(node.latitude, node.longitude));
     });
 
     L.Routing.control({
       waypoints: this.waypoints,
-
     }).addTo(this.map);
 
     this.map.flyTo(this.centroid);

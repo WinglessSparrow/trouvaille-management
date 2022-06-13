@@ -14,6 +14,7 @@ export class NeuesPaketFormComponent implements OnInit {
   newDeliveryForm: FormGroup;
   deliveryService: DeliveryService;
   @Input() lieferungenList: Delivery[];
+  showDatePicker: boolean = false;
 
   @Output() showButton1Value = new EventEmitter<boolean>(false);
   constructor(dService: DeliveryService) {
@@ -39,7 +40,8 @@ export class NeuesPaketFormComponent implements OnInit {
       height: new FormControl(),
       weight: new FormControl(),
       ispickup: new FormControl(),
-      payment: new FormControl()
+      payment: new FormControl(),
+      pickupDate: new FormControl(),
     });
   }
 
@@ -83,21 +85,36 @@ export class NeuesPaketFormComponent implements OnInit {
     this.delivery.pack.weight = newDeliveryForm.weight;
     this.delivery.isPickup = newDeliveryForm.ispickup;
     this.delivery.paymentMethod = newDeliveryForm.payment;
-    // TODO: Fix this date, sollte irgendwo schon mal gemacht wordens ein
-    this.delivery.pickupDate = new Date().toJSON().slice(0, 10).replace(/-/g, '.');
+
+    if (newDeliveryForm.isPickup === "true") {
+      var datebuilder: string = "";
+      var tempmonth = "";
+      if (newDeliveryForm.pickupDate.month < 10) {
+        tempmonth = "0" + newDeliveryForm.pickupDate.month;
+      } else {
+        tempmonth = newDeliveryForm.pickupDate.month;
+      }
+      datebuilder = newDeliveryForm.pickupDate.year + "-" + tempmonth + "-" + newDeliveryForm.pickupDate.day + "T00:00:00.000Z";
+      this.delivery.pickupDate = datebuilder;
+    }
+
+    console.log("pickupdate: ", this.delivery.pickupDate)
     this.propsToRemove.forEach(element => {
       delete this.delivery[element];
     });
-
-    if (!newDeliveryForm.isPickup) {
+    console.log("isPickup?", this.delivery.isPickup);
+    if (newDeliveryForm.isPickup === "false") {
       delete this.delivery["pickupDate"];
     }
-
-
+    console.log("pickupdate: ", this.delivery.pickupDate)
+    console.log("post del: ", this.delivery);
     await this.deliveryService.createDelivery(this.delivery);
-    //TODO: Neues paket wird nicht in liste angezeigt..
     this.lieferungenList = await this.deliveryService.getAllDeliveries();
+  }
 
+  setIsPickup(event: Event) {
+    var isTrueSet = ((event.target as HTMLInputElement).value === 'true');
+    this.showDatePicker = isTrueSet;
   }
 
 }

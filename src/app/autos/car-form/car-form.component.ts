@@ -42,6 +42,14 @@ export class CarFormComponent implements OnInit {
     this.showDriverHistory.emit(this.car.idvehicle);
   }
 
+  deactivateCar() {
+    this.carService.deactivateCar(this.car.idvehicle);
+  }
+
+  saveCar() {
+
+  }
+
 
   public changeEntrys(c: Car) {
     this.car = c;

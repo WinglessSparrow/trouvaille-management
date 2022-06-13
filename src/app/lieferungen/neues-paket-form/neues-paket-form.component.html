@@ -76,23 +76,41 @@
     <div class="row">
         <div class="col-sm">
             <label for="measure">Länge</label>
-            <input formControlName="depth" type="text" class="form-control" id="measure" placeholder="LxBxH">
+            <input formControlName="depth" type="text" class="form-control" id="measure" placeholder="in cm">
             <label for="measure">Breite</label>
-            <input formControlName="width" type="text" class="form-control" id="measure" placeholder="LxBxH">
+            <input formControlName="width" type="text" class="form-control" id="measure" placeholder="in cm">
             <label for="measure">Höhe</label>
-            <input formControlName="height" type="text" class="form-control" id="measure" placeholder="LxBxH">
+            <input formControlName="height" type="text" class="form-control" id="measure" placeholder="in cm">
         </div>
         <div class="col-sm">
             <label for="weight">Gewicht</label>
-            <input formControlName="weight" type="text" class="form-control" id="weight" placeholder="..in gramm?">
+            <input formControlName="weight" type="text" class="form-control" id="weight" placeholder="in gramm">
         </div>
     </div>
     <div class="row">
         <label for="ispickup">Abholung?</label>
-        <select formControlName="ispickup" type="text" class="form-control" id="measispickupure" placeholder="Abholung">
+        <select formControlName="ispickup" type="text" class="form-control" id="measispickupure" placeholder="Abholung"
+            value={{delivery.isPickup}} (change)="setIsPickup($event)">
             <option value="true">ja</option>
             <option value="false">nein</option>
         </select>
+        <div class="col-sm">
+            <label for="pickupDate" [style.visibility]="showDatePicker? 'visible': 'hidden'">Abholdatum</label>
+            <input value={{delivery.pickupDate}} formControlName="pickupDate" class="form-control"
+                placeholder="yyyy-mm-dd" name="dpFrom" ngbDatepicker #d1="ngbDatepicker"
+                [style.visibility]="showDatePicker? 'visible': 'hidden'">
+            <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button"
+                [style.visibility]="showDatePicker? 'visible': 'hidden'">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-calendar-date" viewBox="0 0 16 16"
+                    [style.visibility]="showDatePicker? 'visible': 'hidden'">
+                    <path
+                        d="M6.445 11.688V6.354h-.633A12.6 12.6 0 0 0 4.5 7.16v.695c.375-.257.969-.62 1.258-.777h.012v4.61h.675zm1.188-1.305c.047.64.594 1.406 1.703 1.406 1.258 0 2-1.066 2-2.871 0-1.934-.781-2.668-1.953-2.668-.926 0-1.797.672-1.797 1.809 0 1.16.824 1.77 1.676 1.77.746 0 1.23-.376 1.383-.79h.027c-.004 1.316-.461 2.164-1.305 2.164-.664 0-1.008-.45-1.05-.82h-.684zm2.953-2.317c0 .696-.559 1.18-1.184 1.18-.601 0-1.144-.383-1.144-1.2 0-.823.582-1.21 1.168-1.21.633 0 1.16.398 1.16 1.23z" />
+                    <path
+                        d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                </svg>
+            </button>
+        </div>
         <label for="payment">Zahlungsmethode</label>
         <select formControlName="payment" type="text" class="form-control" id="payment">
             <option value="PAYPAL">Paypal</option>
