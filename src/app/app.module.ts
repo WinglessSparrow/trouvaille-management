@@ -47,7 +47,7 @@ import { HttpErrorInterceptor } from "./shared/services/http-error.interceptor";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
-  new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+  new TranslateHttpLoader(http, './assets/i18n/', '.json');
 
 @NgModule({
   declarations: [AppComponent, StatistikComponent, MitarbeiterComponent, NavbarComponent, LieferungenComponent, AutosComponent, RoutenComponent, MainElementComponent, WorkerFormComponent, LieferungenFormComponent, NeuesPaketFormComponent, QrFormComponent, DeliveryHistoryComponent,
@@ -71,7 +71,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: httpLoaderFactory,
+        useFactory: (httpLoaderFactory),
         deps: [HttpClient],
       },
     }),
