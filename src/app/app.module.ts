@@ -43,6 +43,7 @@ import { DriverHistoryComponent } from './autos/driver-history/driver-history.co
 import { DeliveryHistoryComponent } from "./lieferungen/delivery-history/delivery-history.component";
 import { RouteViewComponent } from './routen/route-view/route-view.component';
 import { SchedulerFormComponent } from "./mitarbeiter/scheduler-form/scheduler-form.component";
+import { HttpErrorInterceptor } from "./shared/services/http-error.interceptor";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -82,7 +83,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     EmployeeService,
     GroupService,
     DeliveryService,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })
