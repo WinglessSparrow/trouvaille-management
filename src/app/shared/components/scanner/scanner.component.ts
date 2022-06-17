@@ -9,6 +9,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import jsQR, { QRCode } from 'jsqr';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorPageComponent } from '../error-page/error-page.component';
+import { BackendError } from '../../models/error-message';
 
 @Component({
   selector: 'scanner',
@@ -16,6 +19,9 @@ import jsQR, { QRCode } from 'jsqr';
   styleUrls: ['./scanner.component.scss'],
 })
 export class ScannerComponent implements OnInit, OnDestroy {
+  constructor(private modalService: NgbModal) {
+
+  }
   @Input() isActive: Boolean = false;
   @Output() isActiveChange = new EventEmitter();
 
@@ -32,21 +38,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("ngoninit");
-    const constraints = {
-      audio: false,
-      video: { width: 1280, height: 720 },
-    };
-    if (!navigator.mediaDevices) {
-      console.log("Document not secure. Unable to capture WebCam.");
-    } else {
-      navigator.mediaDevices
-        .getUserMedia(constraints)
-        .then(function (stream) {
-        })
-        .catch(function (err) {
-          console.log("Unable to capture WebCam.", err);
-        });
-    }
+
   }
 
   ngOnDestroy() {
@@ -66,6 +58,10 @@ export class ScannerComponent implements OnInit, OnDestroy {
     //getting the video Stream
     const stream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: 'environment' },
+    }).catch(e => {
+      var error: BackendError = { title: "Oops! Something went wrong..", error: { message: "message", warnings: ["Try enabling your webcam and giving permissions to your browser"] } }
+      const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
+      modalRef.componentInstance.error = error;
     });
 
     //setting the stream to video tag + configure
@@ -77,6 +73,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
 
     //start QR recognition
     requestAnimationFrame(this.scan.bind(this));
+
   }
 
   public async stopScan() {

@@ -51,6 +51,7 @@ export class LieferungenFormComponent implements OnInit {
 
   public changeEntrys(d: Delivery) {
     this.delivery = d;
+    console.log("delivery: ", this.delivery);
   }
 
   propsToRemove = [
@@ -102,5 +103,10 @@ export class LieferungenFormComponent implements OnInit {
   closeForm() {
     this.closedForm.emit(false);
   }
+
+  changeDeliveryState() {
+    this.deliveryService.changeDeliveryState(this.delivery.packageid, this.deliveryForm.controls.currentState.value);
+  }
+
 
 }
