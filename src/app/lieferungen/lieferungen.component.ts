@@ -1,6 +1,8 @@
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorPageComponent } from '../shared/components/error-page/error-page.component';
 import { Delivery } from '../shared/models/delivery';
+import { BackendError } from '../shared/models/error-message';
 import { DeliveryService } from '../shared/services/delivery-service';
 import { DeliveryHistoryComponent } from './delivery-history/delivery-history.component';
 import { LieferungenFormComponent } from './lieferungen-form/lieferungen-form.component';
@@ -88,7 +90,6 @@ export class LieferungenComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   ngAfterViewInit(): void {

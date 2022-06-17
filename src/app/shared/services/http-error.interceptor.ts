@@ -13,7 +13,7 @@ import { ErrorPageComponent } from '../components/error-page/error-page.componen
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-  constructor(private modalService : NgbModal) {
+  constructor(private modalService: NgbModal) {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
