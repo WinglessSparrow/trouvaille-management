@@ -10,9 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { SubnavbarComponent } from './components/subnavbar/subnavbar.component';
 import { ListviewComponent } from './components/listview/listview.component';
 import { ScannerComponent } from './components/scanner/scanner.component';
+import { ErrorPageComponent } from './components/error-page/error-page.component';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, SubnavbarComponent, ListviewComponent, ScannerComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, SubnavbarComponent, ListviewComponent, ScannerComponent, ErrorPageComponent],
   imports: [CommonModule, TranslateModule, FormsModule, NgbModule],
   exports: [TranslateModule, WebviewDirective, FormsModule, SubnavbarComponent, ListviewComponent, ScannerComponent]
 })

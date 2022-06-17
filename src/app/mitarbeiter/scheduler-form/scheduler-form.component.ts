@@ -8,7 +8,12 @@ import { WeekShift, ShiftType, ShiftWorkingTimeStatusType } from '../../shared/m
 })
 export class SchedulerFormComponent implements OnInit {
   selectedYear: number = 0;
-  selectedWeek: number = 0;
+  selectedWeek: number = 0; //max 52
+
+  /// INFOS
+  //status nie null
+  //falls status.working darf shift nicht null sein
+  //routeIDroute nicht ändern
 
   shifts: WeekShift[] = [
     {
@@ -408,5 +413,14 @@ export class SchedulerFormComponent implements OnInit {
         this.currentWeekShift = element;
       }
     });
+  }
+
+  // tag und id nicht ändern
+  changeEntry(index: number) {
+    console.log(index);
+  }
+
+  deleteEntry(index: number) {
+    console.log(index);
   }
 }

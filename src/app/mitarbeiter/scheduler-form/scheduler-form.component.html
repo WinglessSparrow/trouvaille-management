@@ -37,7 +37,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let entry of currentWeekShift.entries">
+        <tr *ngFor="let entry of currentWeekShift.entries; let i = index">
             <th scope="row">{{entry.employeeId}}</th>
             <td [ngClass]="{
         'bg-success': entry.monday.shift == 'first',
@@ -99,7 +99,7 @@
 
                     </button>
                     <div ngbDropdownMenu>
-                        <button ngbDropdownItem>
+                        <button (click)="changeEntry(i)" ngbDropdownItem>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                                 <path
@@ -110,7 +110,7 @@
                             ändern
                         </button>
                         <div class="dropdown-divider"></div>
-                        <button ngbDropdownItem>
+                        <button (click)="deleteEntry(i)" ngbDropdownItem>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash" viewBox="0 0 16 16">
                                 <path
