@@ -73,4 +73,9 @@ export class DeliveryService {
     return historyEntries;
   }
 
+  public changeDeliveryState(packageid: number, state: string) {
+    this.http.put<GlobalResponse>("https://td.vvjm.dev/api/deliveries/changeState/" + packageid, state).subscribe();
+
+  }
+
 }
