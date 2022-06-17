@@ -12,14 +12,21 @@
         <div class="row">
             <div class="col-sm">
                 <label for="idvehicle">Kennzeichen</label>
-                <input value={{car.licenceplate}} formControlName="licenceplate" type="text" class="form-control"
-                    id="licenceplate" placeholder="12345">
+                <input value={{car.licenceplate}} readonly="readonly" formControlName="licenceplate" type="text"
+                    class="form-control" id="licenceplate" placeholder="12345">
             </div>
             <div class="col-sm">
                 <label for="status">Verfügbar</label>
                 <select value={{car.status}} formControlName="status" class="form-control" id="status">
                     <option value="AVAILABLE">Verfügbar</option>
                     <option value="BROKEN">In Wartung</option>
+                </select>
+            </div>
+            <div class="col-sm">
+                <label for="isdeleted">Ist gelöscht</label>
+                <select value={{car.isdeleted}} formControlName="isdeleted" class="form-control" id="isdeleted">
+                    <option value={{true}}>Ja</option>
+                    <option value={{false}}>Nein</option>
                 </select>
             </div>
             <div class="col-sm">

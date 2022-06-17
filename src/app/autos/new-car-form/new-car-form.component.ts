@@ -44,21 +44,23 @@ export class NewCarFormComponent implements OnInit {
     this.car.isdeleted = newCarForm.isdeleted;
     this.car.maxvolume = parseInt(newCarForm.maxvolume);
     var tempmonth = "";
+    var tempday = "";
     if (newCarForm.lastcheck.month < 10) {
       tempmonth = "0" + newCarForm.lastcheck.month;
     } else {
       tempmonth = newCarForm.lastcheck.month;
+    }
+    if (newCarForm.lastcheck.day < 10) {
+      tempday = "0" + newCarForm.lastcheck.day;
+    } else {
+      tempday = newCarForm.lastcheck.day;
     }
 
     var datebuilder: string = "";
-    datebuilder = newCarForm.lastcheck.year + "-" + tempmonth + "-" + newCarForm.lastcheck.day + "T00:00:00.000Z";
+    datebuilder = newCarForm.lastcheck.year + "-" + tempmonth + "-" + tempday + "T00:00:00.000Z";
     this.car.lastcheck = datebuilder;
-    if (newCarForm.lastcheck.month < 10) {
-      tempmonth = "0" + newCarForm.lastcheck.month;
-    } else {
-      tempmonth = newCarForm.lastcheck.month;
-    }
-    datebuilder = newCarForm.lastcheck.year + 2 + "-" + tempmonth + "-" + newCarForm.lastcheck.day + "T00:00:00.000Z";
+
+    datebuilder = newCarForm.lastcheck.year + 2 + "-" + tempmonth + "-" + tempday + "T00:00:00.000Z";
     this.car.nextcheck = datebuilder;
     this.car.isdeleted = false;
 

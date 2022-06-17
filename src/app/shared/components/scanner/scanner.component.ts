@@ -30,7 +30,24 @@ export class ScannerComponent implements OnInit, OnDestroy {
   private canvasContext: any;
   private videoElement: any;
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    console.log("ngoninit");
+    const constraints = {
+      audio: false,
+      video: { width: 1280, height: 720 },
+    };
+    if (!navigator.mediaDevices) {
+      console.log("Document not secure. Unable to capture WebCam.");
+    } else {
+      navigator.mediaDevices
+        .getUserMedia(constraints)
+        .then(function (stream) {
+        })
+        .catch(function (err) {
+          console.log("Unable to capture WebCam.", err);
+        });
+    }
+  }
 
   ngOnDestroy() {
     this.stopScan();

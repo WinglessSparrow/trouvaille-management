@@ -47,7 +47,40 @@ export class CarFormComponent implements OnInit {
   }
 
   saveCar() {
-
+    console.log(this.carForm);
+    for (let [key, value] of Object.entries(this.carForm)) {
+      for (let [keyOld] of Object.entries(this.car)) {
+        if (key === keyOld) {
+          if (value !== null) {
+            this.car[key] = value;
+          }
+        }
+      }
+    }
+    this.car.status = (document.getElementById("status") as HTMLInputElement).value
+    var isdeleted = ((document.getElementById("isdeleted") as HTMLInputElement).value === 'true');
+    var tempmonth = "";
+    var tempday = ""
+    if (this.carForm.controls.lastcheck.value.month < 10) {
+      tempmonth = "0" + this.carForm.controls.lastcheck.value.month;
+    } else {
+      tempmonth = this.carForm.controls.lastcheck.value.month;
+    }
+    if (this.carForm.controls.lastcheck.value.day < 10) {
+      tempday = "0" + this.carForm.controls.lastcheck.value.day;
+    } else {
+      tempday = this.carForm.controls.lastcheck.value.day;
+    }
+    var datebuilder: string = "";
+    datebuilder = this.carForm.controls.lastcheck.value.year + "-" + tempmonth + "-" + tempday + "T00:00:00.000Z";
+    this.car.lastcheck = datebuilder;
+    datebuilder = this.carForm.controls.lastcheck.value.year + 2 + "-" + tempmonth + "-" + tempday + "T00:00:00.000Z";
+    this.car.nextcheck = datebuilder;
+    this.car.isdeleted = isdeleted;
+    this.car.maxvolume = parseInt((document.getElementById("maxvolume") as HTMLInputElement).value);
+    this.carService.changeCar(this.car);
+    this.car.licenceplate = (document.getElementById("licenceplate") as HTMLInputElement).value
+    //TODO: IsDeleted not showing in car form
   }
 
 
