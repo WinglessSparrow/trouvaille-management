@@ -44,11 +44,6 @@ export class DeliveryService {
     return deliveries;
   }
 
-  public createDelivery1(delivery: Delivery): void {
-    this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/order", delivery)
-      .subscribe();
-  }
-
   public async createDelivery(delivery: Delivery) {
     await new Promise<GlobalResponse>(resolve => {
       this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/order", delivery).subscribe(val => {
@@ -64,18 +59,6 @@ export class DeliveryService {
       })
     })
     return delivery;
-  }
-
-  public getDeliveryHistory1(iddelivery: String) {
-    var historyEntries = [] as HistoryEntry[];
-    this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/history/" + iddelivery, {}).subscribe(data => {
-      data.data[0].forEach(element => {
-        element as HistoryEntry;
-        element.text = element.created + " : " + element.status;
-        historyEntries.push(element);
-      });
-    });
-    return historyEntries;
   }
 
   public async getDeliveryHistory(iddelivery: String) {

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { resolve } from 'path';
+import { CarFormComponent } from '../../autos/car-form/car-form.component';
 import { DriverHistoryComponent } from '../../autos/driver-history/driver-history.component';
 import { Car } from '../models/car';
 import { Employee } from '../models/employee';
@@ -73,6 +74,10 @@ export class CarService {
   }
 
   public changeCar(car: Car) {
-    this.http.put<GlobalResponse>("", car);
+    console.log("changed car");
+    console.log(car);
+    delete car.text;
+    this.http.put<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car).subscribe();
   }
+
 }
