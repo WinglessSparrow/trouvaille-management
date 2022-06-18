@@ -14,7 +14,6 @@ import { DriverHistoryComponent } from './driver-history/driver-history.componen
 export class AutosComponent implements OnInit {
 
   carService: CarService;
-  // TODO: remove cars when isdeleted == true (add to form), change delete from api/delete to api/put and change isdeleted  = true there
   carList: Car[];
 
   iconName = "lierferwagen";

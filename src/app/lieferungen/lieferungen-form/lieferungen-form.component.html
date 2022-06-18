@@ -144,12 +144,17 @@
                 <label for="selectstate">Status ändern</label>
                 <select value={{delivery.currentState}} formControlName="currentState" class="form-control"
                     id="selectstate">
-                    <option>Abgegeben</option>
-                    <option>In Basis</option>
-                    <option>Verarbeitet</option>
-                    <option>Weitertransport</option>
-                    <option>In Zustellung</option>
-                    <option>Zugestellt</option>
+                    <option value="ANNOUNCED">Angekündigt</option>
+                    <option value="IN_CENTRAL">In Zentrale</option>
+                    <option value="PICKED_UP">Abgeholt</option>
+                    <option value="REDIRECTED_TO_DHL">An DHL weitergeleitet</option>
+                    <option value="IN_CAR">Im Zustellauto</option>
+                    <option value="DELIVERY_FAILED">Lieferung fehlgeschlagen</option>
+                    <option value="ADDRESS_NOT_FOUND">Adresse nicht gefunden</option>
+                    <option value="DELIVERED">Zugestellt</option>
+                    <option value="PICKUP_FAILED">Abholung fehlgeschlagen</option>
+                    <option value="REQUESTED_PICKUP">Abholung beantragt</option>
+                    <option value="CANCELED">Storniert</option>
                 </select>
             </div>
             <div class="col-sm">
