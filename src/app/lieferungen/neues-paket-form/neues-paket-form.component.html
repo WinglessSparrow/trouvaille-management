@@ -5,44 +5,50 @@
             <div class="col-sm">
                 <label for="name">Vorname</label>
                 <input formControlName="customerfirstname" type="text" class="form-control" id="name"
-                    placeholder="Vorname">
+                    placeholder="Vorname" onkeydown="return /[a-z]/i.test(event.key)" required>
             </div>
             <div class="col-sm">
                 <label for="lastname">Nachname</label>
                 <input formControlName="customerlastname" type="text" class="form-control" id="lastname"
-                    placeholder="Nachname">
+                    placeholder="Nachname" onkeydown="return /[a-z]/i.test(event.key)" required>
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
                 <label for="email">E-Mail</label>
-                <input formControlName="customeremail" type="text" class="form-control" id="email"
-                    placeholder="mail@mail.de">
+                <input type="email" formControlName="customeremail" class="form-control" id="email"
+                    placeholder="mail@mail.de"
+                    pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+                    required>
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
                 <label for="adresse">Straße</label>
                 <input formControlName="srcstreetname" type="text" class="form-control" id="adresse"
-                    placeholder="Straße">
+                    placeholder="Straße" onkeydown="return /[a-z]/i.test(event.key)" required>
             </div>
             <div class="col-sm">
                 <label for="number">Hausnummer</label>
-                <input formControlName="srcstreetnumber" type="text" class="form-control" id="number" placeholder="69">
+                <input formControlName="srcstreetnumber" type="text" class="form-control" id="number" placeholder="69"
+                    oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" required>
             </div>
         </div>
         <div class="row">
             <div class="col-sm">
                 <label for="plz">Postleitzahl</label>
-                <input formControlName="srczipcode" type="text" class="form-control" id="plz" placeholder="PLZ">
+                <input formControlName="srczipcode" type="text" class="form-control" id="plz" placeholder="PLZ"
+                    oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" required>
             </div>
             <div class="col-sm">
                 <label for="ort">Ort</label>
-                <input formControlName="srccity" type="text" class="form-control" id="ort" placeholder="Ort">
+                <input formControlName="srccity" type="text" class="form-control" id="ort" placeholder="Ort"
+                    onkeydown="return /[a-z]/i.test(event.key)" required>
             </div>
             <div class="col-sm">
                 <label for="country">Land</label>
-                <input formControlName="srccountry" type="text" class="form-control" id="country" placeholder="Land">
+                <input formControlName="srccountry" type="text" class="form-control" id="country" placeholder="Land"
+                    onkeydown="return /[a-z]/i.test(event.key)" required>
             </div>
         </div>
     </div>
@@ -50,25 +56,30 @@
     <div class="row">
         <div class="col-sm">
             <label for="adresse">Straße</label>
-            <input formControlName="dststreetname" type="text" class="form-control" id="adresse" placeholder="Straße">
+            <input formControlName="dststreetname" type="text" class="form-control" id="adresse" placeholder="Straße"
+                onkeydown="return /[a-z]/i.test(event.key)" required>
         </div>
         <div class="col-sm">
             <label for="number">Hausnummer</label>
-            <input formControlName="dststreetnumber" type="text" class="form-control" id="number" placeholder="69">
+            <input formControlName="dststreetnumber" type="text" class="form-control" id="number" placeholder="69"
+                oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" required>
         </div>
     </div>
     <div class="row">
         <div class="col-sm">
             <label for="plz">Postleitzahl</label>
-            <input formControlName="dstzipcode" type="text" class="form-control" id="plz" placeholder="PLZ">
+            <input formControlName="dstzipcode" type="text" class="form-control" id="plz" placeholder="PLZ"
+                oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" required>
         </div>
         <div class="col-sm">
             <label for="ort">Ort</label>
-            <input formControlName="dstcity" type="text" class="form-control" id="ort" placeholder="Ort">
+            <input formControlName="dstcity" type="text" class="form-control" id="ort" placeholder="Ort"
+                onkeydown="return /[a-z]/i.test(event.key)" required>
         </div>
         <div class="col-sm">
             <label for="country">Land</label>
-            <input formControlName="dstCountry" type="text" class="form-control" id="country" placeholder="Land">
+            <input formControlName="dstCountry" type="text" class="form-control" id="country" placeholder="Land"
+                onkeydown="return /[a-z]/i.test(event.key)" required>
         </div>
     </div>
 
@@ -76,21 +87,25 @@
     <div class="row">
         <div class="col-sm">
             <label for="measure">Länge</label>
-            <input formControlName="depth" type="text" class="form-control" id="measure" placeholder="in cm">
+            <input formControlName="depth" type="text" class="form-control" id="measure" placeholder="in cm"
+                oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" required>
             <label for="measure">Breite</label>
-            <input formControlName="width" type="text" class="form-control" id="measure" placeholder="in cm">
+            <input formControlName="width" type="text" class="form-control" id="measure" placeholder="in cm"
+                oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" required>
             <label for="measure">Höhe</label>
-            <input formControlName="height" type="text" class="form-control" id="measure" placeholder="in cm">
+            <input formControlName="height" type="text" class="form-control" id="measure" placeholder="in cm"
+                oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" required>
         </div>
         <div class="col-sm">
             <label for="weight">Gewicht</label>
-            <input formControlName="weight" type="text" class="form-control" id="weight" placeholder="in gramm">
+            <input formControlName="weight" type="text" class="form-control" id="weight" placeholder="in gramm"
+                oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" required>
         </div>
     </div>
     <div class="row">
         <label for="ispickup">Abholung?</label>
         <select formControlName="ispickup" type="text" class="form-control" id="measispickupure" placeholder="Abholung"
-            value={{delivery.isPickup}} (change)="setIsPickup($event)">
+            value={{delivery.isPickup}} (change)="setIsPickup($event)" required>
             <option value="true">ja</option>
             <option value="false">nein</option>
         </select>
@@ -112,7 +127,7 @@
             </button>
         </div>
         <label for="payment">Zahlungsmethode</label>
-        <select formControlName="payment" type="text" class="form-control" id="payment">
+        <select formControlName="payment" type="text" class="form-control" id="payment" required>
             <option value="PAYPAL">Paypal</option>
             <option value="DIRECT_DEBIT">Überweisung</option>
         </select>

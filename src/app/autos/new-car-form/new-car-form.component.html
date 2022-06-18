@@ -1,16 +1,15 @@
 <form [formGroup]="newCarForm" class="w-100 p-2">
-
     <form [formGroup]="newCarForm" class="w-100 p-2">
         <div class="form-group">
             <div class="row">
                 <div class="col-sm">
                     <label for="idvehicle">Kennzeichen</label>
                     <input value={{car.licenceplate}} formControlName="licenceplate" type="text" class="form-control"
-                        id="licenceplate" placeholder="12345">
+                        id="licenceplate" placeholder="12345" required>
                 </div>
                 <div class="col-sm">
                     <label for="status">Verfügbar</label>
-                    <select value={{car.status}} formControlName="status" class="form-control" id="status">
+                    <select value={{car.status}} formControlName="status" class="form-control" id="status" required>
                         <option value="AVAILABLE">Verfügbar</option>
                         <option value="BROKEN">In Wartung</option>
                     </select>
@@ -18,7 +17,7 @@
                 <div class="col-sm">
                     <label for="lastcheck">Letzte Wartung</label>
                     <input value={{car.lastcheck}} formControlName="lastcheck" class="form-control"
-                        placeholder="yyyy-mm-dd" name="dpFrom" ngbDatepicker #d1="ngbDatepicker">
+                        placeholder="yyyy-mm-dd" name="dpFrom" ngbDatepicker #d1="ngbDatepicker" required>
                     <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-calendar-date" viewBox="0 0 16 16">
@@ -33,7 +32,8 @@
                     <div class="col-sm">
                         <label for="maxvolume">Max. Volumen</label>
                         <input value={{car.maxvolume}} formControlName="maxvolume" type="text" class="form-control"
-                            id="maxvolume" placeholder="1000kg">
+                            id="maxvolume" placeholder="1000kg"
+                            oninput="this.value=this.value.replace(/(?![0-9])./gmi,'')" required>
                     </div>
                 </div>
             </div>

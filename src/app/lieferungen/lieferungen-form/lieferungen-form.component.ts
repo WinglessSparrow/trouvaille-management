@@ -107,6 +107,4 @@ export class LieferungenFormComponent implements OnInit {
   changeDeliveryState() {
     this.deliveryService.changeDeliveryState(this.delivery.packageid, this.deliveryForm.controls.currentState.value);
   }
-
-
 }
