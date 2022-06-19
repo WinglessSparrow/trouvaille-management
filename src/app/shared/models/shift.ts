@@ -10,13 +10,13 @@ export enum ShiftWorkingTimeStatusType{
     WORKING = "working"
 }
 
-interface DayShiftEntry {
+export interface DayShiftEntry {
     status: ShiftWorkingTimeStatusType;
     routeIdRoute: number;
     shift: ShiftType;
 }
 
-interface WeekShiftEntry {
+export interface WeekShiftEntry {
     employeeId: number;
     monday : DayShiftEntry;
     tuesday : DayShiftEntry;
@@ -29,5 +29,12 @@ interface WeekShiftEntry {
 export interface WeekShift {
     year: number;
     calenderWeek: number;
-    entries: Array<WeekShiftEntry>;
+    entries: WeekShiftEntry[];
 }
+
+
+  // tag und id nicht ändern
+  /// INFOS
+  //status nie null
+  //falls status.working darf shift nicht null sein
+  //routeIDroute nicht ändern

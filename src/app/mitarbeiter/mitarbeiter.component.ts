@@ -3,9 +3,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListviewComponent } from '../shared/components/listview/listview.component';
 import { Employee } from '../shared/models/employee';
 import { Group } from '../shared/models/group';
+import { WeekShift } from '../shared/models/shift';
 import { EmployeeService } from '../shared/services/employee-service';
 import { GroupService } from '../shared/services/group-service';
+import { SchedulerService } from '../shared/services/scheduler-service';
 import { WorkerFormComponent } from './worker-form/worker-form.component';
+import DateTime from 'luxon/src/datetime.js'
 
 @Component({
   selector: 'app-mitarbeiter',
@@ -38,9 +41,11 @@ export class MitarbeiterComponent implements OnInit {
 
   groupService;
   employeeService;
-  constructor(eService: EmployeeService, gService: GroupService, private modalService: NgbModal) {
+  schedulerService;
+  constructor(eService: EmployeeService, gService: GroupService, sService: SchedulerService, private modalService: NgbModal) {
     this.employeeService = eService;
     this.groupService = gService;
+    this.schedulerService = sService;
     this.employeeList = this.employeeService.getAllEmployees();
     this.groupList = this.groupService.getAllGroups();
   }
@@ -86,7 +91,6 @@ export class MitarbeiterComponent implements OnInit {
 
       // sets the group swap
       modalRef.componentInstance.showButton1Value.subscribe(($event) => {
-        console.log(this.selectedGroup);
         this.changeEmployeeGroup();
         modalRef.close();
       })

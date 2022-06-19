@@ -21,6 +21,19 @@ export class EmployeeService {
         return employees;
     }
 
+    public async getEmployeIdList() {
+        var idList: number[];
+        const employees : Employee[] = await new Promise<Employee[]>(resolve => {
+            this.http.post<GlobalResponse>("https://td.vvjm.dev/api/v1/employee/filter", {}).subscribe(val => {
+            resolve(val.data[0]);
+          })
+        })
+        employees.forEach(element => {
+            idList.push(element.idemployee);
+        });
+        return idList;
+    }
+
     public changeEmployee(employee: Employee): void {
         this.http.put<GlobalResponse>("https://td.vvjm.dev/api/v1/employee", employee)
             .subscribe();

@@ -1,6 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SuccessPageComponent } from '../../shared/components/success-page/success-page.component';
 import { Employee } from '../../shared/models/employee';
+import { Group } from '../../shared/models/group';
 import { EmployeeService } from '../../shared/services/employee-service';
 
 @Component({
@@ -10,15 +13,13 @@ import { EmployeeService } from '../../shared/services/employee-service';
 })
 
 export class WorkerFormComponent implements OnInit {
-  oldEmployee: Employee;
   employee: Employee;
   employeeService: EmployeeService;
   employeeForm: FormGroup;
 
-  constructor(eService: EmployeeService) {
+  constructor(eService: EmployeeService, private modalService: NgbModal) {
     this.employeeService = eService;
     this.employee = new Employee();
-    this.oldEmployee = new Employee();
 
     this.employeeForm = new FormGroup({
       firstname: new FormControl(),
@@ -29,6 +30,7 @@ export class WorkerFormComponent implements OnInit {
       passwordNew: new FormControl(),
       passwordAgain: new FormControl(),
       employeeStatus: new FormControl(),
+      employeeGroup: new FormControl(),
       birthday: new FormControl()
     });
   }
@@ -38,7 +40,6 @@ export class WorkerFormComponent implements OnInit {
 
   public changeEntrys(e: Employee) {
     this.employee = e;
-    this.oldEmployee = e;
   }
 
   propsToRemove = [
@@ -70,15 +71,24 @@ export class WorkerFormComponent implements OnInit {
     }
     this.employeeService.changeEmployee(this.employee);
     this.employee.text = this.employee.firstname + " " + this.employee.lastname;
+    this.employee.group = new Group();
+    const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
   }
 
-  resetEmployee(employeeForm): void {
-    for (let [key, value] of Object.entries(employeeForm)) {
-      for (let [keyEmployee] of Object.entries(this.oldEmployee)) {
+  toggleEmployee(toggle:boolean) { 
+    for (let [key] of Object.entries(this.employee)) {
+      this.propsToRemove.forEach(element => {
+        delete this.employee[element];
+      });
 
+      if (key == "isdeleted") {
+        this.employee[key] = toggle;
       }
     }
-    this.employee = this.oldEmployee;
+    this.employeeService.changeEmployee(this.employee);
+    this.employee.text = this.employee.firstname + " " + this.employee.lastname;
+    this.employee.group = new Group();
+    const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
   }
 
 }

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { WeekShift, ShiftType, ShiftWorkingTimeStatusType } from '../../shared/models/shift';
+import { ShiftWorkingTimeStatusType, WeekShift } from '../../shared/models/shift';
+import { SchedulerService } from '../../shared/services/scheduler-service';
+import DateTime from 'luxon/src/datetime.js'
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ShiftFormComponent } from './shift-form/shift-form.component';
 
 @Component({
   selector: 'app-scheduler-form',
@@ -7,420 +12,93 @@ import { WeekShift, ShiftType, ShiftWorkingTimeStatusType } from '../../shared/m
   styleUrls: ['./scheduler-form.component.scss']
 })
 export class SchedulerFormComponent implements OnInit {
-  selectedYear: number = 0;
-  selectedWeek: number = 0; //max 52
-
   /// INFOS
   //status nie null
   //falls status.working darf shift nicht null sein
   //routeIDroute nicht ändern
+  weekShift: WeekShift = {
+    year : 0,
+    calenderWeek : 0,
+    entries : []
+  };
+  
+  selectedYear: number = 0;
+  selectedWeek: number = 0; //max 52
 
-  shifts: WeekShift[] = [
-    {
-      "year": 2022,
-      "calenderWeek": 1,
-      "entries": [
-        {
-          "employeeId": 1,
-          "monday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "tuesday": {
-            "status": ShiftWorkingTimeStatusType.UNAVAILABLE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "wednesday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "thursday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "friday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.FIRST
-          },
-          "saturday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.SECOND
-          },
-        },
-        {
-          "employeeId": 2,
-          "monday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "tuesday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "wednesday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "thursday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "friday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.SECOND
-          },
-          "saturday": {
-            "status": ShiftWorkingTimeStatusType.UNAVAILABLE,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.FIRST
-          },
-        },
-        {
-          "employeeId": 12,
-          "monday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 4,
-            "shift":ShiftType.SECOND
-          },
-          "tuesday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 4,
-            "shift":ShiftType.SECOND
-          },
-          "wednesday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 4,
-            "shift":ShiftType.SECOND
-          },
-          "thursday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 4,
-            "shift":ShiftType.SECOND
-          },
-          "friday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute" : 4,
-            "shift":ShiftType.SECOND
-          },
-          "saturday": {
-            "status": ShiftWorkingTimeStatusType.UNAVAILABLE,
-            "routeIdRoute" : 4,
-            "shift":ShiftType.SECOND
-          },
-        },
-        {
-          "employeeId": 4,
-          "monday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 4,
-            "shift":ShiftType.FIRST
-          },
-          "tuesday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 4,
-            "shift":ShiftType.FIRST
-          },
-          "wednesday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 4,
-            "shift":ShiftType.FIRST
-          },
-          "thursday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 4,
-            "shift":ShiftType.FIRST
-          },
-          "friday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute" : 4,
-            "shift":ShiftType.FIRST
-          },
-          "saturday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute" : 4,
-            "shift":ShiftType.FIRST
-          },
-        },
-        {
-          "employeeId": 9,
-          "monday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 6,
-            "shift":ShiftType.FIRST
-          },
-          "tuesday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 6,
-            "shift":ShiftType.FIRST
-          },
-          "wednesday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute": 6,
-            "shift":ShiftType.FIRST
-          },
-          "thursday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute": 6,
-            "shift":ShiftType.FIRST
-          },
-          "friday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute" : 6,
-            "shift":ShiftType.FIRST
-          },
-          "saturday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute" : 6,
-            "shift":ShiftType.FIRST
-          },
-        },
-        {
-          "employeeId": 6,
-          "monday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 6,
-            "shift":ShiftType.SECOND
-          },
-          "tuesday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 6,
-            "shift":ShiftType.SECOND
-          },
-          "wednesday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 6,
-            "shift":ShiftType.SECOND
-          },
-          "thursday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 6,
-            "shift":ShiftType.SECOND
-          },
-          "friday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute" : 6,
-            "shift":ShiftType.SECOND
-          },
-          "saturday": {
-            "status": ShiftWorkingTimeStatusType.UNAVAILABLE,
-            "routeIdRoute" : 6,
-            "shift":ShiftType.SECOND
-          },
-        },
-      ]
-    },
-    {
-      "year": 2021,
-      "calenderWeek": 1,
-      "entries": [
-        {
-          "employeeId": 3,
-          "monday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "tuesday": {
-            "status": ShiftWorkingTimeStatusType.UNAVAILABLE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "wednesday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "thursday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "friday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.SECOND
-          },
-          "saturday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.SECOND
-          },
-        },
-        {
-          "employeeId": 4,
-          "monday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "tuesday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "wednesday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "thursday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "friday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.FIRST
-          },
-          "saturday": {
-            "status": ShiftWorkingTimeStatusType.UNAVAILABLE,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.FIRST
-          },
-        },
-      ]
-    },
-    {
-      "year": 2022,
-      "calenderWeek": 2,
-      "entries": [
-        {
-          "employeeId": 6,
-          "monday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "tuesday": {
-            "status": ShiftWorkingTimeStatusType.UNAVAILABLE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "wednesday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "thursday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "friday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.FIRST
-          },
-          "saturday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.SECOND
-          },
-        },
-        {
-          "employeeId": 5,
-          "monday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "tuesday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "wednesday": {
-            "status": ShiftWorkingTimeStatusType.ACTIVE,
-            "routeIdRoute": 1,
-            "shift":ShiftType.SECOND
-          },
-          "thursday": {
-            "status": ShiftWorkingTimeStatusType.STANDBY,
-            "routeIdRoute": 1,
-            "shift":ShiftType.FIRST
-          },
-          "friday": {
-            "status": ShiftWorkingTimeStatusType.WORKING,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.SECOND
-          },
-          "saturday": {
-            "status": ShiftWorkingTimeStatusType.UNAVAILABLE,
-            "routeIdRoute" : 1,
-            "shift":ShiftType.FIRST
-          },
-        },
-      ]
-    },
-  ];
-
-  currentWeekShift: WeekShift = this.shifts[0];
-
-  years: number[] = [];
-  calenderWeeks: number[] = [];
-
-  ngOnInit(): void {
-    // set default year
-    if (this.shifts.length > 0) {
-      this.selectedYear = this.shifts[0].year;
-      this.selectedWeek = this.shifts[0].calenderWeek;
-      
-      //select years
-      this.shifts.forEach(element => {
-        if (!this.years.includes(element.year)){
-          this.years.push(element.year);
-        }
-      });
-
-      this.onChange(this.selectedYear);
-    }
-    this.changeWeek();
+  constructor(private schedulerService: SchedulerService, private sanitizer: DomSanitizer, private modalService: NgbModal) {
   }
 
-  //changes list of cw
-  onChange(year: number) {
-    this.selectedYear = year;
-
-    this.calenderWeeks.length = 0;
-    this.shifts.forEach(element => {
-      if (element.year == this.selectedYear) {
-        if (!this.calenderWeeks.includes(element.calenderWeek)){
-          this.calenderWeeks.push(element.calenderWeek);
-        }
-      }
-    });
+  ngOnInit() {
+    this.selectedWeek = DateTime.now().weekNumber;
+    this.selectedYear = DateTime.now().year;
+    this.getWeekShift(this.selectedYear, this.selectedWeek);
   }
 
-  onChangeWeek(week: number) {
-    this.selectedWeek = week;
-  }
-
-  changeWeek() {
-    this.shifts.forEach(element => {
-      if (element.calenderWeek == this.selectedWeek && element.year == this.selectedYear) {
-        this.currentWeekShift = element;
-      }
-    });
+  public async getWeekShift(y: number, cw: number) {
+    this.weekShift = await this.schedulerService.getWeekShiftAsync(y, cw);
   }
 
   // tag und id nicht ändern
   changeEntry(index: number) {
-    console.log(index);
+    const modalRef = this.modalService.open(ShiftFormComponent, { centered: true });
+    modalRef.componentInstance.weekShiftEntry = this.weekShift.entries[index];
+    modalRef.componentInstance.weekShift = this.weekShift;
+    modalRef.componentInstance.shiftEntryIndex = index;
   }
 
-  deleteEntry(index: number) {
-    console.log(index);
+  increaseWeek() {
+    if (this.selectedWeek == 52) {
+      this.selectedWeek = 1;
+      this.selectedYear++;
+    } else {
+      this.selectedWeek++;
+    }
+    this.getWeekShift(this.selectedYear, this.selectedWeek);
   }
+
+  decreaseWeek() {
+    if (this.selectedWeek == 1) {
+      this.selectedWeek = 52;
+      this.selectedYear--;
+    } else {
+      this.selectedWeek--;
+    }
+    this.getWeekShift(this.selectedYear, this.selectedWeek);
+  }
+
+  TimeStatusController(status: string) {
+    let button: string;
+    switch (status) {
+      case "ACTIVE":
+        button = "<button disabled type='button' class='btn btn-outline-success'>aktiv</button>"
+        break;
+      case "UNAVAILABLE":
+        button = "<button disabled type='button' class='btn btn-outline-danger'>nicht verfügbar</button>"
+        break;
+      case "STANDBY":
+        button = "<button disabled type='button' class='btn btn-outline-success text-black'>bereitschaft</button>"
+        break;
+      case "WORKING":
+        button = "<button disabled type='button' class='btn btn-outline-primary'>arbeiten</button>"
+        break;
+    }
+    return this.sanitizer.bypassSecurityTrustHtml(button);
+  }
+
+  ShiftTypeController(status: string) {
+    let button: string;
+    switch (status) {
+      case "FIRST":
+        button = "<button disabled type='button' class='btn btn-outline-info text-black'>früh</button>"
+        break;
+      case "SECOND":
+        button = "<button disabled type='button' class='btn btn-outline-dark'>spät</button>"
+        break;
+      default:
+        button = "";
+        break;
+    }
+    return this.sanitizer.bypassSecurityTrustHtml(button);
+  }
+
 }

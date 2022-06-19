@@ -43,6 +43,7 @@ export class DriverHistoryComponent implements OnInit {
 
   ngOnInit() {
     if (this.carid) this.getDriverHistory(this.carid);
+    console.log("test log: ", this.driverHistoryList);
   }
 
 }

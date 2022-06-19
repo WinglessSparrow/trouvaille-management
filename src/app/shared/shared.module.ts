@@ -11,9 +11,10 @@ import { SubnavbarComponent } from './components/subnavbar/subnavbar.component';
 import { ListviewComponent } from './components/listview/listview.component';
 import { ScannerComponent } from './components/scanner/scanner.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { SuccessPageComponent } from './components/success-page/success-page.component';
 
 @NgModule({
-  declarations: [PageNotFoundComponent, WebviewDirective, SubnavbarComponent, ListviewComponent, ScannerComponent, ErrorPageComponent],
+  declarations: [PageNotFoundComponent, WebviewDirective, SubnavbarComponent, ListviewComponent, ScannerComponent, ErrorPageComponent, SuccessPageComponent],
   imports: [CommonModule, TranslateModule, FormsModule, NgbModule],
   exports: [TranslateModule, WebviewDirective, FormsModule, SubnavbarComponent, ListviewComponent, ScannerComponent]
 })

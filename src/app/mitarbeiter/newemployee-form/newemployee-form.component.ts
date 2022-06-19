@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Employee } from '../../shared/models/employee';
 import { EmployeeService } from '../../shared/services/employee-service';
 
@@ -15,25 +15,35 @@ export class NewemployeeFormComponent implements OnInit {
   employeeService: EmployeeService;
   employeeForm: FormGroup;
 
+  firstname: FormControl;
+  lastname: FormControl;
+  email: FormControl;
+  phonenumber: FormControl;
+  targetweeklyworkinghours: FormControl;
+  password: FormControl;
+  passwordAgain: FormControl;
+  employeeStatus: FormControl;
+  birthday: FormControl;
+  groupIdgroup: FormControl;  
+
   constructor(eService: EmployeeService) {
     this.employeeService = eService;
     this.employee = new Employee();
-
-    this.employeeForm = new FormGroup({
-      firstname: new FormControl(),
-      lastname: new FormControl(),
-      email: new FormControl(),
-      phonenumber: new FormControl(),
-      targetweeklyworkinghours: new FormControl(),
-      password: new FormControl(),
-      passwordAgain: new FormControl(),
-      employeeStatus: new FormControl(),
-      birthday: new FormControl(),
-      groupIdgroup: new FormControl()
-    });
   }
 
   ngOnInit(): void {
+    this.employeeForm = new FormGroup({
+      firstname: new FormControl(this.firstname,[Validators.required, Validators.minLength(4)]),
+      lastname: new FormControl(this.lastname,Validators.required),
+      email: new FormControl(this.email,[Validators.required, Validators.email]),
+      phonenumber: new FormControl(this.phonenumber),
+      targetweeklyworkinghours: new FormControl(this.targetweeklyworkinghours),
+      password: new FormControl(this.password,Validators.required),
+      passwordAgain: new FormControl(this.passwordAgain,Validators.required),
+      employeeStatus: new FormControl(this.employeeStatus),
+      birthday: new FormControl(this.birthday),
+      groupIdgroup: new FormControl(this.groupIdgroup,Validators.required)
+    });
   }
 
   propsToRemove = [

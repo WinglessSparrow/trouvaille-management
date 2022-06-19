@@ -1,0 +1,36 @@
+<form [formGroup]="shiftForm">
+  <div class="container">
+    <div class="row mb-5">
+      <p class="mt-2">Mitarbeiter-ID: {{weekShiftEntry.employeeId}}</p>
+      <div *ngFor="let w of weeks ; let i = index">
+        <h2>{{w}}</h2>
+        <hr>
+        <div class="col-sm">
+          <select class="form-select" [formControlName]="statusControlNames[i]">
+            <option [selected]="selected('STANDBY', dayShiftEntries[i].status)" value="STANDBY">bereitschaft
+            </option>
+            <option [selected]="selected('UNAVAILABLE', dayShiftEntries[i].status)" value="UNAVAILABLE">nicht
+              verfügbar</option>
+            <option [selected]="selected('ACTIVE', dayShiftEntries[i].status)" value="ACTIVE">aktiv
+            </option>
+            <option [selected]="selected('WORKING', dayShiftEntries[i].status)" value="WORKING">arbeiten</option>
+          </select>
+        </div>
+        <div class="col-sm">
+          <select class="form-select" [formControlName]="shiftControlNames[i]">
+            <option [selected]="selected('FIRST', dayShiftEntries[i].shift)" value="FIRST">früh</option>
+            <option [selected]="selected('SECOND', dayShiftEntries[i].shift)" value="SECOND">spät</option>
+            <option value="">keine Auswahl</option>
+          </select>
+        </div>
+      </div>
+      <p [hidden]="errorHidden" id="errorMessage" class="text-danger mt-2">Status: "arbeiten" ausgewählt, bitte eine
+        zugehörige Schicht auswählen!</p>
+    </div>
+
+
+
+    <button (click)="changeShiftEntry()"
+      class="btn-primary position-absolute bottom-0 end-0 me-2 mb-2">speichern</button>
+  </div>
+</form>
