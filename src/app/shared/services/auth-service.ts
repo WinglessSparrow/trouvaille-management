@@ -63,14 +63,11 @@ export class AuthService {
     public getUserData(): UserData {
         const userData = window.sessionStorage.getItem(USER_KEY);
         if (userData) {
-
-            console.log(JSON.parse(userData));
             return JSON.parse(userData);
         }
         return null;
     }
 
-    //todo: exp.date
     public isAuthenticated(): boolean {
         if (this.getToken()) {
             return true;

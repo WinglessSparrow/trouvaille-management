@@ -11,4 +11,9 @@ export class Employee {
     isdeleted: boolean = false;
     targetweeklyworkinghours: number = 0;
     inactiveList: any[];
+    group: Group = new Group();
+}
+
+class Group { 
+    groupname: string = "";
 }

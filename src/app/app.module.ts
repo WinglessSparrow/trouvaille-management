@@ -44,6 +44,9 @@ import { DeliveryHistoryComponent } from "./lieferungen/delivery-history/deliver
 import { RouteViewComponent } from './routen/route-view/route-view.component';
 import { SchedulerFormComponent } from "./mitarbeiter/scheduler-form/scheduler-form.component";
 import { HttpErrorInterceptor } from "./shared/services/http-error.interceptor";
+import { SchedulerService } from "./shared/services/scheduler-service";
+import { CommonModule } from "@angular/common";
+import { ShiftFormComponent } from "./mitarbeiter/scheduler-form/shift-form/shift-form.component";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -56,7 +59,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     NewCarFormComponent,
     DriverHistoryComponent,
     RouteViewComponent,
-    SchedulerFormComponent],
+    SchedulerFormComponent,
+    ShiftFormComponent],
   imports: [
     ReactiveFormsModule,
     BrowserModule,
@@ -67,6 +71,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     DetailModule,
     LoginModule,
     AppRoutingModule,
+    CommonModule,
 
     TranslateModule.forRoot({
       loader: {
@@ -83,8 +88,9 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     EmployeeService,
     GroupService,
     DeliveryService,
+    SchedulerService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+    //{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

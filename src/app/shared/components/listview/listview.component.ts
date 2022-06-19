@@ -68,7 +68,6 @@ export class ListviewComponent implements OnInit {
     if (this.searchTerm) {
       this.list = this.filterByValue(this.list, this.searchTerm);
     } else {
-      console.log(this.searchTerm)
       this.list = this.tmpList.filter(() => true);
     }
 

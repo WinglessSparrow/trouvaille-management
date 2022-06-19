@@ -3,22 +3,23 @@
 
 <div class="d-flex flex-row">
     <div class="row gx-2">
-
         <div class="col">
-            <select [ngModel]="selectedYear" (ngModelChange)="onChange($event)" class="browser-default custom-select">
-                <option *ngFor="let year of years" [value]="year">{{year}}</option>
-            </select>
+            <p>Jahr: {{selectedYear}} Woche: {{selectedWeek}}</p>
         </div>
 
-        <div class="col">
-            <select [ngModel]="selectedWeek" (ngModelChange)="onChangeWeek($event)"
-                class="browser-default custom-select">
-                <option *ngFor="let cw of calenderWeeks" [value]="cw">{{cw}}</option>
-            </select>
-        </div>
-
-        <div class="col">
-            <button (click)="changeWeek()" class="btn-primary">Filtern</button>
+        <div class="col mt-2">
+            <button (click)="decreaseWeek()" type="button" class="btn btn-outline-primary me-2"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z" />
+                </svg></button>
+            <button (click)="increaseWeek()" type="button" class="btn btn-outline-primary"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                    class="bi bi-arrow-right-square" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm4.5 5.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z" />
+                </svg></button>
         </div>
     </div>
 </div>
@@ -37,61 +38,40 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let entry of currentWeekShift.entries; let i = index">
+        <tr *ngFor="let entry of weekShift.entries; let i = index">
             <th scope="row">{{entry.employeeId}}</th>
-            <td [ngClass]="{
-        'bg-success': entry.monday.shift == 'first',
-        'bg-info': entry.monday.shift == 'second' }">
-                [{{ (entry.monday.shift).substring(0,1).toUpperCase() }}]
-                R.ID:
-                {{ (entry.monday.routeIdRoute) }}
-                {{ (entry.monday.status) }}
+            <td>
+                <div [innerHTML]='ShiftTypeController(entry.monday.shift)'>
+                </div>
+                <div [innerHTML]='TimeStatusController(entry.monday.status)'></div>
+                {{entry.monday.routeIdRoute ? "Route: "+entry.monday.routeIdRoute : ""}}
             </td>
-
-            <td [ngClass]="{
-        'bg-success': entry.tuesday.shift == 'first',
-        'bg-info': entry.tuesday.shift == 'second' }">
-                [{{ (entry.tuesday.shift).substring(0,1).toUpperCase() }}]
-                R.ID:
-                {{ (entry.tuesday.routeIdRoute) }}
-                {{ (entry.tuesday.status) }}
+            <td>
+                <div [innerHTML]='ShiftTypeController(entry.tuesday.shift)'>
+                </div>
+                <div [innerHTML]='TimeStatusController(entry.tuesday.status)'></div>
+                {{entry.tuesday.routeIdRoute ? "Route: "+entry.tuesday.routeIdRoute : ""}}
             </td>
-
-            <td [ngClass]="{
-        'bg-success': entry.wednesday.shift == 'first',
-        'bg-info': entry.wednesday.shift == 'second' }">
-                [{{ (entry.wednesday.shift).substring(0,1).toUpperCase() }}]
-                R.ID:
-                {{ (entry.wednesday.routeIdRoute) }}
-                {{ (entry.wednesday.status) }}
-            </td>
-
-            <td [ngClass]="{
-        'bg-success': entry.thursday.shift == 'first',
-        'bg-info': entry.thursday.shift == 'second' }">
-                [{{ (entry.thursday.shift).substring(0,1).toUpperCase() }}]
-                R.ID:
-                {{ (entry.thursday.routeIdRoute) }}
-                {{ (entry.thursday.status) }}
-            </td>
-
-            <td [ngClass]="{
-        'bg-success': entry.friday.shift == 'first',
-        'bg-info': entry.friday.shift == 'second' }">
-                [{{ (entry.friday.shift).substring(0,1).toUpperCase() }}]
-                R.ID:
-                {{ (entry.friday.routeIdRoute) }}
-                {{ (entry.friday.status) }}
-            </td>
-
-            <td [ngClass]="{
-        'bg-success': entry.saturday.shift == 'first',
-        'bg-info': entry.saturday.shift == 'second' }">
-                [{{ (entry.saturday.shift).substring(0,1).toUpperCase() }}]
-                R.ID:
-                {{ (entry.saturday.routeIdRoute) }}
-                {{ (entry.saturday.status) }}
-            </td>
+            <td>
+                <div [innerHTML]='ShiftTypeController(entry.wednesday.shift)'>
+                </div>
+                <div [innerHTML]='TimeStatusController(entry.wednesday.status)'></div>
+                {{entry.wednesday.routeIdRoute ? "Route: "+entry.wednesday.routeIdRoute : ""}}
+            <td>
+                <div [innerHTML]='ShiftTypeController(entry.thursday.shift)'>
+                </div>
+                <div [innerHTML]='TimeStatusController(entry.thursday.status)'></div>
+                {{entry.thursday.routeIdRoute ? "Route: "+entry.thursday.routeIdRoute : ""}}
+            <td>
+                <div [innerHTML]='ShiftTypeController(entry.friday.shift)'>
+                </div>
+                <div [innerHTML]='TimeStatusController(entry.friday.status)'></div>
+                {{entry.friday.routeIdRoute ? "Route: "+entry.friday.routeIdRoute : ""}}
+            <td>
+                <div [innerHTML]='ShiftTypeController(entry.saturday.shift)'>
+                </div>
+                <div [innerHTML]='TimeStatusController(entry.saturday.status)'></div>
+                {{entry.saturday.routeIdRoute ? "Route: "+entry.saturday.routeIdRoute : ""}}
 
             <td class="overflow-hidden">
                 <div ngbDropdown container="body">
@@ -108,17 +88,6 @@
                                     d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                             </svg>
                             ändern
-                        </button>
-                        <div class="dropdown-divider"></div>
-                        <button (click)="deleteEntry(i)" ngbDropdownItem>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-trash" viewBox="0 0 16 16">
-                                <path
-                                    d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                <path fill-rule="evenodd"
-                                    d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                            </svg>
-                            löschen
                         </button>
                     </div>
                 </div>

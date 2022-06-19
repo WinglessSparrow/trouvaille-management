@@ -48,9 +48,9 @@
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
-                <label for="employeeStatus">nicht Aktiv</label>
-                <input ng-disabled="all" type="text" class="form-control" formControlName="employeeStatus"
-                    placeholder="aktiv" value="">
+                <label for="employeeGroup">Gruppe</label>
+                <input [readonly]="true" type="text" class="form-control" formControlName="employeeGroup"
+                    placeholder="Driver" value="{{employee.group.groupname}}">
             </div>
             <div class="col-sm">
                 <label for="birthday">Geburtstag</label>
@@ -60,20 +60,23 @@
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="statusSelect">Fahrerstatus</label>
-        <select class="form-control" style="width:auto;" id="statusSelect">
-            <option>Platzhalter</option>
-            <option>Platzhalter2</option>
-            <option>Platzhalter3</option>
-        </select>
+    <div hidden class="form-group">
+        <div class="row">
+            <div class="col-sm">
+                <label for="employeeStatus">Status</label>
+                <input [readonly]="true" type="text" class="form-control" formControlName="employeeStatus"
+                    placeholder="aktiv" value="">
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
-        <button id="disableWorker" class="btn btn-danger mr-3 mt-3 mb-3">Mitarbeiter deaktiveren</button>
+        <button *ngIf="!employee.isdeleted" (click)="toggleEmployee(true)" id="disableWorker"
+            class="btn btn-danger mr-3 mt-3 mb-3">Mitarbeiter deaktiveren</button>
+        <button *ngIf="employee.isdeleted" (click)="toggleEmployee(false)" id="activateWorker"
+            class="btn btn-warning mr-3 mt-3 mb-3">Mitarbeiter aktivieren</button>
         <div class="float-end">
-            <button (click)="resetEmployee(employeeForm.value)" id="cancle"
-                class="btn btn-danger m-3">Abbrechen</button>
+            <button hidden id="cancle" class="btn btn-danger m-3">Abbrechen</button>
             <button (click)="changeEmployee(employeeForm.value)" type="submit" id="save"
                 class="btn btn-primary m-3">Speichern</button>
         </div>
