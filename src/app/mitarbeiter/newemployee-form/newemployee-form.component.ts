@@ -15,7 +15,6 @@ export class NewemployeeFormComponent implements OnInit {
   employeeService: EmployeeService;
   employeeForm: FormGroup;
 
-  firstname: FormControl;
   lastname: FormControl;
   email: FormControl;
   phonenumber: FormControl;
@@ -26,6 +25,8 @@ export class NewemployeeFormComponent implements OnInit {
   birthday: FormControl;
   groupIdgroup: FormControl;  
 
+  get firstname() { return this.employeeForm.get('firstname'); }
+
   constructor(eService: EmployeeService) {
     this.employeeService = eService;
     this.employee = new Employee();
@@ -33,7 +34,7 @@ export class NewemployeeFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeForm = new FormGroup({
-      firstname: new FormControl(this.firstname,[Validators.required, Validators.minLength(4)]),
+      firstname: new FormControl(null,[Validators.required, Validators.minLength(4)]),
       lastname: new FormControl(this.lastname,Validators.required),
       email: new FormControl(this.email,[Validators.required, Validators.email]),
       phonenumber: new FormControl(this.phonenumber),
