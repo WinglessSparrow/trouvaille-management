@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Delivery } from '../../shared/models/delivery';
-import { Employee } from '../../shared/models/employee';
 import { DeliveryService } from '../../shared/services/delivery-service';
 
 @Component({
@@ -22,25 +21,25 @@ export class NeuesPaketFormComponent implements OnInit {
     this.delivery = new Delivery();
 
     this.newDeliveryForm = new FormGroup({
-      customerfirstname: new FormControl(),
-      customerlastname: new FormControl(),
-      customeremail: new FormControl(),
-      srcstreetname: new FormControl(),
-      srcstreetnumber: new FormControl(),
-      srczipcode: new FormControl(),
-      srccity: new FormControl(),
-      srccountry: new FormControl(),
-      dststreetname: new FormControl(),
-      dststreetnumber: new FormControl(),
-      dstzipcode: new FormControl(),
-      dstcity: new FormControl(),
-      dstCountry: new FormControl(),
-      depth: new FormControl(),
-      width: new FormControl(),
-      height: new FormControl(),
-      weight: new FormControl(),
-      ispickup: new FormControl(),
-      payment: new FormControl(),
+      customerfirstname: new FormControl(null, Validators.required),
+      customerlastname: new FormControl(null, Validators.required),
+      customeremail: new FormControl(null, Validators.required),
+      srcstreetname: new FormControl(null, Validators.required),
+      srcstreetnumber: new FormControl(null, Validators.required),
+      srczipcode: new FormControl(null, Validators.required),
+      srccity: new FormControl(null, Validators.required),
+      srccountry: new FormControl(null, Validators.required),
+      dststreetname: new FormControl(null, Validators.required),
+      dststreetnumber: new FormControl(null, Validators.required),
+      dstzipcode: new FormControl(null, Validators.required),
+      dstcity: new FormControl(null, Validators.required),
+      dstCountry: new FormControl(null, Validators.required),
+      depth: new FormControl(null, Validators.required),
+      width: new FormControl(null, Validators.required),
+      height: new FormControl(null, Validators.required),
+      weight: new FormControl(null, Validators.required),
+      ispickup: new FormControl(null, Validators.required),
+      payment: new FormControl(null, Validators.required),
       pickupDate: new FormControl(),
     });
   }
@@ -97,17 +96,12 @@ export class NeuesPaketFormComponent implements OnInit {
       datebuilder = newDeliveryForm.pickupDate.year + "-" + tempmonth + "-" + newDeliveryForm.pickupDate.day + "T00:00:00.000Z";
       this.delivery.pickupDate = datebuilder;
     }
-
-    console.log("pickupdate: ", this.delivery.pickupDate)
     this.propsToRemove.forEach(element => {
       delete this.delivery[element];
     });
-    console.log("isPickup?", this.delivery.isPickup);
     if (newDeliveryForm.isPickup === "false") {
       delete this.delivery["pickupDate"];
     }
-    console.log("pickupdate: ", this.delivery.pickupDate)
-    console.log("post del: ", this.delivery);
     await this.deliveryService.createDelivery(this.delivery);
     this.lieferungenList = await this.deliveryService.getAllDeliveries();
   }

@@ -37,8 +37,6 @@ export class ScannerComponent implements OnInit, OnDestroy {
   private videoElement: any;
 
   ngOnInit(): void {
-    console.log("ngoninit");
-
   }
 
   ngOnDestroy() {
@@ -107,8 +105,6 @@ export class ScannerComponent implements OnInit, OnDestroy {
 
       //check if any found
       if (code != null) {
-        console.log('QRcode: ' + code.data);
-
         //stop the vot... scanning
         this.isActive = false;
 

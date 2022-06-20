@@ -74,8 +74,6 @@ export class CarService {
   }
 
   public changeCar(car: Car) {
-    console.log("changed car");
-    console.log(car);
     delete car.text;
     this.http.put<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car).subscribe();
   }

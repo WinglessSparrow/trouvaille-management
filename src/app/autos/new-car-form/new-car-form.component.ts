@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Car } from '../../shared/models/car';
 import { CarService } from '../../shared/services/car-service';
 
@@ -21,11 +21,11 @@ export class NewCarFormComponent implements OnInit {
 
     this.newCarForm = new FormGroup({
       nextcheck: new FormControl(),
-      licenceplate: new FormControl(),
-      status: new FormControl(),
+      licenceplate: new FormControl(null, Validators.required),
+      status: new FormControl(null, Validators.required),
       isdeleted: new FormControl(),
-      maxvolume: new FormControl(),
-      lastcheck: new FormControl(),
+      maxvolume: new FormControl(null, Validators.required),
+      lastcheck: new FormControl(null, Validators.required),
     });
   }
 
@@ -39,6 +39,10 @@ export class NewCarFormComponent implements OnInit {
   }
 
   public createCar(newCarForm): void {
+    if (!this.areAllInputsValid()) {
+      console.log("not all inputs valid!");
+      return;
+    }
     this.car.licenceplate = newCarForm.licenceplate;
     this.car.status = newCarForm.status;
     this.car.isdeleted = newCarForm.isdeleted;
@@ -69,6 +73,15 @@ export class NewCarFormComponent implements OnInit {
     });
 
     this.carService.createCar(this.car);
+  }
+
+  areAllInputsValid() {
+    for (let el in this.newCarForm.controls) {
+      if (this.newCarForm.controls[el].errors) {
+        return false;
+      }
+    }
+    return true;
   }
 
   ngOnInit(): void {

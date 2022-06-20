@@ -24,7 +24,6 @@ export class RouteViewComponent implements OnInit {
 
   public initMap(): void {
     this.waypoints = [];
-    console.log("initmap called");
     this.map = L.map('map', {
       center: this.centroid,
       zoom: 12
