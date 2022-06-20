@@ -1,18 +1,14 @@
 <form [formGroup]="employeeForm" (ngSubmit)="createEmployee(employeeForm.value)" class="w-100 p-2">
     <div class="form-group">
         <label for="firstname">Vorname</label>
-        <input type="text" class="form-control" formControlName="firstname" placeholder="Max"
+        <input id="firstname" type="text" class="form-control" formControlName="firstname" placeholder="Max"
             value={{employee.firstname}} required>
         <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
-            <p>Name is required.</p>
             <div *ngIf="firstname.errors?.['required']">
-                <p>Name is required.</p>
+                <p>Vorname darf nicht leer sein.</p>
             </div>
             <div *ngIf="firstname.errors?.['minlength']">
-                Name must be at least 4 characters long.
-            </div>
-            <div *ngIf="firstname.errors?.['forbiddenName']">
-                Name cannot be Bob.
+                Vorname muss mindestens 4 Zeichen lang sein.
             </div>
         </div>
     </div>
