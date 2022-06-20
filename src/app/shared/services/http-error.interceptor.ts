@@ -40,7 +40,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 
   private handleBackendError(error: BackendError, err): void {
     const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
-    err.title = "Oops! Something went wrong."
+    err.title = "Oops! Etwas ist schiefgelaufen."
     modalRef.componentInstance.error = err;
   }
 }
