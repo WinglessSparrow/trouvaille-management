@@ -47,7 +47,6 @@ export class CarFormComponent implements OnInit {
   }
 
   saveCar() {
-    console.log(this.carForm);
     for (let [key, value] of Object.entries(this.carForm)) {
       for (let [keyOld] of Object.entries(this.car)) {
         if (key === keyOld) {

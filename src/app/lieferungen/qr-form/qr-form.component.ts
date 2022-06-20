@@ -24,7 +24,6 @@ export class QrFormComponent implements OnInit {
   }
 
   sendQRToForm($event) {
-    console.log("QR CODE?", $event)
     this.qrSend.emit($event);
   }
 }
