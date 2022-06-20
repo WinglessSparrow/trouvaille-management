@@ -4,13 +4,16 @@ import { Delivery } from '../models/delivery';
 import { GlobalResponse } from "../models/global-response";
 import { firstValueFrom } from 'rxjs';
 import { HistoryEntry } from '../models/historyEntry';
+import { BackendError } from '../models/error-message';
+import { ErrorPageComponent } from '../components/error-page/error-page.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DeliveryService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private modalService: NgbModal) { }
 
   public async getDeliveriesCount(): Promise<number> {
     var deliveriesCount;
@@ -56,7 +59,12 @@ export class DeliveryService {
     const delivery: Delivery = await new Promise<Delivery>(resolve => {
       this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/" + id).subscribe(val => {
         resolve(val.data[0]);
-      })
+      },
+        error => {
+          var errorMessage: BackendError = { title: "Oops! Etwas ist schief gelaufen..", error: { message: "message", warnings: ["Diese Lieferungen-ID existiert nicht."] } }
+          const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
+          modalRef.componentInstance.error = errorMessage;
+        })
     })
     return delivery;
   }
@@ -68,7 +76,8 @@ export class DeliveryService {
 
         historyEntries = val.data[0];
         resolve(val);
-      })
+      },
+      )
     })
     return historyEntries;
   }

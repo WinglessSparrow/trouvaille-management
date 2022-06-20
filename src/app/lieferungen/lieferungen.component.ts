@@ -84,7 +84,8 @@ export class LieferungenComponent implements OnInit {
   async showFormByQR($event) {
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
-    const lieferung = await this.deliveryService.getOne($event).then(del => console.log("del:", del));
+    var lieferung;
+    await this.deliveryService.getOne($event).then(del => lieferung = del);
     this.itemDetails(lieferung);
     document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
   }
