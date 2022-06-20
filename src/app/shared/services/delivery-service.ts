@@ -61,7 +61,7 @@ export class DeliveryService {
         resolve(val.data[0]);
       },
         error => {
-          var errorMessage: BackendError = { title: "Oops! Something went wrong..", error: { message: "message", warnings: ["This delivery-id does not exist."] } }
+          var errorMessage: BackendError = { title: "Oops! Etwas ist schief gelaufen..", error: { message: "message", warnings: ["Diese Lieferungen-ID existiert nicht."] } }
           const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
           modalRef.componentInstance.error = errorMessage;
         })
