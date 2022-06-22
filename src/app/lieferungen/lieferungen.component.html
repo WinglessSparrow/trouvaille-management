@@ -9,7 +9,8 @@
                 <app-lieferungen-form id="lieferungenForm" (closedForm)="showScannerFunc($event)"
                     (clickedHistoryEvent)="showHistoryForm($event)">
                 </app-lieferungen-form>
-                <app-qr-form id="qrForm" (showButton2Value)="showScannerFunc($event)" (closeQrForm)="openFirst($event)"
+                <app-qr-form id="qrForm" (showButton2Value)="showScannerFunc($event)"
+                    (itemEvent)="itemDetailsStringEvent()" (closeQrForm)="openFirst($event)"
                     (qrSend)="showFormByQR($event)">
                 </app-qr-form>
                 <app-neues-paket-form id="neuesPaketForm" (closeNewPackageForm)="openFirst($event)"

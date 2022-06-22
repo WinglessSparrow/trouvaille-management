@@ -73,15 +73,12 @@ export class DeliveryService {
   }
 
   public async getOne(id: String) {
+    console.log("getone?=???")
     const delivery: Delivery = await new Promise<Delivery>(resolve => {
       this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/" + id).subscribe(val => {
         resolve(val.data[0]);
-      },
-        error => {
-          var errorMessage: BackendError = { title: "Oops! Etwas ist schief gelaufen..", error: { message: "message", warnings: ["Diese Lieferungen-ID existiert nicht."] } }
-          const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
-          modalRef.componentInstance.error = errorMessage;
-        })
+      }
+      )
     })
     return delivery;
   }

@@ -92,7 +92,7 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     DeliveryService,
     SchedulerService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    //{ provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

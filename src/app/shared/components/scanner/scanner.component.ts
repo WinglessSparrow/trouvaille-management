@@ -60,7 +60,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: 'environment' },
     }).catch(e => {
-      var error: BackendError = { title: "Oops! etwas ist schiefgelaufen..", error: { message: "message", warnings: ["Versuchen Sie, ihre Webcam einzuschalten und ihrem Browser Zugriff zu ermöglichen."] } }
+      var error: BackendError = { title: "Oops! etwas ist schiefgelaufen..", error: { warnings: ["Versuchen Sie, ihre Webcam einzuschalten und ihrem Browser Zugriff zu ermöglichen."], error: { error: "asdf", message: "asdf" } } }
       const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
       modalRef.componentInstance.error = error;
     });

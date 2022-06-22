@@ -75,6 +75,7 @@ export class LieferungenComponent implements OnInit {
   }
 
   async showFormByQR($event) {
+    console.log("showbyqrform?")
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
     var lieferung;
