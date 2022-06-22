@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { Route } from '../../shared/models/route';
+//import { RouteMarker } from 'leaflet/dist/images/marker-icon.png'
 
 @Component({
   selector: 'app-route-view',

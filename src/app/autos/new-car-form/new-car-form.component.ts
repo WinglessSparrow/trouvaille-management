@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Car } from '../../shared/models/car';
 import { CarService } from '../../shared/services/car-service';
 
@@ -14,8 +15,9 @@ export class NewCarFormComponent implements OnInit {
   carService: CarService;
 
   @Output() showButton1Value = new EventEmitter<boolean>(false);
+  @Output() carCreated = new EventEmitter<Car | boolean>();
 
-  constructor(cService: CarService) {
+  constructor(cService: CarService, private modalService: NgbModal) {
     this.carService = cService;
     this.car = new Car();
 
@@ -38,9 +40,10 @@ export class NewCarFormComponent implements OnInit {
     this.showButton1Value.emit(false);
   }
 
-  public createCar(newCarForm): void {
+  public async createCar(newCarForm): Promise<void> {
     if (!this.areAllInputsValid()) {
       console.log("not all inputs valid!");
+      this.modalService.open("Nicht alle Felder sind (korrekt) gefüllt.Füllen Sie alle Felder aus und überprüfen Sie die rot markierten Felder.", { centered: true });
       return;
     }
     this.car.licenceplate = newCarForm.licenceplate;
@@ -72,7 +75,17 @@ export class NewCarFormComponent implements OnInit {
       delete this.car[element];
     });
 
-    this.carService.createCar(this.car);
+    var isCreated: boolean = await this.carService.createCar(this.car);
+    console.log(isCreated);
+    if (isCreated) {
+      this.car.text = "Auto: " + this.car.licenceplate;
+      this.carCreated.emit(this.car);
+    }
+    else {
+      this.carCreated.emit(false);
+    }
+
+
   }
 
   areAllInputsValid() {

@@ -1,7 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { isThisTypeNode } from 'typescript/lib/tsserverlibrary';
 import { Car } from '../../shared/models/car';
 import { CarService } from '../../shared/services/car-service';
+import { DeleteCarModalComponent } from '../delete-car-modal/delete-car-modal.component';
 
 @Component({
   selector: 'app-car-form',
@@ -15,8 +18,9 @@ export class CarFormComponent implements OnInit {
   carForm: FormGroup;
   @Output() showButton1Value = new EventEmitter<boolean>(false);
   @Output() showDriverHistory = new EventEmitter<Number>(false);
+  @Output() deleteFromList = new EventEmitter<number>();
 
-  constructor(cService: CarService) {
+  constructor(cService: CarService, private modalService: NgbModal) {
     this.carService = cService;
     this.car = new Car();
 
@@ -43,7 +47,15 @@ export class CarFormComponent implements OnInit {
   }
 
   deactivateCar() {
-    this.carService.deactivateCar(this.car.idvehicle);
+    // call modal here, give car id
+    const modalRef = this.modalService.open(DeleteCarModalComponent, { centered: true, size: "l" });
+    modalRef.componentInstance.carid = this.car.idvehicle;
+    modalRef.result.then(
+      (data: number) => {
+        console.log("modal closed with carid: ", data);
+        this.deleteFromList.emit(this.car.idvehicle);
+      },
+      (reason: any) => { });
   }
 
   saveCar() {

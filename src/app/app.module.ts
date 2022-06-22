@@ -47,6 +47,7 @@ import { HttpErrorInterceptor } from "./shared/services/http-error.interceptor";
 import { SchedulerService } from "./shared/services/scheduler-service";
 import { CommonModule } from "@angular/common";
 import { ShiftFormComponent } from "./mitarbeiter/scheduler-form/shift-form/shift-form.component";
+import { DeleteCarModalComponent } from './autos/delete-car-modal/delete-car-modal.component';
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -60,7 +61,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     DriverHistoryComponent,
     RouteViewComponent,
     SchedulerFormComponent,
-    ShiftFormComponent],
+    ShiftFormComponent,
+    DeleteCarModalComponent],
   imports: [
     ReactiveFormsModule,
     BrowserModule,

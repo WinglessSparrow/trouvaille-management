@@ -7,6 +7,13 @@
     "name": "Maxime GRIS",
     "email": "maxime.gris@gmail.com"
   },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "net": false,
+    "tls": false
+  },
   "keywords": [
     "angular",
     "angular 13",
@@ -56,12 +63,18 @@
     "@ng-bootstrap/ng-bootstrap": "12.0.2",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "5.1.3",
+    "buffer": "6.0.3",
+    "events": "3.3.0",
+    "fs-web": "1.0.1",
     "jsqr": "1.4.0",
     "leaflet": "1.8.0",
     "leaflet-routing-machine": "3.2.12",
     "luxon": "2.4.0",
+    "ngx": "2.4.0",
     "qrcode": "1.5.0",
     "rxjs": "7.4.0",
+    "stream": "0.0.2",
+    "timers": "0.1.1",
     "tslib": "^2.1.0",
     "zone.js": "~0.11.4"
   },
