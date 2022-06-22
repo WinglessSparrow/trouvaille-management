@@ -14,6 +14,7 @@ import QRCode from 'qrcode'
 export class LieferungenFormComponent implements OnInit {
   @Output() clickedHistoryEvent = new EventEmitter<string>();
   @Output() closedForm = new EventEmitter<boolean>(false);
+  @Output() changedDeliveryStateRefresh = new EventEmitter<boolean>(false);
   delivery: Delivery;
   deliveryService: DeliveryService;
   deliveryForm: FormGroup;
@@ -103,8 +104,14 @@ export class LieferungenFormComponent implements OnInit {
     this.closedForm.emit(false);
   }
 
-  changeDeliveryState() {
+  async changeDeliveryState() {
     var newState = this.deliveryForm.controls.currentState.value;
-    this.deliveryService.changeDeliveryState(this.delivery.packageid, newState);
+    var success = await this.deliveryService.changeDeliveryState(this.delivery.iddelivery, newState);
+    if (!success) {
+      return;
+    } else if (success) {
+      this.modalService.open("Status erfolgreich geändert!", { centered: true });
+      this.changedDeliveryStateRefresh.emit(true);
+    }
   }
 }
