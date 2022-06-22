@@ -12,6 +12,7 @@ import jsQR, { QRCode } from 'jsqr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorPageComponent } from '../error-page/error-page.component';
 import { BackendError } from '../../models/error-message';
+//import { systemPreferences } from 'electron';
 
 @Component({
   selector: 'scanner',
@@ -37,6 +38,8 @@ export class ScannerComponent implements OnInit, OnDestroy {
   private videoElement: any;
 
   ngOnInit(): void {
+    // TODO: ask for webcam permission in production not working
+    //systemPreferences.getMediaAccessStatus("camera");
   }
 
   ngOnDestroy() {

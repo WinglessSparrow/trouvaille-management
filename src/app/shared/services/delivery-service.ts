@@ -34,7 +34,7 @@ export class DeliveryService {
     return deliveries;
   }
 
-  public getAllDeliveries() {
+  public getAllDeliveriesStatistik() {
     var deliveries = [] as Delivery[];
     var countAll = 2147483647;
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/0/" + countAll, {}).subscribe(data => {
@@ -44,6 +44,23 @@ export class DeliveryService {
         deliveries.push(element);
       });
     });
+    return deliveries;
+  }
+
+  public async getAllDeliveries() {
+    var deliveries = [] as Delivery[];
+    var countAll = 2147483647;
+    await new Promise<GlobalResponse>(resolve => {
+      this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/0/" + countAll, {}).subscribe(val => {
+        deliveries = val.data[0];
+        resolve(val);
+      })
+    });
+    deliveries.forEach(element => {
+      element as Delivery;
+      element.text = "Paket: " + element.packageid;
+      deliveries.push(element);
+    })
     return deliveries;
   }
 

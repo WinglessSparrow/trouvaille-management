@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { listenerCount } from 'process';
 import { WorkerFormComponent } from '../mitarbeiter/worker-form/worker-form.component';
 import { Car } from '../shared/models/car';
 import { CarService } from '../shared/services/car-service';
@@ -22,12 +23,28 @@ export class AutosComponent implements OnInit {
 
   constructor(cService: CarService, private modalService: NgbModal) {
     this.carService = cService;
-    this.carList = this.carService.getAllCars();
+
   }
 
   ngOnInit(): void {
   }
 
+  deleteCarFromList(carid: number) {
+    this.carList = this.carList.filter(car => car.idvehicle != carid);
+  }
+
+  addCarToList(car: Car | boolean) {
+    console.log(car);
+    if (!car) {
+      this.modalService.open("Fahrzeug konnte nicht angelegt werden. Überprüfen Sie ihre Eingaben.", { centered: true });
+    } else if (car instanceof Car) {
+      this.carList.push(car);
+      this.modalService.open("Fahrzeug erfolgreich angelegt!", { centered: true });
+    } else {
+      console.log("addCarToList() error")
+    }
+
+  }
   showNewCarFormFunc(value) {
     if (value) {
       document.getElementById("carForm").setAttribute("style", "display:none");
@@ -46,10 +63,12 @@ export class AutosComponent implements OnInit {
   }
 
 
-  ngAfterViewInit(): void {
-    document.getElementById("carForm").setAttribute("style", "display:none");
+  async ngAfterViewInit(): Promise<void> {
+    document.getElementById("carForm").setAttribute("style", "display:inline");
     document.getElementById("newCarForm").setAttribute("style", "display:none");
     document.getElementById("driverHistory").setAttribute("style", "display:none");
+    this.carList = await this.carService.getAllCars();
+    this.itemDetails(this.carList[0]);
   }
 
   @ViewChild(CarFormComponent) cfc: CarFormComponent;

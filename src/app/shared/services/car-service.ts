@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Resolver } from 'dns';
 import { resolve } from 'path';
 import { CarFormComponent } from '../../autos/car-form/car-form.component';
 import { DriverHistoryComponent } from '../../autos/driver-history/driver-history.component';
@@ -27,19 +28,7 @@ export class CarService {
     return carsCount;
   }
 
-  public getCars(from: number, to: number) {
-    var deliveries = [] as Car[];
-    this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/" + from + "/" + to, {}).subscribe(data => {
-      data.data[0].forEach(element => {
-        element as Car;
-        element.text = "Auto: " + element.trackingNumber;
-        deliveries.push(element);
-      });
-    });
-    return deliveries;
-  }
-
-  public getAllCars() {
+  public getAllCarsStatistik() {
     var cars = [] as Car[];
     var countAll = 2147483647;
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/0/" + countAll, {}).subscribe(data => {
@@ -52,9 +41,39 @@ export class CarService {
     return cars;
   }
 
-  public createCar(car: Car): void {
+  public async getAllCars() {
+    var cars = [] as Car[];
+    var countAll = 2147483647;
+    await new Promise<GlobalResponse>(resolve => {
+      this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/0/" + countAll, {}).subscribe(val => {
+        cars = val.data[0];
+        resolve(val);
+      })
+    });
+    cars.forEach(element => {
+      element as Car;
+      element.text = "Auto: " + element.licenceplate;
+      cars.push(element);
+    })
+    return cars;
+  }
+
+  // TODO: catch createCar error, wtf how
+  public createCarWithoutError(car: Car): void {
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car)
       .subscribe();
+  }
+
+  public createCar1(car: Car): boolean {
+    this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car)
+      .subscribe(error => { return false });
+    return true;
+  }
+
+  public async createCar(car: Car) {
+    return new Promise<boolean>(resolve => {
+      this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car).subscribe((data) => { resolve(true) }, error => { resolve(false) });
+    })
   }
 
   public async getDriverHistory(carid: Number) {
