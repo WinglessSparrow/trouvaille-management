@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Delivery } from '../models/delivery';
 import { GlobalResponse } from "../models/global-response";
@@ -96,9 +96,15 @@ export class DeliveryService {
     return historyEntries;
   }
 
-  public changeDeliveryState(packageid: number, state: string) {
-    this.http.put<GlobalResponse>("https://td.vvjm.dev/api/deliveries/changeState/" + packageid, state).subscribe();
-
+  public changeDeliveryState1(packageid: string, state: string) {
+    this.http.put<GlobalResponse>("https://td.vvjm.dev/api/deliveries/changeState/" + packageid, state, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).subscribe();
   }
+
+  public async changeDeliveryState(packageid: string, state: string) {
+    return new Promise<boolean>(resolve => {
+      this.http.put<GlobalResponse>("https://td.vvjm.dev/api/deliveries/changeState/" + packageid, state, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).subscribe((data) => { resolve(true) }, error => { resolve(false) });
+    })
+  }
+
 
 }
