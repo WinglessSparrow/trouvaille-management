@@ -34,14 +34,11 @@ export class AutosComponent implements OnInit {
   }
 
   addCarToList(car: Car | boolean) {
-    console.log(car);
     if (!car) {
-      this.modalService.open("Fahrzeug konnte nicht angelegt werden. Überprüfen Sie ihre Eingaben.", { centered: true });
+      return;
     } else if (car instanceof Car) {
       this.carList.push(car);
       this.modalService.open("Fahrzeug erfolgreich angelegt!", { centered: true });
-    } else {
-      console.log("addCarToList() error")
     }
 
   }
