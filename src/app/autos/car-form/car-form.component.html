@@ -23,14 +23,6 @@
                 </select>
             </div>
             <div class="col-sm">
-                <label for="isdeleted">Ist gelöscht</label>
-                <select value={{car.isdeleted}} formControlName="isdeleted" class="form-control" id="isdeleted"
-                    required>
-                    <option value={{true}}>Ja</option>
-                    <option value={{false}}>Nein</option>
-                </select>
-            </div>
-            <div class="col-sm">
                 <label for="lastcheck">Letzte Wartung</label>
                 <input value={{car.lastcheck}} formControlName="lastcheck" class="form-control" placeholder="yyyy-mm-dd"
                     name="dpFrom" ngbDatepicker #d1="ngbDatepicker" required>

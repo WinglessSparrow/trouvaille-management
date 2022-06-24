@@ -93,10 +93,11 @@ export class NeuesPaketFormComponent implements OnInit {
     this.delivery.pack.width = newDeliveryForm.width;
     this.delivery.pack.height = newDeliveryForm.height;
     this.delivery.pack.weight = newDeliveryForm.weight;
-    this.delivery.isPickup = newDeliveryForm.ispickup;
     this.delivery.paymentMethod = newDeliveryForm.payment;
-
-    if (newDeliveryForm.isPickup === "true") {
+    this.delivery.pickupDate = newDeliveryForm.pickupDate;
+    var isPickup = (newDeliveryForm.ispickup === 'true');
+    this.delivery.isPickup = isPickup;
+    if (isPickup == true) {
       var datebuilder: string = "";
       var tempmonth = "";
       if (newDeliveryForm.pickupDate.month < 10) {
@@ -110,9 +111,10 @@ export class NeuesPaketFormComponent implements OnInit {
     this.propsToRemove.forEach(element => {
       delete this.delivery[element];
     });
-    if (newDeliveryForm.isPickup === "false") {
+    if (isPickup == false) {
       delete this.delivery["pickupDate"];
     }
+
     await this.deliveryService.createDelivery(this.delivery);
     this.delivery.text = "Paket: "
     this.createdDelivery.emit(true);
@@ -122,6 +124,7 @@ export class NeuesPaketFormComponent implements OnInit {
   setIsPickup(event: Event) {
     var isTrueSet = ((event.target as HTMLInputElement).value === 'true');
     this.showDatePicker = isTrueSet;
+
   }
 
   areAllInputsValid() {

@@ -22,7 +22,7 @@ export class QrFormComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // TODO: stop scan does nothing
     this.sc.stopScan();
-    console.log("destroy scanner");
+
   }
 
 

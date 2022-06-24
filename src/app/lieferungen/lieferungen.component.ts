@@ -36,7 +36,7 @@ export class LieferungenComponent implements OnInit {
   }
 
   async refreshDeliveryList() {
-    console.log("refreshing delivery list");
+
     this.lieferungenList = await this.deliveryService.getAllDeliveries();
   }
 
@@ -48,7 +48,7 @@ export class LieferungenComponent implements OnInit {
     this.itemDetails(this.lieferungenList[0]);
   }
   showScannerFunc(value) {
-    console.log("1.1")
+
     document.getElementById("qrForm").setAttribute("style", "display:inline");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
     document.getElementById("lieferungenForm").setAttribute("style", "display:none");
@@ -75,7 +75,7 @@ export class LieferungenComponent implements OnInit {
   }
 
   async showFormByQR($event) {
-    console.log("showbyqrform?")
+
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
     var lieferung;

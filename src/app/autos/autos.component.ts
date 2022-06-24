@@ -27,7 +27,13 @@ export class AutosComponent implements OnInit {
 
   }
 
+  async refreshCars() {
+    this.carList = await this.carService.getAllCars();
+
+  }
+
   ngOnInit(): void {
+
   }
 
   deleteCarFromList(carid: number) {
