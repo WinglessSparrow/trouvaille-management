@@ -5,6 +5,7 @@ import { Delivery } from '../../shared/models/delivery';
 import { DeliveryService } from '../../shared/services/delivery-service';
 import { ShowQRComponent } from '../show-qr/show-qr.component';
 import QRCode from 'qrcode'
+import { SuccessPageComponent } from '../../shared/components/success-page/success-page.component';
 
 @Component({
   selector: 'app-lieferungen-form',
@@ -110,7 +111,7 @@ export class LieferungenFormComponent implements OnInit {
     if (!success) {
       return;
     } else if (success) {
-      this.modalService.open("Status erfolgreich geändert!", { centered: true });
+      this.modalService.open(SuccessPageComponent, { centered: true });
       this.changedDeliveryStateRefresh.emit(true);
     }
   }
