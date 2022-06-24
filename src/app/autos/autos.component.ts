@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { listenerCount } from 'process';
 import { WorkerFormComponent } from '../mitarbeiter/worker-form/worker-form.component';
+import { SuccessPageComponent } from '../shared/components/success-page/success-page.component';
 import { Car } from '../shared/models/car';
 import { CarService } from '../shared/services/car-service';
 import { CarFormComponent } from './car-form/car-form.component';
@@ -38,7 +39,7 @@ export class AutosComponent implements OnInit {
       return;
     } else if (car instanceof Car) {
       this.carList.push(car);
-      this.modalService.open("Fahrzeug erfolgreich angelegt!", { centered: true });
+      this.modalService.open(SuccessPageComponent, { centered: true });
     }
 
   }
