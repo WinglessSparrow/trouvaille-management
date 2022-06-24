@@ -9,10 +9,12 @@ import { BackendError } from '../../models/error-message';
 export class ErrorPageComponent implements OnInit {
 
   @Input() error: BackendError;
-  
+
   constructor() { }
 
   ngOnInit(): void {
+    console.log("message? ", this.error);
+    console.log("Y U NO INIT???")
   }
 
 }

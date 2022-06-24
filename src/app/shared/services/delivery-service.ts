@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Delivery } from '../models/delivery';
 import { GlobalResponse } from "../models/global-response";
@@ -34,7 +34,7 @@ export class DeliveryService {
     return deliveries;
   }
 
-  public getAllDeliveries() {
+  public getAllDeliveriesStatistik() {
     var deliveries = [] as Delivery[];
     var countAll = 2147483647;
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/0/" + countAll, {}).subscribe(data => {
@@ -47,6 +47,23 @@ export class DeliveryService {
     return deliveries;
   }
 
+  public async getAllDeliveries() {
+    var deliveries = [] as Delivery[];
+    var countAll = 2147483647;
+    await new Promise<GlobalResponse>(resolve => {
+      this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/0/" + countAll, {}).subscribe(val => {
+        deliveries = val.data[0];
+        resolve(val);
+      })
+    });
+    deliveries.forEach(element => {
+      element as Delivery;
+      element.text = "Paket: " + element.packageid;
+      deliveries.push(element);
+    })
+    return deliveries;
+  }
+
   public async createDelivery(delivery: Delivery) {
     await new Promise<GlobalResponse>(resolve => {
       this.http.post<GlobalResponse>("https://td.vvjm.dev/api/deliveries/order", delivery).subscribe(val => {
@@ -56,15 +73,12 @@ export class DeliveryService {
   }
 
   public async getOne(id: String) {
+    console.log("getone?=???")
     const delivery: Delivery = await new Promise<Delivery>(resolve => {
       this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/" + id).subscribe(val => {
         resolve(val.data[0]);
-      },
-        error => {
-          var errorMessage: BackendError = { title: "Oops! Etwas ist schief gelaufen..", error: { message: "message", warnings: ["Diese Lieferungen-ID existiert nicht."] } }
-          const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
-          modalRef.componentInstance.error = errorMessage;
-        })
+      }
+      )
     })
     return delivery;
   }
@@ -82,9 +96,15 @@ export class DeliveryService {
     return historyEntries;
   }
 
-  public changeDeliveryState(packageid: number, state: string) {
-    this.http.put<GlobalResponse>("https://td.vvjm.dev/api/deliveries/changeState/" + packageid, state).subscribe();
-
+  public changeDeliveryState1(packageid: string, state: string) {
+    this.http.put<GlobalResponse>("https://td.vvjm.dev/api/deliveries/changeState/" + packageid, state, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).subscribe();
   }
+
+  public async changeDeliveryState(packageid: string, state: string) {
+    return new Promise<boolean>(resolve => {
+      this.http.put<GlobalResponse>("https://td.vvjm.dev/api/deliveries/changeState/" + packageid, state, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).subscribe((data) => { resolve(true) }, error => { resolve(false) });
+    })
+  }
+
 
 }

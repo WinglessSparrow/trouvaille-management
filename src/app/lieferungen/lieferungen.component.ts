@@ -1,6 +1,7 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorPageComponent } from '../shared/components/error-page/error-page.component';
+import { ScannerComponent } from '../shared/components/scanner/scanner.component';
 import { Delivery } from '../shared/models/delivery';
 import { BackendError } from '../shared/models/error-message';
 import { DeliveryService } from '../shared/services/delivery-service';
@@ -15,7 +16,7 @@ import { LieferungenFormComponent } from './lieferungen-form/lieferungen-form.co
 export class LieferungenComponent implements OnInit {
   iconName = "lieferungen";
   lieferungenList: Delivery[];
-
+  @ViewChild(LieferungenFormComponent) lfc: LieferungenFormComponent;
 
   topTitle = 'Lieferungen';
 
@@ -24,47 +25,39 @@ export class LieferungenComponent implements OnInit {
 
   deliveryService: DeliveryService;
 
+  showForm: boolean = true;
+  showNewForm: boolean = false;
+  showScanForm: boolean = false;
+
+
   constructor(dService: DeliveryService, private modalService: NgbModal) {
     this.deliveryService = dService;
-    this.lieferungenList = this.deliveryService.getAllDeliveries();
+
+  }
+
+  async refreshDeliveryList() {
+    console.log("refreshing delivery list");
+    this.lieferungenList = await this.deliveryService.getAllDeliveries();
   }
 
 
+  openFirst(value) {
+    document.getElementById("qrForm").setAttribute("style", "display:none");
+    document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+    document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
+    this.itemDetails(this.lieferungenList[0]);
+  }
   showScannerFunc(value) {
-    if (value) {
-      document.getElementById("qrForm").setAttribute("style", "display:inline");
-      document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
-      document.getElementById("lieferungenForm").setAttribute("style", "display:none");
-    } else {
-      document.getElementById("qrForm").setAttribute("style", "display:none");
-      document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
-      document.getElementById("lieferungenForm").setAttribute("style", "display:none");
-    }
+    console.log("1.1")
+    document.getElementById("qrForm").setAttribute("style", "display:inline");
+    document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
+    document.getElementById("lieferungenForm").setAttribute("style", "display:none");
   }
 
   showNeuesPaketFormFunc(value) {
-    if (value) {
-      document.getElementById("qrForm").setAttribute("style", "display:none");
-      document.getElementById("neuesPaketForm").setAttribute("style", "display:inline");
-      document.getElementById("lieferungenForm").setAttribute("style", "display:none");
-    } else {
-      document.getElementById("qrForm").setAttribute("style", "display:none");
-      document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
-      document.getElementById("lieferungenForm").setAttribute("style", "display:none");
-    }
-
-  }
-  showLieferungenFunc(value) {
-    if (value) {
-      document.getElementById("qrForm").setAttribute("style", "display:none");
-      document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
-      document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
-    } else {
-      document.getElementById("qrForm").setAttribute("style", "display:none");
-      document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
-      document.getElementById("lieferungenForm").setAttribute("style", "display:none");
-    }
-
+    document.getElementById("qrForm").setAttribute("style", "display:none");
+    document.getElementById("neuesPaketForm").setAttribute("style", "display:inline");
+    document.getElementById("lieferungenForm").setAttribute("style", "display:none");
   }
 
   showHistoryForm(iddelivery) {
@@ -82,6 +75,7 @@ export class LieferungenComponent implements OnInit {
   }
 
   async showFormByQR($event) {
+    console.log("showbyqrform?")
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
     var lieferung;
@@ -93,12 +87,16 @@ export class LieferungenComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  ngAfterViewInit(): void {
+
+
+
+  async ngAfterViewInit(): Promise<void> {
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
-    document.getElementById("lieferungenForm").setAttribute("style", "display:none");
+    this.lieferungenList = await this.deliveryService.getAllDeliveries();
+    this.itemDetails(this.lieferungenList[0]);
   }
-  @ViewChild(LieferungenFormComponent) lfc: LieferungenFormComponent;
+
   itemDetails(value: any) {
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");

@@ -12,6 +12,7 @@ import jsQR, { QRCode } from 'jsqr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorPageComponent } from '../error-page/error-page.component';
 import { BackendError } from '../../models/error-message';
+//import { systemPreferences } from 'electron';
 
 @Component({
   selector: 'scanner',
@@ -37,6 +38,8 @@ export class ScannerComponent implements OnInit, OnDestroy {
   private videoElement: any;
 
   ngOnInit(): void {
+    // TODO: ask for webcam permission in production not working
+    //systemPreferences.getMediaAccessStatus("camera");
   }
 
   ngOnDestroy() {
@@ -57,7 +60,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
     const stream = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: 'environment' },
     }).catch(e => {
-      var error: BackendError = { title: "Oops! etwas ist schiefgelaufen..", error: { message: "message", warnings: ["Versuchen Sie, ihre Webcam einzuschalten und ihrem Browser Zugriff zu ermöglichen."] } }
+      var error: BackendError = { title: "Oops! etwas ist schiefgelaufen..", error: { warnings: ["Versuchen Sie, ihre Webcam einzuschalten und ihrem Browser Zugriff zu ermöglichen."], error: { error: "asdf", message: "asdf" } } }
       const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
       modalRef.componentInstance.error = error;
     });

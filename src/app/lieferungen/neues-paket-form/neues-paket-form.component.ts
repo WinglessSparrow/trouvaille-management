@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Delivery } from '../../shared/models/delivery';
 import { DeliveryService } from '../../shared/services/delivery-service';
 
@@ -12,18 +13,18 @@ export class NeuesPaketFormComponent implements OnInit {
   delivery: Delivery;
   newDeliveryForm: FormGroup;
   deliveryService: DeliveryService;
-  @Input() lieferungenList: Delivery[];
+  @Output() createdDelivery = new EventEmitter<boolean>();
   showDatePicker: boolean = false;
 
-  @Output() showButton1Value = new EventEmitter<boolean>(false);
-  constructor(dService: DeliveryService) {
+  @Output() closeNewPackageForm = new EventEmitter<boolean>(false);
+  constructor(dService: DeliveryService, private modalService: NgbModal) {
     this.deliveryService = dService;
     this.delivery = new Delivery();
 
     this.newDeliveryForm = new FormGroup({
       customerfirstname: new FormControl(null, Validators.required),
       customerlastname: new FormControl(null, Validators.required),
-      customeremail: new FormControl(null, Validators.required),
+      customeremail: new FormControl(null, Validators.compose([Validators.required, Validators.email])),
       srcstreetname: new FormControl(null, Validators.required),
       srcstreetnumber: new FormControl(null, Validators.required),
       srczipcode: new FormControl(null, Validators.required),
@@ -34,10 +35,10 @@ export class NeuesPaketFormComponent implements OnInit {
       dstzipcode: new FormControl(null, Validators.required),
       dstcity: new FormControl(null, Validators.required),
       dstCountry: new FormControl(null, Validators.required),
-      depth: new FormControl(null, Validators.required),
-      width: new FormControl(null, Validators.required),
-      height: new FormControl(null, Validators.required),
-      weight: new FormControl(null, Validators.required),
+      depth: new FormControl(null, Validators.compose([Validators.required, Validators.min(10), Validators.max(120)])),
+      width: new FormControl(null, Validators.compose([Validators.required, Validators.min(7), Validators.max(60)])),
+      height: new FormControl(null, Validators.compose([Validators.required, Validators.min(1), Validators.max(60)])),
+      weight: new FormControl(null, Validators.compose([Validators.required, Validators.min(1), Validators.max(31500)])),
       ispickup: new FormControl(null, Validators.required),
       payment: new FormControl(null, Validators.required),
       pickupDate: new FormControl(),
@@ -48,7 +49,7 @@ export class NeuesPaketFormComponent implements OnInit {
   }
 
   closeForm() {
-    this.showButton1Value.emit(false);
+    this.closeNewPackageForm.emit(false);
   }
 
   propsToRemove = [
@@ -65,6 +66,11 @@ export class NeuesPaketFormComponent implements OnInit {
   ]
 
   public async createDelivery(newDeliveryForm) {
+    if (!this.areAllInputsValid()) {
+      console.log("not all inputs valid!");
+      this.modalService.open("Nicht alle Felder sind (korrekt) gefüllt.Füllen Sie alle Felder aus und überprüfen Sie die rot markierten Felder.", { centered: true });
+      return;
+    }
     this.delivery.customer.firstname = newDeliveryForm.customerfirstname;
     this.delivery.customer.lastname = newDeliveryForm.customerlastname;
     this.delivery.customer.email = newDeliveryForm.customeremail;
@@ -103,12 +109,22 @@ export class NeuesPaketFormComponent implements OnInit {
       delete this.delivery["pickupDate"];
     }
     await this.deliveryService.createDelivery(this.delivery);
-    this.lieferungenList = await this.deliveryService.getAllDeliveries();
+    this.delivery.text = "Paket: "
+    this.createdDelivery.emit(true);
   }
 
   setIsPickup(event: Event) {
     var isTrueSet = ((event.target as HTMLInputElement).value === 'true');
     this.showDatePicker = isTrueSet;
+  }
+
+  areAllInputsValid() {
+    for (let el in this.newDeliveryForm.controls) {
+      if (this.newDeliveryForm.controls[el].errors) {
+        return false;
+      }
+    }
+    return true;
   }
 
 }
