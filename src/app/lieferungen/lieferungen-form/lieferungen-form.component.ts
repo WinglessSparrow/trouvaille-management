@@ -68,22 +68,6 @@ export class LieferungenFormComponent implements OnInit {
     "text"
   ]
 
-  public createDelivery(deliveryForm): void {
-    for (let [key, value] of Object.entries(deliveryForm)) {
-      for (let [keyOld] of Object.entries(this.delivery)) {
-        this.propsToRemove.forEach(element => {
-          delete this.delivery[element];
-        });
-
-        if (key === keyOld) {
-          if (value !== null) {
-            this.delivery[key] = value;
-          }
-        }
-      }
-    }
-  }
-
   packageHistoryEvent() {
     this.clickedHistoryEvent.emit(this.delivery.iddelivery);
   }
