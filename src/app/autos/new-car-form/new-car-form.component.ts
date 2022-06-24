@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { Car } from '../../shared/models/car';
+import { BackendError } from '../../shared/models/error-message';
 import { CarService } from '../../shared/services/car-service';
 
 @Component({
@@ -43,7 +45,9 @@ export class NewCarFormComponent implements OnInit {
   public async createCar(newCarForm): Promise<void> {
     if (!this.areAllInputsValid()) {
       console.log("not all inputs valid!");
-      this.modalService.open("Nicht alle Felder sind (korrekt) gefüllt.Füllen Sie alle Felder aus und überprüfen Sie die rot markierten Felder.", { centered: true });
+      var error: BackendError = { title: "Oops! etwas ist schiefgelaufen..", error: { warnings: ["Nicht alle Felder sind (korrekt) gefüllt.Füllen Sie alle Felder aus und überprüfen Sie die rot markierten Felder."], error: { error: "Error", message: "" } } }
+      const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
+      modalRef.componentInstance.error = error;
       return;
     }
     this.car.licenceplate = newCarForm.licenceplate;
