@@ -52,4 +52,9 @@ export class EmployeeService {
         })
         return employee;
     }
+
+    public deleteEmployee(employee: Employee): void {
+        this.http.delete<GlobalResponse>("https://td.vvjm.dev/api/v1/employee/"+employee.idemployee)
+            .subscribe();
+    }
 }

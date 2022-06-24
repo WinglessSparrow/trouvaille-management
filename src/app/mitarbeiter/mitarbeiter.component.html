@@ -9,7 +9,7 @@
         </div>
         <div class="flex-grow-1">
             <div class="container-fluid border-2 border-primary rounded-0 ms-4">
-                <app-worker-form hidden id="workerForm"></app-worker-form>
+                <app-worker-form (notifyParent)="refreshListOnDelete($event)" hidden id="workerForm"></app-worker-form>
                 <app-newemployee-form [employeeList]="employeeList" id="newEmployeeForm" *ngIf="showNewEmployeeForm">
                 </app-newemployee-form>
             </div>

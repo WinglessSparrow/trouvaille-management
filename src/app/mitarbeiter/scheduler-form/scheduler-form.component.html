@@ -39,7 +39,10 @@
     </thead>
     <tbody>
         <tr *ngFor="let entry of weekShift.entries; let i = index">
-            <th scope="row">{{entry.employeeId}}</th>
+            <th scope="row">
+                <p>{{entry.firstname}}</p>
+                <p>{{entry.lastname}}</p>
+            </th>
             <td>
                 <div [innerHTML]='ShiftTypeController(entry.monday.shift)'>
                 </div>

@@ -1,31 +1,51 @@
-<form [formGroup]="employeeForm" (ngSubmit)="createEmployee(employeeForm.value)" class="w-100 p-2">
+<form [formGroup]="employeeForm" (ngSubmit)="createEmployee(employeeForm.value)" class="p-2">
     <div class="form-group">
         <label for="firstname">Vorname</label>
         <input id="firstname" type="text" class="form-control" formControlName="firstname" placeholder="Max"
             value={{employee.firstname}} required>
-        <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)" class="alert alert-danger">
+        <div *ngIf="firstname.invalid && (firstname.touched)" class="alert alert-danger mt-2">
             <div *ngIf="firstname.errors?.['required']">
-                <p>Vorname darf nicht leer sein.</p>
+                Das Feld Vorname darf nicht leer sein.
             </div>
             <div *ngIf="firstname.errors?.['minlength']">
-                Vorname muss mindestens 4 Zeichen lang sein.
+                Das Feld Vorname muss mindestens 3 Zeichen lang sein.
             </div>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-2">
         <label for="lastname">Nachname</label>
         <input type="text" class="form-control" formControlName="lastname" placeholder="Mustermann"
             value={{employee.lastname}} required>
+        <div *ngIf="lastname.invalid && (lastname.touched)" class="alert alert-danger mt-2">
+            <div *ngIf="lastname.errors?.['required']">
+                Das Feld Nachname darf nicht leer sein.
+            </div>
+            <div *ngIf="lastname.errors?.['minlength']">
+                Das Feld Nachname muss mindestens 3 Zeichen lang sein.
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-2">
         <label for="email">E-Mail</label>
         <input type="text" class="form-control" formControlName="email" placeholder="max@mustermail.com"
             value={{employee.email}} required>
+
+        <div *ngIf="email.invalid && (email.touched)" class="alert alert-danger mt-2">
+            <div *ngIf="email.errors?.['required']">
+                Das Feld E-Mail darf nicht leer sein.
+            </div>
+            <div *ngIf="email.errors?.['minlength']">
+                Das Feld E-Mail muss mindestens 3 Zeichen lang sein.
+            </div>
+            <div *ngIf="email.errors?.['email']">
+                Keine korrekte E-Mail eingabe.
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-2">
         <div class="row">
             <div class="col-sm">
                 <label for="phonenumber">Telefonnummer</label>
@@ -40,41 +60,80 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-2">
         <div class="row">
             <div class="col-sm">
                 <label for="password">Passwort</label>
                 <input type="password" class="form-control" formControlName="password" placeholder="*********" required>
             </div>
+            <div *ngIf="password.invalid && (password.touched)" class="alert alert-danger mt-2">
+                <div *ngIf="password.errors?.['required']">
+                    Das Feld Passwort darf nicht leer sein.
+                </div>
+                <div *ngIf="password.errors?.['minlength']">
+                    Das Passwort muss mindestens 8 Zeichen lang sein.
+                </div>
+                <div *ngIf="password.errors?.['hasNumber']">
+                    Das Passwort muss mindestens eine Zahl enthalten.
+                </div>
+                <div *ngIf="password.errors?.['hasCapitalCase']">
+                    Das Passwort muss mindestens ein Großbuchstaben enthalten.
+                </div>
+                <div *ngIf="password.errors?.['hasCapitalCase']">
+                    Das Passwort muss mindestens ein Kleinbuchstaben enthalten.
+                </div>
+                <div *ngIf="password.errors?.['hasSpecialCharacters']">
+                    Das Passwort muss mindestens ein Sonderzeichen enthalten.
+                </div>
+            </div>
             <div class="col-sm">
-                <label for="passwordAgain">Passwort wiederholen</label>
-                <input type="password" class="form-control" formControlName="passwordAgain" placeholder="*********"
+                <label for="confirmPassword">Passwort wiederholen</label>
+                <input type="password" class="form-control" formControlName="confirmPassword" placeholder="*********"
                     required>
+            </div>
+            <div *ngIf="confirmPassword.invalid && (confirmPassword.touched)" class="alert alert-danger mt-2">
+                <div *ngIf="password.errors?.['required']">
+                    Das Feld Passwort wiederholen darf nicht leer sein.
+                </div>
+                Die eingegebenen Passwörter stimmen nicht überein.
             </div>
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-2">
         <div class="row">
             <div class="col-sm">
                 <label for="birthday">Geburtstag</label>
                 <input ng-disabled="all" type="text" class="form-control" formControlName="birthday"
                     placeholder="01.01.2022" value={{employee.birthday}} required>
+
+                <div *ngIf="birthday.invalid && (birthday.touched)" class="alert alert-danger mt-2">
+                    <div *ngIf="birthday.errors?.['required']">
+                        Das Feld E-Mail darf nicht leer sein.
+                    </div>
+                    <div *ngIf="birthday.errors?.['isDate']">
+                        Die Eingabe stimmt leider nicht mit einem Datumsformat überein. (TT.MM.JJJJ)
+                    </div>
+                    <div *ngIf="birthday.errors?.['ageCheck']">
+                        Der Mitarbeiter muss mindestens 16 Jahre alt sein.
+                    </div>
+                </div>
             </div>
         </div>
-        <label for="groupIdgroup">Gruppe</label>
-        <select value={{employee.groupIdgroup}} formControlName="groupIdgroup" class="form-control" style="width:auto;"
-            id="statusSelect" required>
-            <option value="1">Admin</option>
-            <option value="2">Management</option>
-            <option ng-selected="selected" value="3">Driver</option>
-        </select>
+        <div class="form-group mt-2">
+            <label for="groupIdgroup">Gruppe</label>
+            <select value={{employee.groupIdgroup}} formControlName="groupIdgroup" class="form-control"
+                style="width:auto;" id="statusSelect" required>
+                <option value="1">Admin</option>
+                <option value="2">Management</option>
+                <option ng-selected="selected" value="3">Driver</option>
+            </select>
+        </div>
     </div>
 
-    <div class="form-group">
-        <div class="float-end">
-            <button id="cancle" class="btn btn-danger m-3">Abbrechen</button>
-            <button type="submit" id="save" class="btn btn-primary m-3">Speichern</button>
-        </div>
+    <div class="form-group float-end">
+        <button type="button" id="cancle" class="btn btn-danger m-3 float-right">Abbrechen</button>
+        <button [disabled]="Validation()" type="submit" id="save"
+            class="btn btn-primary m-3 float-right">Speichern</button>
     </div>
 </form>

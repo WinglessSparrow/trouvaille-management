@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListviewComponent } from '../shared/components/listview/listview.component';
+import { SuccessPageComponent } from '../shared/components/success-page/success-page.component';
 import { Employee } from '../shared/models/employee';
 import { Group } from '../shared/models/group';
-import { WeekShift } from '../shared/models/shift';
 import { EmployeeService } from '../shared/services/employee-service';
 import { GroupService } from '../shared/services/group-service';
 import { SchedulerService } from '../shared/services/scheduler-service';
 import { WorkerFormComponent } from './worker-form/worker-form.component';
-import DateTime from 'luxon/src/datetime.js'
 
 @Component({
   selector: 'app-mitarbeiter',
@@ -54,6 +53,20 @@ export class MitarbeiterComponent implements OnInit {
   }
 
   @ViewChild(WorkerFormComponent) wfc: WorkerFormComponent;
+
+  refreshListOnDelete(event) {
+    if (this.employeeList.includes(event)) {
+      
+    } else {
+      this.refreshList();
+      const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
+      modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich gelöscht.";
+    }
+  }
+
+  refreshList() {
+    this.employeeList = this.employeeService.getAllEmployees();
+  }
 
   itemDetails(value: any) {
     document.getElementById("workerForm").removeAttribute("hidden");

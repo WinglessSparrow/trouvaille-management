@@ -3,18 +3,45 @@
         <label for="firstname">Vorname</label>
         <input type="text" class="form-control" formControlName="firstname" placeholder="Max"
             value={{employee.firstname}}>
+        <div *ngIf="firstname.invalid && (firstname.touched)" class="alert alert-danger mt-2">
+            <div *ngIf="firstname.errors?.['required']">
+                Das Feld Vorname darf nicht leer sein.
+            </div>
+            <div *ngIf="firstname.errors?.['minlength']">
+                Das Feld Vorname muss mindestens 3 Zeichen lang sein.
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
         <label for="lastname">Nachname</label>
         <input type="text" class="form-control" formControlName="lastname" placeholder="Mustermann"
             value={{employee.lastname}}>
+        <div *ngIf="lastname.invalid && (lastname.touched)" class="alert alert-danger mt-2">
+            <div *ngIf="lastname.errors?.['required']">
+                Das Feld Nachname darf nicht leer sein.
+            </div>
+            <div *ngIf="lastname.errors?.['minlength']">
+                Das Feld Nachname muss mindestens 3 Zeichen lang sein.
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
         <label for="email">E-Mail</label>
         <input type="text" class="form-control" formControlName="email" placeholder="max@mustermail.com"
             value={{employee.email}}>
+        <div *ngIf="email.invalid && (email.touched)" class="alert alert-danger mt-2">
+            <div *ngIf="email.errors?.['required']">
+                Das Feld E-Mail darf nicht leer sein.
+            </div>
+            <div *ngIf="email.errors?.['minlength']">
+                Das Feld E-Mail muss mindestens 3 Zeichen lang sein.
+            </div>
+            <div *ngIf="email.errors?.['email']">
+                Keine korrekte E-Mail eingabe.
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
@@ -35,12 +62,38 @@
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
-                <label for="passwordNew">neues Passwort</label>
-                <input type="password" class="form-control" formControlName="passwordNew" placeholder="*********">
+                <label for="password">neues Passwort</label>
+                <input type="password" class="form-control" formControlName="password" placeholder="*********">
+            </div>
+            <div *ngIf="password.invalid && (password.touched)" class="alert alert-danger mt-2">
+                <div *ngIf="password.errors?.['required']">
+                    Das Feld Passwort darf nicht leer sein.
+                </div>
+                <div *ngIf="password.errors?.['minlength']">
+                    Das Passwort muss mindestens 8 Zeichen lang sein.
+                </div>
+                <div *ngIf="password.errors?.['hasNumber']">
+                    Das Passwort muss mindestens eine Zahl enthalten.
+                </div>
+                <div *ngIf="password.errors?.['hasCapitalCase']">
+                    Das Passwort muss mindestens ein Großbuchstaben enthalten.
+                </div>
+                <div *ngIf="password.errors?.['hasCapitalCase']">
+                    Das Passwort muss mindestens ein Kleinbuchstaben enthalten.
+                </div>
+                <div *ngIf="password.errors?.['hasSpecialCharacters']">
+                    Das Passwort muss mindestens ein Sonderzeichen enthalten.
+                </div>
             </div>
             <div class="col-sm">
-                <label for="passwordAgain">Passwort wiederholen</label>
-                <input type="password" class="form-control" formControlName="passwordAgain" placeholder="*********">
+                <label for="confirmPassword">Passwort wiederholen</label>
+                <input type="password" class="form-control" formControlName="confirmPassword" placeholder="*********">
+            </div>
+            <div *ngIf="confirmPassword.invalid && (confirmPassword.touched)" class="alert alert-danger mt-2">
+                <div *ngIf="password.errors?.['required']">
+                    Das Feld Passwort wiederholen darf nicht leer sein.
+                </div>
+                Die eingegebenen Passwörter stimmen nicht überein.
             </div>
         </div>
     </div>
@@ -48,14 +101,22 @@
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
-                <label for="employeeGroup">Gruppe</label>
-                <input [readonly]="true" type="text" class="form-control" formControlName="employeeGroup"
-                    placeholder="Driver" value="{{employee.group.groupname}}">
+                <label for="groupIdgroup">Gruppe</label>
+                <input [readonly]="true" type="text" class="form-control" formControlName="groupIdgroup"
+                    placeholder="Driver" value="{{employee.group.groupname}}" required>
             </div>
             <div class="col-sm">
                 <label for="birthday">Geburtstag</label>
                 <input ng-disabled="all" type="text" class="form-control" formControlName="birthday"
                     placeholder="01.01.2022" value={{employee.birthday}}>
+                <div *ngIf="birthday.invalid && (birthday.touched)" class="alert alert-danger mt-2">
+                    <div *ngIf="birthday.errors?.['required']">
+                        Das Feld E-Mail darf nicht leer sein.
+                    </div>
+                    <div *ngIf="birthday.errors?.['ageCheck']">
+                        Der Mitarbeiter muss mindestens 16 Jahre alt sein.
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -71,13 +132,11 @@
     </div>
 
     <div class="form-group">
-        <button *ngIf="!employee.isdeleted" (click)="toggleEmployee(true)" id="disableWorker"
-            class="btn btn-danger mr-3 mt-3 mb-3">Mitarbeiter deaktiveren</button>
-        <button *ngIf="employee.isdeleted" (click)="toggleEmployee(false)" id="activateWorker"
-            class="btn btn-warning mr-3 mt-3 mb-3">Mitarbeiter aktivieren</button>
+        <button *ngIf="!employee.isdeleted" (click)="deleteEmployee(true)" id="disableWorker"
+            class="btn btn-danger mr-3 mt-3 mb-3">Mitarbeiter löschen</button>
         <div class="float-end">
             <button hidden id="cancle" class="btn btn-danger m-3">Abbrechen</button>
-            <button (click)="changeEmployee(employeeForm.value)" type="submit" id="save"
+            <button [disabled]="Validation()" (click)="changeEmployee(employeeForm.value)" type="submit" id="save"
                 class="btn btn-primary m-3">Speichern</button>
         </div>
     </div>
