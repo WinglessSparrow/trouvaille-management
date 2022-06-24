@@ -25,7 +25,7 @@
             <div class="col-sm">
                 <label for="lastcheck">Letzte Wartung</label>
                 <input value={{car.lastcheck}} formControlName="lastcheck" class="form-control" placeholder="yyyy-mm-dd"
-                    name="dpFrom" ngbDatepicker #d1="ngbDatepicker" required>
+                    name="dpFrom" ngbDatepicker #d1="ngbDatepicker" required readonly="readonly">
                 <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                         class="bi bi-calendar-date" viewBox="0 0 16 16">
