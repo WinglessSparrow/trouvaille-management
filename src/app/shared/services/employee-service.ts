@@ -1,5 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { Employee } from "../models/employee";
 import { GlobalResponse } from "../models/global-response";
 
@@ -34,14 +35,12 @@ export class EmployeeService {
         return idList;
     }
 
-    public changeEmployee(employee: Employee): void {
-        this.http.put<GlobalResponse>("https://td.vvjm.dev/api/v1/employee", employee)
-            .subscribe();
+    public changeEmployee(employee: Employee): Observable<GlobalResponse> {
+        return this.http.put<GlobalResponse>("https://td.vvjm.dev/api/v1/employee", employee);
     }
 
-    public createEmployee(employee: Employee): void {
-        this.http.post<GlobalResponse>("https://td.vvjm.dev/api/v1/employee", employee)
-            .subscribe();
+    public createEmployee(employee: Employee) : Observable<GlobalResponse> {
+        return this.http.post<GlobalResponse>("https://td.vvjm.dev/api/v1/employee", employee);
     }
 
     public async getOneEmployee(employeeId: Number) {
@@ -53,8 +52,7 @@ export class EmployeeService {
         return employee;
     }
 
-    public deleteEmployee(employee: Employee): void {
-        this.http.delete<GlobalResponse>("https://td.vvjm.dev/api/v1/employee/"+employee.idemployee)
-            .subscribe();
+    public deleteEmployee(employee: Employee) : Observable<GlobalResponse> {
+        return this.http.delete<GlobalResponse>("https://td.vvjm.dev/api/v1/employee/"+employee.idemployee);
     }
 }

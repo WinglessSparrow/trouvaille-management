@@ -1,7 +1,5 @@
-import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SuccessPageComponent } from '../../shared/components/success-page/success-page.component';
 import { Employee } from '../../shared/models/employee';
 import { Group } from '../../shared/models/group';
 import { EmployeeService } from '../../shared/services/employee-service';
@@ -14,6 +12,7 @@ import { CustomValidators } from '../../shared/util/custom-validators';
 })
 export class NewemployeeFormComponent implements OnInit {
   @Input() employeeList: Employee[];
+  @Output() notifyParent: EventEmitter<any> = new EventEmitter();
 
   employee: Employee;
   employeeService: EmployeeService;
@@ -33,7 +32,7 @@ export class NewemployeeFormComponent implements OnInit {
     "text"
   ]
 
-  constructor(eService: EmployeeService, private modalService: NgbModal, private viewContainerRef: ViewContainerRef) {
+  constructor(eService: EmployeeService) {
     this.employeeService = eService;
     this.employee = new Employee();
   }
@@ -76,14 +75,6 @@ export class NewemployeeFormComponent implements OnInit {
   get birthday() { return this.employeeForm.get('birthday'); }
   get groupIdgroup() { return this.employeeForm.get('groupIdgroup'); }
 
-  private selfClose() {
-    this.viewContainerRef
-     .element
-     .nativeElement
-     .parentElement
-     .removeChild(this.viewContainerRef.element.nativeElement);
- }
-
   public createEmployee(employeeForm): void {
     for (let [key, value] of Object.entries(employeeForm)) {
       for (let [keyOld] of Object.entries(this.employee)) {
@@ -98,14 +89,12 @@ export class NewemployeeFormComponent implements OnInit {
         }
       }
     }
-    this.employeeService.createEmployee(this.employee);
-    // add new employee to employeelist
-    this.employee.text = this.employee.firstname + " " + this.employee.lastname;
-    this.employee.group = new Group();
-    this.employeeList.push(this.employee);
-    const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
-    modalRef.componentInstance.message = "Mitarbeiter wurde erfolgreich erstellt."
-    this.selfClose();
+    this.employeeService.createEmployee(this.employee).subscribe(() => {
+      this.employee.text = this.employee.firstname + " " + this.employee.lastname;
+      this.employee.group = new Group();
+
+      this.notifyParent.emit(this.employee);
+    });
   }
 
   Validation() {

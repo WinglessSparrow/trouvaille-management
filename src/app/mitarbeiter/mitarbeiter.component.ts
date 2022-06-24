@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
+import { ErrPageComponent } from '../shared/components/err-page/err-page.component';
 import { ListviewComponent } from '../shared/components/listview/listview.component';
 import { SuccessPageComponent } from '../shared/components/success-page/success-page.component';
 import { Employee } from '../shared/models/employee';
@@ -16,7 +18,8 @@ import { WorkerFormComponent } from './worker-form/worker-form.component';
 })
 
 export class MitarbeiterComponent implements OnInit {
-  showWorkerForm: boolean = false;
+  @ViewChild(WorkerFormComponent) wfc: WorkerFormComponent;
+
   showNewEmployeeForm: boolean = false;
   toggleGroup: boolean = true;
 
@@ -52,20 +55,29 @@ export class MitarbeiterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @ViewChild(WorkerFormComponent) wfc: WorkerFormComponent;
-
   refreshListOnDelete(event) {
-    if (this.employeeList.includes(event)) {
-      
-    } else {
-      this.refreshList();
-      const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
-      modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich gelöscht.";
-    }
+    this.refreshList();
+    const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
+    modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich gelöscht.";
+    document.getElementById("workerForm").setAttribute("hidden", "true");
+  }
+  
+  refreshListOnNew(event) {
+    this.refreshList();
+    const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
+    modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich erstellt.";
+    this.showNewEmployeeForm = false;
   }
 
   refreshList() {
     this.employeeList = this.employeeService.getAllEmployees();
+  }
+
+  employeeChanged() {
+    this.refreshList();
+    document.getElementById("workerForm").setAttribute("hidden", "true");
+    const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
+    modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich geändert.";
   }
 
   itemDetails(value: any) {

@@ -13,8 +13,6 @@ export class ErrorPageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("message? ", this.error);
-    console.log("Y U NO INIT???")
   }
 
 }
