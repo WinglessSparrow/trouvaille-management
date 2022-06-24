@@ -58,7 +58,6 @@ export class CarService {
     return cars;
   }
 
-  // TODO: catch createCar error, wtf how
   public createCarWithoutError(car: Car): void {
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car)
       .subscribe();
