@@ -93,6 +93,7 @@ export class CarService {
 
   public changeCar(car: Car) {
     delete car.text;
+
     this.http.put<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car).subscribe();
   }
 

@@ -29,7 +29,6 @@ export class CarFormComponent implements OnInit {
       nextcheck: new FormControl(),
       licenceplate: new FormControl(),
       status: new FormControl(),
-      isdeleted: new FormControl(),
       maxvolume: new FormControl(),
       lastcheck: new FormControl(),
     });
@@ -47,12 +46,10 @@ export class CarFormComponent implements OnInit {
   }
 
   deactivateCar() {
-    // call modal here, give car id
     const modalRef = this.modalService.open(DeleteCarModalComponent, { centered: true, size: "l" });
     modalRef.componentInstance.carid = this.car.idvehicle;
     modalRef.result.then(
       (data: number) => {
-        console.log("modal closed with carid: ", data);
         this.deleteFromList.emit(this.car.idvehicle);
       },
       (reason: any) => { });
@@ -69,7 +66,6 @@ export class CarFormComponent implements OnInit {
       }
     }
     this.car.status = (document.getElementById("status") as HTMLInputElement).value
-    var isdeleted = ((document.getElementById("isdeleted") as HTMLInputElement).value === 'true');
     var tempmonth = "";
     var tempday = ""
     if (this.carForm.controls.lastcheck.value.month < 10) {
@@ -87,11 +83,9 @@ export class CarFormComponent implements OnInit {
     this.car.lastcheck = datebuilder;
     datebuilder = this.carForm.controls.lastcheck.value.year + 2 + "-" + tempmonth + "-" + tempday + "T00:00:00.000Z";
     this.car.nextcheck = datebuilder;
-    this.car.isdeleted = isdeleted;
     this.car.maxvolume = parseInt((document.getElementById("maxvolume") as HTMLInputElement).value);
     this.carService.changeCar(this.car);
     this.car.licenceplate = (document.getElementById("licenceplate") as HTMLInputElement).value
-    //TODO: IsDeleted not showing in car form
   }
 
 
