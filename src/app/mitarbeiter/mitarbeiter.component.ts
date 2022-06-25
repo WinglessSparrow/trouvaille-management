@@ -1,14 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
+import { ErrPageComponent } from '../shared/components/err-page/err-page.component';
 import { ListviewComponent } from '../shared/components/listview/listview.component';
+import { SuccessPageComponent } from '../shared/components/success-page/success-page.component';
 import { Employee } from '../shared/models/employee';
 import { Group } from '../shared/models/group';
-import { WeekShift } from '../shared/models/shift';
 import { EmployeeService } from '../shared/services/employee-service';
 import { GroupService } from '../shared/services/group-service';
 import { SchedulerService } from '../shared/services/scheduler-service';
 import { WorkerFormComponent } from './worker-form/worker-form.component';
-import DateTime from 'luxon/src/datetime.js'
 
 @Component({
   selector: 'app-mitarbeiter',
@@ -17,7 +18,8 @@ import DateTime from 'luxon/src/datetime.js'
 })
 
 export class MitarbeiterComponent implements OnInit {
-  showWorkerForm: boolean = false;
+  @ViewChild(WorkerFormComponent) wfc: WorkerFormComponent;
+
   showNewEmployeeForm: boolean = false;
   toggleGroup: boolean = true;
 
@@ -53,7 +55,30 @@ export class MitarbeiterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @ViewChild(WorkerFormComponent) wfc: WorkerFormComponent;
+  refreshListOnDelete(event) {
+    this.refreshList();
+    const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
+    modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich gelöscht.";
+    document.getElementById("workerForm").setAttribute("hidden", "true");
+  }
+  
+  refreshListOnNew(event) {
+    this.refreshList();
+    const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
+    modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich erstellt.";
+    this.showNewEmployeeForm = false;
+  }
+
+  refreshList() {
+    this.employeeList = this.employeeService.getAllEmployees();
+  }
+
+  employeeChanged() {
+    this.refreshList();
+    document.getElementById("workerForm").setAttribute("hidden", "true");
+    const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
+    modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich geändert.";
+  }
 
   itemDetails(value: any) {
     document.getElementById("workerForm").removeAttribute("hidden");

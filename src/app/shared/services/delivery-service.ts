@@ -73,7 +73,6 @@ export class DeliveryService {
   }
 
   public async getOne(id: String) {
-    console.log("getone?=???")
     const delivery: Delivery = await new Promise<Delivery>(resolve => {
       this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/" + id).subscribe(val => {
         resolve(val.data[0]);

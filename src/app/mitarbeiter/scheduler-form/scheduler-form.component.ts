@@ -46,6 +46,7 @@ export class SchedulerFormComponent implements OnInit {
     modalRef.componentInstance.shiftEntryIndex = index;
   }
 
+
   increaseWeek() {
     if (this.selectedWeek == 52) {
       this.selectedWeek = 1;

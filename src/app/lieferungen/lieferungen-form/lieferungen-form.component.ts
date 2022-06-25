@@ -5,6 +5,7 @@ import { Delivery } from '../../shared/models/delivery';
 import { DeliveryService } from '../../shared/services/delivery-service';
 import { ShowQRComponent } from '../show-qr/show-qr.component';
 import QRCode from 'qrcode'
+import { SuccessPageComponent } from '../../shared/components/success-page/success-page.component';
 
 @Component({
   selector: 'app-lieferungen-form',
@@ -67,22 +68,6 @@ export class LieferungenFormComponent implements OnInit {
     "text"
   ]
 
-  public createDelivery(deliveryForm): void {
-    for (let [key, value] of Object.entries(deliveryForm)) {
-      for (let [keyOld] of Object.entries(this.delivery)) {
-        this.propsToRemove.forEach(element => {
-          delete this.delivery[element];
-        });
-
-        if (key === keyOld) {
-          if (value !== null) {
-            this.delivery[key] = value;
-          }
-        }
-      }
-    }
-  }
-
   packageHistoryEvent() {
     this.clickedHistoryEvent.emit(this.delivery.iddelivery);
   }
@@ -110,7 +95,7 @@ export class LieferungenFormComponent implements OnInit {
     if (!success) {
       return;
     } else if (success) {
-      this.modalService.open("Status erfolgreich geändert!", { centered: true });
+      this.modalService.open(SuccessPageComponent, { centered: true });
       this.changedDeliveryStateRefresh.emit(true);
     }
   }

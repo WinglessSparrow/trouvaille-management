@@ -38,7 +38,6 @@ export class SchedulerService {
         });
 
         let shiftFilter = new ShiftFilter(y, cw, idList);
-
         await new Promise<GlobalResponse>(resolve => {
             this.http.post<GlobalResponse>("https://td.vvjm.dev/api/shift/filter", shiftFilter)
                 .subscribe(val => {
@@ -46,6 +45,15 @@ export class SchedulerService {
                     resolve(val);
                 });
         })
+
+        employees.forEach(employee => {
+            weekShift.entries.forEach(entry => {
+                if (employee.idemployee == entry.employeeId) {
+                    entry.firstname = employee.firstname;
+                    entry.lastname = employee.lastname;
+                }
+            });
+        });
         return weekShift;
     }
 

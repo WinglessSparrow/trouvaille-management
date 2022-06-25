@@ -2,7 +2,8 @@
     <div top class=" d-flex flex-row gray">
         <app-listview (itemEvent)="itemDetails($event)" [showBtn2]="true" [buttonTitle2]="buttonTitle2"
             [buttonTitle]="buttonTitle" [list]="lieferungenList" [iconName]="iconName"
-            (showButton2Value)="showScannerFunc($event)" (showButton1Value)="showNeuesPaketFormFunc($event)">
+            (showButton2Value)="showScannerFunc($event)" (showButton1Value)="showNeuesPaketFormFunc($event)"
+            (refreshEvent)="refreshDeliveryList()">
         </app-listview>
         <div class="flex-grow-1">
             <div class="border-2 border-primary rounded-0 ms-4">

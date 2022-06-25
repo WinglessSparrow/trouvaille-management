@@ -18,6 +18,8 @@ export interface DayShiftEntry {
 
 export interface WeekShiftEntry {
     employeeId: number;
+    firstname: string;
+    lastname: string;
     monday : DayShiftEntry;
     tuesday : DayShiftEntry;
     wednesday : DayShiftEntry;

@@ -1,12 +1,13 @@
 <app-subnavbar [topTitle]="topTitle">
     <div top class=" d-flex flex-row gray">
         <app-listview (itemEvent)="itemDetails($event)" [showBtn2]="false" [buttonTitle]="buttonTitle" [list]="carList"
-            [iconName]="iconName" (showButton1Value)="showNewCarFormFunc($event)">
+            [iconName]="iconName" (showButton1Value)="showNewCarFormFunc($event)" (refreshEvent)="refreshCars()">
         </app-listview>
         <div class="flex-grow-1">
             <div class="border-2 border-primary rounded-0 ms-4 gray">
                 <app-car-form id="carForm" (showButton1Value)="showNewCarFormFunc($event)"
-                    (showDriverHistory)="showDriverHistory($event)" (deleteFromList)="deleteCarFromList($event)">
+                    (showDriverHistory)="showDriverHistory($event)" (deleteFromList)="refreshCars()"
+                    (changedCar)="refreshCars()">
                 </app-car-form>
                 <app-new-car-form id="newCarForm" (showButton1Value)="showNewCarFormFunc($event)"
                     (carCreated)="addCarToList($event)"></app-new-car-form>

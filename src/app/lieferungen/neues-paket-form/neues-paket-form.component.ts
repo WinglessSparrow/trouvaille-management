@@ -1,7 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
+import { SuccessPageComponent } from '../../shared/components/success-page/success-page.component';
 import { Delivery } from '../../shared/models/delivery';
+import { BackendError } from '../../shared/models/error-message';
 import { DeliveryService } from '../../shared/services/delivery-service';
 
 @Component({
@@ -68,7 +71,9 @@ export class NeuesPaketFormComponent implements OnInit {
   public async createDelivery(newDeliveryForm) {
     if (!this.areAllInputsValid()) {
       console.log("not all inputs valid!");
-      this.modalService.open("Nicht alle Felder sind (korrekt) gefüllt.Füllen Sie alle Felder aus und überprüfen Sie die rot markierten Felder.", { centered: true });
+      var error: BackendError = { title: "Oops! etwas ist schiefgelaufen..", error: { warnings: ["Nicht alle Felder sind (korrekt) gefüllt.Füllen Sie alle Felder aus und überprüfen Sie die rot markierten Felder."], error: { error: "Error", message: "" } } }
+      const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
+      modalRef.componentInstance.error = error;
       return;
     }
     this.delivery.customer.firstname = newDeliveryForm.customerfirstname;
@@ -88,10 +93,11 @@ export class NeuesPaketFormComponent implements OnInit {
     this.delivery.pack.width = newDeliveryForm.width;
     this.delivery.pack.height = newDeliveryForm.height;
     this.delivery.pack.weight = newDeliveryForm.weight;
-    this.delivery.isPickup = newDeliveryForm.ispickup;
     this.delivery.paymentMethod = newDeliveryForm.payment;
-
-    if (newDeliveryForm.isPickup === "true") {
+    this.delivery.pickupDate = newDeliveryForm.pickupDate;
+    var isPickup = (newDeliveryForm.ispickup === 'true');
+    this.delivery.isPickup = isPickup;
+    if (isPickup == true) {
       var datebuilder: string = "";
       var tempmonth = "";
       if (newDeliveryForm.pickupDate.month < 10) {
@@ -105,17 +111,20 @@ export class NeuesPaketFormComponent implements OnInit {
     this.propsToRemove.forEach(element => {
       delete this.delivery[element];
     });
-    if (newDeliveryForm.isPickup === "false") {
+    if (isPickup == false) {
       delete this.delivery["pickupDate"];
     }
+
     await this.deliveryService.createDelivery(this.delivery);
     this.delivery.text = "Paket: "
     this.createdDelivery.emit(true);
+    this.modalService.open(SuccessPageComponent, { centered: true });
   }
 
   setIsPickup(event: Event) {
     var isTrueSet = ((event.target as HTMLInputElement).value === 'true');
     this.showDatePicker = isTrueSet;
+
   }
 
   areAllInputsValid() {

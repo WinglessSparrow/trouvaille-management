@@ -108,15 +108,19 @@
         <div class="row">
             <div class="col-sm">
                 <label for="pickup">Ist Abholung</label>
-                <input value={{delivery.isPickup}} formControlName="isPickup" type="text" class="form-control"
-                    id="pickup" placeholder="Ja">
+                <select value={{delivery.isPickup}} formControlName="isPickup" class="form-control" id="pickup"
+                    required>
+                    <option value={{true}}>Ja</option>
+                    <option value={{false}}>Nein</option>
+                </select>
             </div>
             <div class="col-sm">
                 <label for="pickuptime">Abholzeitpunkt</label>
                 <div class="col-12">
                     <div class="input-group">
                         <input value={{delivery.pickupDate}} formControlName="pickupDate" class="form-control"
-                            placeholder="yyyy-mm-dd" name="dpFrom" ngbDatepicker #d1="ngbDatepicker">
+                            placeholder="yyyy-mm-dd" name="dpFrom" ngbDatepicker #d1="ngbDatepicker"
+                            readonly="readonly">
                         <button class="btn btn-outline-secondary calendar" (click)="d1.toggle()" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-calendar-date" viewBox="0 0 16 16">

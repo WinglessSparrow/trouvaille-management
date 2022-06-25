@@ -24,6 +24,7 @@ export class ListviewComponent implements OnInit {
   @Output() showButton1Value = new EventEmitter<boolean>(false);
   @Output() showButton2Value = new EventEmitter<boolean>(false);
   @Output() itemEvent = new EventEmitter<any>();
+  @Output() refreshEvent = new EventEmitter<any>();
 
   onPress1() {
     this.showButton1Value.emit(!this.tmp1);
@@ -50,6 +51,10 @@ export class ListviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.icon = this.sanitizer.bypassSecurityTrustHtml(this.icons[this.iconName]);
+  }
+
+  refresh() {
+    this.refreshEvent.emit();
   }
 
   itemDetailsEvent(value: any) {

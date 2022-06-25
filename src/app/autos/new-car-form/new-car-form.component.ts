@@ -1,7 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorPageComponent } from '../../shared/components/error-page/error-page.component';
 import { Car } from '../../shared/models/car';
+import { BackendError } from '../../shared/models/error-message';
 import { CarService } from '../../shared/services/car-service';
 
 @Component({
@@ -25,7 +27,6 @@ export class NewCarFormComponent implements OnInit {
       nextcheck: new FormControl(),
       licenceplate: new FormControl(null, Validators.required),
       status: new FormControl(null, Validators.required),
-      isdeleted: new FormControl(),
       maxvolume: new FormControl(null, Validators.required),
       lastcheck: new FormControl(null, Validators.required),
     });
@@ -43,12 +44,13 @@ export class NewCarFormComponent implements OnInit {
   public async createCar(newCarForm): Promise<void> {
     if (!this.areAllInputsValid()) {
       console.log("not all inputs valid!");
-      this.modalService.open("Nicht alle Felder sind (korrekt) gefüllt.Füllen Sie alle Felder aus und überprüfen Sie die rot markierten Felder.", { centered: true });
+      var error: BackendError = { title: "Oops! etwas ist schiefgelaufen..", error: { warnings: ["Nicht alle Felder sind (korrekt) gefüllt.Füllen Sie alle Felder aus und überprüfen Sie die rot markierten Felder."], error: { error: "Error", message: "" } } }
+      const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
+      modalRef.componentInstance.error = error;
       return;
     }
     this.car.licenceplate = newCarForm.licenceplate;
     this.car.status = newCarForm.status;
-    this.car.isdeleted = newCarForm.isdeleted;
     this.car.maxvolume = parseInt(newCarForm.maxvolume);
     var tempmonth = "";
     var tempday = "";
@@ -69,14 +71,12 @@ export class NewCarFormComponent implements OnInit {
 
     datebuilder = newCarForm.lastcheck.year + 2 + "-" + tempmonth + "-" + tempday + "T00:00:00.000Z";
     this.car.nextcheck = datebuilder;
-    this.car.isdeleted = false;
 
     this.propsToRemove.forEach(element => {
       delete this.car[element];
     });
 
     var isCreated: boolean = await this.carService.createCar(this.car);
-    console.log(isCreated);
     if (isCreated) {
       this.car.text = "Auto: " + this.car.licenceplate;
       this.carCreated.emit(this.car);
@@ -84,8 +84,6 @@ export class NewCarFormComponent implements OnInit {
     else {
       this.carCreated.emit(false);
     }
-
-
   }
 
   areAllInputsValid() {

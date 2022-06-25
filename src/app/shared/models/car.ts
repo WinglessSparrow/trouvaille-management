@@ -4,7 +4,6 @@ export class Car {
     nextcheck: string = "";
     licenceplate: string = "";
     status: string = "";
-    isdeleted: boolean = false;
     maxvolume: number = 0;
     lastcheck: string = "";
 }

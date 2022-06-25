@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SuccessPageComponent } from '../../../shared/components/success-page/success-page.component';
@@ -52,7 +52,7 @@ export class ShiftFormComponent implements OnInit {
 
   shiftForm: FormGroup;
   schedulerService: SchedulerService;
-  constructor(sService: SchedulerService, private modalService: NgbModal) {
+  constructor(sService: SchedulerService, private modalService: NgbModal, private viewContainerRef: ViewContainerRef) {
     this.schedulerService = sService;
   }
 
@@ -80,6 +80,14 @@ export class ShiftFormComponent implements OnInit {
       SamstagShiftControl : new FormControl(this.weekShiftEntry.saturday.shift),
      });
   }
+
+  private selfClose() {
+    this.viewContainerRef
+     .element
+     .nativeElement
+     .parentElement
+     .removeChild(this.viewContainerRef.element.nativeElement);
+ }
 
   showRouteId(id : number) : boolean{
     if (id >= 1) {
@@ -124,6 +132,8 @@ export class ShiftFormComponent implements OnInit {
       this.schedulerService.setWeekShift(this.weekShift);
 
       const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
+      modalRef.componentInstance.message = "Schicht wurde erfolgreich geändert/angelegt."
+      this.selfClose();
     }
   }
 
