@@ -1,10 +1,10 @@
-<form [formGroup]="carForm" class="w-100 p-2">
+<form [formGroup]="carForm" class="w-100 p-2" id="carForm">
     <div class="form-group">
         <div class="row">
             <div class="col-sm">
                 <label for="idvehicle">Nummer</label>
                 <input value={{car.idvehicle}} formControlName="idvehicle" type="text" class="form-control"
-                    id="idvehicle" placeholder="12345" required>
+                    id="idvehicle" placeholder="12345" required readonly="readonly">
             </div>
         </div>
     </div>
