@@ -6,7 +6,8 @@
         <div class="flex-grow-1">
             <div class="border-2 border-primary rounded-0 ms-4 gray">
                 <app-car-form id="carForm" (showButton1Value)="showNewCarFormFunc($event)"
-                    (showDriverHistory)="showDriverHistory($event)" (deleteFromList)="deleteCarFromList($event)">
+                    (showDriverHistory)="showDriverHistory($event)" (deleteFromList)="refreshCars()"
+                    (changedCar)="refreshCars()">
                 </app-car-form>
                 <app-new-car-form id="newCarForm" (showButton1Value)="showNewCarFormFunc($event)"
                     (carCreated)="addCarToList($event)"></app-new-car-form>

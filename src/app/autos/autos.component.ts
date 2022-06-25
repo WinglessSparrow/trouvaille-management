@@ -21,6 +21,7 @@ export class AutosComponent implements OnInit {
   iconName = "lierferwagen";
   topTitle = 'Lieferwagen';
   buttonTitle = 'Neuer Lieferwagen';
+  changedTimeformat = false;
 
   constructor(cService: CarService, private modalService: NgbModal) {
     this.carService = cService;
@@ -29,7 +30,7 @@ export class AutosComponent implements OnInit {
 
   async refreshCars() {
     this.carList = await this.carService.getAllCars();
-
+    this.showNewCarFormFunc(true);
   }
 
   ngOnInit(): void {
@@ -68,10 +69,12 @@ export class AutosComponent implements OnInit {
 
 
   async ngAfterViewInit(): Promise<void> {
+    console.log("afterViewInit called")
     document.getElementById("carForm").setAttribute("style", "display:inline");
     document.getElementById("newCarForm").setAttribute("style", "display:none");
     document.getElementById("driverHistory").setAttribute("style", "display:none");
     this.carList = await this.carService.getAllCars();
+
     this.itemDetails(this.carList[0]);
   }
 
