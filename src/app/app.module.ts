@@ -48,6 +48,7 @@ import { SchedulerService } from "./shared/services/scheduler-service";
 import { CommonModule } from "@angular/common";
 import { ShiftFormComponent } from "./mitarbeiter/scheduler-form/shift-form/shift-form.component";
 import { DeleteCarModalComponent } from './autos/delete-car-modal/delete-car-modal.component';
+import { RouteChangerComponent } from "./mitarbeiter/scheduler-form/route-changer/route-changer.component";
 
 // AoT requires an exported function for factories
 const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
@@ -62,7 +63,8 @@ const httpLoaderFactory = (http: HttpClient): TranslateHttpLoader =>
     RouteViewComponent,
     SchedulerFormComponent,
     ShiftFormComponent,
-    DeleteCarModalComponent],
+    DeleteCarModalComponent,
+    RouteChangerComponent],
   imports: [
     ReactiveFormsModule,
     BrowserModule,

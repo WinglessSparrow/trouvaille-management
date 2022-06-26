@@ -39,7 +39,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     // TODO: ask for webcam permission in production not working
-    systemPreferences.getMediaAccessStatus("camera");
+    //systemPreferences.getMediaAccessStatus("camera");
   }
 
   ngOnDestroy() {

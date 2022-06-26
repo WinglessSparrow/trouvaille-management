@@ -1,0 +1,11 @@
+
+.clickable {
+    cursor: pointer;
+  }
+
+tr:hover {
+    background-color: #c599ff;
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+}

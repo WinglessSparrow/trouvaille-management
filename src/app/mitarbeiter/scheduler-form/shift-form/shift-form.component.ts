@@ -18,6 +18,8 @@ export class ShiftFormComponent implements OnInit {
   @Input() weekShift: WeekShift;
   @Input() shiftEntryIndex: number;
 
+  @Output() notifyParent: EventEmitter<any> = new EventEmitter();
+
   status: ShiftWorkingTimeStatusType;
   dayShiftEntries: DayShiftEntry[];
 
@@ -131,9 +133,9 @@ export class ShiftFormComponent implements OnInit {
       this.weekShift.entries[this.shiftEntryIndex] = this.weekShiftEntry;
       this.schedulerService.setWeekShift(this.weekShift);
 
+      this.notifyParent.emit();
       const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
-      modalRef.componentInstance.message = "Schicht wurde erfolgreich geändert/angelegt."
-      this.selfClose();
+      modalRef.componentInstance.message = "Die ausgewählte Schicht wurde erfolgreich geändert."
     }
   }
 

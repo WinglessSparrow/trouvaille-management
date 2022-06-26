@@ -13,6 +13,7 @@ import { CustomValidators } from '../../shared/util/custom-validators';
 export class NewemployeeFormComponent implements OnInit {
   @Input() employeeList: Employee[];
   @Output() notifyParent: EventEmitter<any> = new EventEmitter();
+  @Output() notifyParentClose: EventEmitter<any> = new EventEmitter();
 
   employee: Employee;
   employeeService: EmployeeService;
@@ -95,6 +96,10 @@ export class NewemployeeFormComponent implements OnInit {
 
       this.notifyParent.emit(this.employee);
     });
+  }
+
+  cancle() {
+    this.notifyParentClose.emit();
   }
 
   Validation() {

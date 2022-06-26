@@ -14,12 +14,14 @@ export interface DayShiftEntry {
     status: ShiftWorkingTimeStatusType;
     routeIdRoute: number;
     shift: ShiftType;
+    shiftWorkingTimeId: number;
 }
 
 export interface WeekShiftEntry {
     employeeId: number;
     firstname: string;
     lastname: string;
+    targetweeklyworkinghours: number;
     monday : DayShiftEntry;
     tuesday : DayShiftEntry;
     wednesday : DayShiftEntry;

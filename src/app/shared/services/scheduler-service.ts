@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { resolve } from "path";
+import { Observable } from "rxjs";
 import { Employee } from "../models/employee";
 import { GlobalResponse } from "../models/global-response";
 import { WeekShift } from "../models/shift";
@@ -14,6 +15,15 @@ class ShiftFilter{
         this.year = y;
         this.calenderWeek = cw;
         this.employeeIdList = eIdL;
+    }
+}
+
+class cRoute{
+    srcShiftWorkingTimeId: number;
+    dstShiftWorkingTimeId: number;
+    constructor(s: number, d: number) {
+        this.srcShiftWorkingTimeId = s;
+        this.dstShiftWorkingTimeId = d;
     }
 }
 
@@ -70,5 +80,10 @@ export class SchedulerService {
     public setWeekShift(weekShift: WeekShift): void {
         this.http.post<GlobalResponse>("https://td.vvjm.dev/api/shift", weekShift)
             .subscribe();
+    }
+
+    public changeRoute(src: number, dst: number): Observable<GlobalResponse> {
+        var c = new cRoute(src, dst);
+        return this.http.post<GlobalResponse>("https://td.vvjm.dev/api/shift/changeRoute", c);
     }
 }
