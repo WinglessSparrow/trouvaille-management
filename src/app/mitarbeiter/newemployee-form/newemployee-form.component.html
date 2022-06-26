@@ -132,7 +132,7 @@
     </div>
 
     <div class="form-group float-end">
-        <button type="button" id="cancle" class="btn btn-danger m-3 float-right">Abbrechen</button>
+        <button (click)="cancle()" type="button" id="cancle" class="btn btn-danger m-3 float-right">Abbrechen</button>
         <button [disabled]="Validation()" type="submit" id="save"
             class="btn btn-primary m-3 float-right">Speichern</button>
     </div>

@@ -1,0 +1,31 @@
+<form [formGroup]="routeChangeForm" (ngSubmit)="changeRoute(routeChangeForm.value)" class="p-2 me-2">
+    <div class="form-group mt-2">
+        <div class="row">
+            <div class="col-sm">
+                <label for="routeSelect">Route wählen:</label>
+                <select value={{selectedRoute}} formControlName="routeSelect" class="form-control" style="width:auto;"
+                    id="routeSelect" required>
+
+                    <option *ngFor="let element of dayShiftEntryWithRoute" [ngValue]="element">
+                        {{element.routeIdRoute}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-sm">
+                <label for="routeSelect">Tag wählen:</label>
+                <select value={{selectedDay}} formControlName="daySelect" class="form-control" style="width:auto;"
+                    id="statusSelect" required>
+
+                    <option *ngFor="let element of workingWeeks" [ngValue]="element">
+                        {{element}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+
+        <button (click)="cancle()" type="button" id="cancle" class="btn btn-danger m-3 float-right">Abbrechen</button>
+        <button type="submit" id="save" class="btn btn-primary m-3 float-right">Speichern</button>
+    </div>
+</form>

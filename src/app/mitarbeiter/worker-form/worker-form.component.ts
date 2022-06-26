@@ -1,12 +1,10 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SuccessPageComponent } from '../../shared/components/success-page/success-page.component';
 import { Employee } from '../../shared/models/employee';
 import { Group } from '../../shared/models/group';
 import { EmployeeService } from '../../shared/services/employee-service';
 import { CustomValidators } from '../../shared/util/custom-validators';
-import { ViewContainerRef } from '@angular/core';
 
 @Component({
   selector: 'app-worker-form',
