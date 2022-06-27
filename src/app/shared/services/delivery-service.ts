@@ -95,10 +95,6 @@ export class DeliveryService {
     return historyEntries;
   }
 
-  public changeDeliveryState1(packageid: string, state: string) {
-    this.http.put<GlobalResponse>("https://td.vvjm.dev/api/deliveries/changeState/" + packageid, state, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).subscribe();
-  }
-
   public async changeDeliveryState(packageid: string, state: string) {
     return new Promise<boolean>(resolve => {
       this.http.put<GlobalResponse>("https://td.vvjm.dev/api/deliveries/changeState/" + packageid, state, { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }).subscribe((data) => { resolve(true) }, error => { resolve(false) });

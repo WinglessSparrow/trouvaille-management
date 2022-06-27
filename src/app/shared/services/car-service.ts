@@ -53,7 +53,6 @@ export class CarService {
     cars.forEach(element => {
       element as Car;
       element.text = "Auto: " + element.licenceplate;
-      cars.push(element);
     })
     return cars;
   }
@@ -61,12 +60,6 @@ export class CarService {
   public createCarWithoutError(car: Car): void {
     this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car)
       .subscribe();
-  }
-
-  public createCar1(car: Car): boolean {
-    this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/", car)
-      .subscribe(error => { return false });
-    return true;
   }
 
   public async createCar(car: Car) {
