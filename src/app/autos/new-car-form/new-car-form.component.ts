@@ -27,8 +27,8 @@ export class NewCarFormComponent implements OnInit {
       nextcheck: new FormControl(),
       licenceplate: new FormControl(null, Validators.required),
       status: new FormControl(null, Validators.required),
-      maxvolume: new FormControl(null, Validators.required),
       lastcheck: new FormControl(null, Validators.required),
+      maxvolume: new FormControl(null, Validators.compose([Validators.required, Validators.min(1000000), Validators.max(5000000)])),
     });
   }
 
