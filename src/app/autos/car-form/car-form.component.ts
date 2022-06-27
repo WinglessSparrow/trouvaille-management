@@ -76,6 +76,13 @@ export class CarFormComponent implements OnInit {
         }
       }
     }
+    console.log("LOG!!", this.carForm.controls.lastcheck.value.month)
+    if (!this.carForm.controls.lastcheck.value.month) {
+      var error: BackendError = { title: "Oops! etwas ist schiefgelaufen..", error: { warnings: ["Bitte benutzten sie die Datumsauswahl."], error: { error: "Error", message: "" } } }
+      const modalRef = this.modalService.open(ErrorPageComponent, { centered: true });
+      modalRef.componentInstance.error = error;
+      return;
+    }
     this.car.status = (document.getElementById("status") as HTMLInputElement).value
     var tempmonth = "";
     var tempday = ""

@@ -30,7 +30,6 @@ export class AutosComponent implements OnInit {
 
   async refreshCars() {
     this.carList = await this.carService.getAllCars();
-    this.showNewCarFormFunc(true);
   }
 
   ngOnInit(): void {
