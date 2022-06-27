@@ -82,5 +82,6 @@ export class AutosComponent implements OnInit {
     document.getElementById("carForm").setAttribute("style", "display:inline");
     document.getElementById("newCarForm").setAttribute("style", "display:none");
     this.cfc.changeEntrys(value);
+    console.log(this.carList);
   }
 }
