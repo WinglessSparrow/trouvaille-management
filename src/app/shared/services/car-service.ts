@@ -28,17 +28,17 @@ export class CarService {
     return carsCount;
   }
 
-  public getAllCarsStatistik() {
-    var cars = [] as Car[];
-    var countAll = 2147483647;
-    this.http.post<GlobalResponse>("https://td.vvjm.dev/api/vehicle/0/" + countAll, {}).subscribe(data => {
-      data.data[0].forEach(element => {
-        element as Car;
-        element.text = "Auto: " + element.licenceplate;
-        cars.push(element);
-      });
-    });
-    return cars;
+  public async getCarsCountAsync() {
+    var to: number = 0;
+    await new Promise<GlobalResponse>(resolve => {
+      this.http.get<GlobalResponse>("https://td.vvjm.dev/api/vehicle/count").subscribe(val => {
+
+        to = val.data[0];
+        resolve(val);
+      },
+      )
+    })
+    return to;
   }
 
   public async getAllCars() {
