@@ -59,7 +59,6 @@ export class DeliveryService {
     deliveries.forEach(element => {
       element as Delivery;
       element.text = "Paket: " + element.packageid;
-      deliveries.push(element);
     })
     return deliveries;
   }
