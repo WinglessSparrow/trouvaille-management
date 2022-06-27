@@ -24,10 +24,11 @@ export class StatistikComponent {
 
   employeeList: Employee[];
   deliveryList: Delivery[];
-  carList: Car[];
   routeList: Route[];
 
   turnover: number;
+  carCount: number;
+  routeCount: number;
 
   constructor(eService: EmployeeService, dService: DeliveryService, cService: CarService, rService: RouteService, aService : AuthService) {
     this.employeeService = eService;
@@ -35,14 +36,23 @@ export class StatistikComponent {
     this.carService = cService;
     this.routeService = rService;
     this.employeeList = this.employeeService.getAllEmployees();
-    this.carList = this.carService.getAllCarsStatistik();
     this.routeList = this.routeService.getAllRoutes();
     this.deliveryList = this.deliveryService.getAllDeliveriesStatistik();
     this.getToAsync();
+    this.getCarCount();
+    this.getRouteCount();
   }
 
   async getToAsync(){
     this.turnover = await this.deliveryService.getTurnoverAsync();
+  }
+
+  async getCarCount() {
+    this.carCount = await this.carService.getCarsCountAsync();
+  }
+
+  async getRouteCount() {
+    this.routeCount = await this.routeService.getRouteCountAsync();
   }
 
   activeDriver(): number {
@@ -62,24 +72,6 @@ export class StatistikComponent {
       if (element.currentState.toLocaleLowerCase() === state) {
         count++;
       }
-    });
-    return count;
-  }
-
-  getActiveCarCount() {
-    var count = 0;
-    this.carList.forEach(element => {
-      if (element.status.toLocaleLowerCase() === "available") {
-        count++;
-      }
-    });
-    return count;
-  }
-
-  getRouteCount() {
-    var count = 0;
-    this.carList.forEach(element => {
-      count++;
     });
     return count;
   }
