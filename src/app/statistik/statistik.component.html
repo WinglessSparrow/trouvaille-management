@@ -74,7 +74,7 @@
                                 </svg>
                             </div>
                             <div class="text-end">
-                                <h3>{{getDeliverieCountByState("cancled")}}</h3>
+                                <h3>{{getDeliverieCountByState("canceled")}}</h3>
                                 <p class="mb-0">stornierte Lieferungen</p>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between px-md-1">
                             <div>
-                                <h3 class="text-info">{{getActiveCarCount()}}</h3>
+                                <h3 class="text-info">{{carCount}}</h3>
                                 <p class="mb-0">aktive Fahrzeuge</p>
                             </div>
                             <div class="align-self-center">
@@ -150,7 +150,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between px-md-1">
                             <div>
-                                <h3 class="text-primary">{{getRouteCount()}}</h3>
+                                <h3 class="text-primary">{{routeCount}}</h3>
                                 <p class="mb-0">aktive Routen</p>
                             </div>
                             <div class="align-self-center">
@@ -177,7 +177,7 @@
                         <div class="d-flex justify-content-between px-md-1">
                             <div>
                                 <h3 class="text-success">{{turnover | number : '1.2-2'}}€</h3>
-                                <p class="mb-0">Umsatz</p>
+                                <p class="mb-0">Umsatz heute</p>
                             </div>
                             <div class="align-self-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor"

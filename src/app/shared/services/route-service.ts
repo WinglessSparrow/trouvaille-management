@@ -21,4 +21,25 @@ export class RouteService {
         });
         return routes;
     }
+
+    public getRouteCount(): number {
+        var routeCount = 0;
+        this.http.get<GlobalResponse>("https://td.vvjm.dev/api/routes/count", {}).subscribe(data => {
+            routeCount = data.data[0];
+        })
+        return routeCount;
+    }
+
+    public async getRouteCountAsync() {
+        var to: number = 0;
+        await new Promise<GlobalResponse>(resolve => {
+          this.http.get<GlobalResponse>("https://td.vvjm.dev/api/routes/count").subscribe(val => {
+    
+            to = val.data[0];
+            resolve(val);
+          },
+          )
+        })
+        return to;
+      }
 }
