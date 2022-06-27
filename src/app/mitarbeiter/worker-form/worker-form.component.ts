@@ -117,9 +117,17 @@ export class WorkerFormComponent implements OnInit {
         }
       }
     }
+
+    if(employeeForm.password){
+      this.employee.password = employeeForm.password;
+    }
+
+    console.log(this.employee);
+
     this.employeeService.changeEmployee(this.employee).subscribe(() => {
       this.employee.text = this.employee.firstname + " " + this.employee.lastname;
       this.employee.group = new Group();
+
       this.employeeChangedEvent.emit();
     });
     
