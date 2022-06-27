@@ -2,7 +2,7 @@
     <div top class="d-flex flex-row">
         <div class="flex-md-fill border-2 border-primary rounded-0">
             <div class="container-fluid border-2 border-primary rounded-0">
-                <app-listview (refreshEvent)="refreshList()" (itemEvent)="itemDetails($event)"
+                <app-listview (refreshEvent)="refreshEmployeeList()" (itemEvent)="itemDetails($event)"
                     (showButton1Value)="showForms($event)" [buttonTitle]="buttonTitleNewWorker" [list]="employeeList"
                     [iconName]="iconMitarbeiter">
                 </app-listview>
@@ -12,8 +12,8 @@
             <div class="container-fluid border-2 border-primary rounded-0 ms-4">
                 <app-worker-form (employeeChangedEvent)="employeeChanged()" (notifyParent)="refreshListOnDelete($event)"
                     hidden id="workerForm"></app-worker-form>
-                <app-newemployee-form (notifyParent)="refreshListOnNew($event)" [employeeList]="employeeList"
-                    id="newEmployeeForm" *ngIf="showNewEmployeeForm">
+                <app-newemployee-form (notifyParentClose)="closeNewEmployee()" (notifyParent)="refreshListOnNew($event)"
+                    [employeeList]="employeeList" id="newEmployeeForm" *ngIf="showNewEmployeeForm">
                 </app-newemployee-form>
             </div>
         </div>
@@ -22,8 +22,8 @@
     <div *ngIf="toggleGroup" middle class="d-flex flex-row">
         <div class="container-fluid border-2 border-primary rounded-0">
             <p class="text-center p-2">Gruppen</p>
-            <app-listview (itemEvent)="showGroupMembers($event)" [showBtn1]="false" [buttonTitle]="buttonTitleGroup"
-                [list]="groupList" [iconName]="iconGroup">
+            <app-listview (refreshEvent)="refreshGroupList()" (itemEvent)="showGroupMembers($event)" [showBtn1]="false"
+                [buttonTitle]="buttonTitleGroup" [list]="groupList" [iconName]="iconGroup">
             </app-listview>
         </div>
         <div class="vstack gap-2 col-md-5 mx-auto justify-content-center">
@@ -37,8 +37,9 @@
         </div>
         <div class="container-fluid border-2 border-primary rounded-0 ms-4">
             <p class="text-center p-2">Mitglieder</p>
-            <app-listview (itemEvent)="setEmployee($event)" [showBtn1]="false" [buttonTitle]="buttonTitleWorker"
-                [list]="groupEmployeeList" [iconName]="iconMitarbeiter">
+            <app-listview (refreshEvent)="showGroupMembers(selectedGroup)" (itemEvent)="setEmployee($event)"
+                [showBtn1]="false" [buttonTitle]="buttonTitleWorker" [list]="groupEmployeeList"
+                [iconName]="iconMitarbeiter">
             </app-listview>
         </div>
     </div>

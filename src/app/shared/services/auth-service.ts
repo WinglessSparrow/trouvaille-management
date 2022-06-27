@@ -9,8 +9,13 @@ interface UserData {
     email: string;
     token: string;
     expirationDate: string;
-    authorities: string[];
+    authorities: Authority[];
 }
+
+interface Authority{
+    authority: string;    
+}
+
 
 const routes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -53,6 +58,10 @@ export class AuthService {
 
     public getToken(): string | null {
         return window.sessionStorage.getItem(TOKEN_KEY);
+    }
+
+    getUserRole(): string {
+        return this.getUserData().authorities[0].authority;
     }
 
     saveUserData(userData: UserData): void {

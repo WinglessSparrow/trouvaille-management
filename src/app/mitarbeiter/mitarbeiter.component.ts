@@ -56,25 +56,33 @@ export class MitarbeiterComponent implements OnInit {
   }
 
   refreshListOnDelete(event) {
-    this.refreshList();
+    this.refreshEmployeeList();
     const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
     modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich gelöscht.";
     document.getElementById("workerForm").setAttribute("hidden", "true");
   }
   
   refreshListOnNew(event) {
-    this.refreshList();
+    this.refreshEmployeeList();
     const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
     modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich erstellt.";
     this.showNewEmployeeForm = false;
   }
 
-  refreshList() {
+  closeNewEmployee() {
+    this.showNewEmployeeForm = false;
+  }
+
+  refreshEmployeeList() {
     this.employeeList = this.employeeService.getAllEmployees();
   }
 
+  refreshGroupList() {
+    this.groupList = this.groupService.getAllGroups();
+  }
+
   employeeChanged() {
-    this.refreshList();
+    this.refreshEmployeeList();
     document.getElementById("workerForm").setAttribute("hidden", "true");
     const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
     modalRef.componentInstance.message = "Der Mitarbeiter wurde erfolgreich geändert.";
@@ -93,6 +101,12 @@ export class MitarbeiterComponent implements OnInit {
 
   showGroupMembers(value: Group) {
     this.selectedEmployee = undefined;
+    this.groupEmployeeList = this.employeeList.filter(x => x.groupIdgroup == value.idgroups);
+  }
+
+  showGroupMembersRefresh(value: Group) {
+    this.selectedEmployee = undefined;
+    this.refreshEmployeeList();
     this.groupEmployeeList = this.employeeList.filter(x => x.groupIdgroup == value.idgroups);
   }
 

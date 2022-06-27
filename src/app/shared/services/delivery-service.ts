@@ -105,5 +105,25 @@ export class DeliveryService {
     })
   }
 
+  public getTurnover() {
+    var to: number = 0;
+    this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/turnover").subscribe(data => {
+      to = data.data[0]
+    });
+    return to;
+  }
+
+  public async getTurnoverAsync() {
+    var to: number = 0;
+    await new Promise<GlobalResponse>(resolve => {
+      this.http.get<GlobalResponse>("https://td.vvjm.dev/api/deliveries/turnover").subscribe(val => {
+
+        to = val.data[0];
+        resolve(val);
+      },
+      )
+    })
+    return to;
+  }
 
 }

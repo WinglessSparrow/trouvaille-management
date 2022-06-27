@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ShiftWorkingTimeStatusType, WeekShift } from '../../shared/models/shift';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SchedulerService } from '../../shared/services/scheduler-service';
 import DateTime from 'luxon/src/datetime.js'
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ShiftFormComponent } from './shift-form/shift-form.component';
+import { DayShiftEntry, ShiftWorkingTimeStatusType, WeekShift, WeekShiftEntry } from '../../shared/models/shift';
+import { SuccessPageComponent } from '../../shared/components/success-page/success-page.component';
+import { ErrPageComponent } from '../../shared/components/err-page/err-page.component';
+import { RouteChangerComponent } from './route-changer/route-changer.component';
 
 @Component({
   selector: 'app-scheduler-form',
@@ -12,6 +15,10 @@ import { ShiftFormComponent } from './shift-form/shift-form.component';
   styleUrls: ['./scheduler-form.component.scss']
 })
 export class SchedulerFormComponent implements OnInit {
+  @Output() notifyParent: EventEmitter<any> = new EventEmitter();
+
+  shiftFormModalRef: NgbModalRef;
+  
   /// INFOS
   //status nie null
   //falls status.working darf shift nicht null sein
@@ -25,12 +32,104 @@ export class SchedulerFormComponent implements OnInit {
   selectedYear: number = 0;
   selectedWeek: number = 0; //max 52
 
+  transfer: boolean;
+
+  srcWeekShiftEntry: WeekShiftEntry;
+  dstWeekShiftEntry: WeekShiftEntry;
+
+  dayShiftEntryWithRoute: DayShiftEntry[] = [];
+
   constructor(private schedulerService: SchedulerService, private sanitizer: DomSanitizer, private modalService: NgbModal) {
   }
 
   ngOnInit() {
     this.selectedWeek = DateTime.now().weekNumber;
     this.selectedYear = DateTime.now().year;
+    this.getWeekShift(this.selectedYear, this.selectedWeek);
+    this.transfer = false;
+  }
+
+  //activate changeRoute
+  changeRoute(i: number) {
+    this.srcWeekShiftEntry = this.weekShift.entries[i];
+
+    var noRoute = true;
+    //check if any dayShiftEntry has a route
+    if (this.srcWeekShiftEntry.monday.routeIdRoute) {
+      this.dayShiftEntryWithRoute.push(this.srcWeekShiftEntry.monday);
+      noRoute = false;
+    } if (this.srcWeekShiftEntry.tuesday.routeIdRoute) {
+      this.dayShiftEntryWithRoute.push(this.srcWeekShiftEntry.tuesday);
+      noRoute = false;
+    } if (this.srcWeekShiftEntry.wednesday.routeIdRoute) {
+      this.dayShiftEntryWithRoute.push(this.srcWeekShiftEntry.wednesday);
+      noRoute = false;
+    } if (this.srcWeekShiftEntry.thursday.routeIdRoute) {
+      this.dayShiftEntryWithRoute.push(this.srcWeekShiftEntry.thursday);
+      noRoute = false;
+    } if (this.srcWeekShiftEntry.friday.routeIdRoute) {
+      this.dayShiftEntryWithRoute.push(this.srcWeekShiftEntry.friday);
+      noRoute = false;
+    } if (this.srcWeekShiftEntry.saturday.routeIdRoute) {
+      this.dayShiftEntryWithRoute.push(this.srcWeekShiftEntry.saturday);
+      noRoute = false;
+    } if(noRoute) {
+      const modalRef = this.modalService.open(ErrPageComponent, { centered: true });
+      modalRef.componentInstance.errorTitle = "Keine Route gefunden!"
+      modalRef.componentInstance.errorMsg = "In der gewählten Wochenschicht, befindet sich keine aktive Route.";
+      return;
+    }
+
+    this.transfer = true;
+    const modalRef = this.modalService.open(SuccessPageComponent, { centered: true });
+    modalRef.componentInstance.message = "Bitte eine Zeile auswählen mit der eine Route gewechselt werden soll.";
+  }
+
+  rowClick(i: number) {
+    if (this.transfer) {
+      this.dstWeekShiftEntry = this.weekShift.entries[i];
+      var wArr = this.employeeWorkingWeeks(this.dstWeekShiftEntry);
+      if (wArr.length > 0) {
+        //CHANGE ROUTE
+        const modalRef = this.modalService.open(RouteChangerComponent, { centered: true });
+        modalRef.componentInstance.dayShiftEntryWithRoute = this.dayShiftEntryWithRoute;
+        modalRef.componentInstance.dstWeekShiftEntry = this.dstWeekShiftEntry;
+        modalRef.componentInstance.workingWeeks = wArr;
+        modalRef.componentInstance["notifyParent"].subscribe(event => {
+          this.refresh();
+          modalRef.close();
+          modalRef.dismiss();
+         });
+        this.transfer = false;
+        this.dayShiftEntryWithRoute = [];
+      } else {
+        //ERROR EMPLOYEE NO WORKING SHIFT
+        const modalRef = this.modalService.open(ErrPageComponent, { centered: true });
+        modalRef.componentInstance.errorTitle = "Arbeitet nicht!"
+        modalRef.componentInstance.errorMsg = "Der ausgewählte Mitarbeiter arbeitet in keiner Schicht! Bitte eine Schicht 'arbeitend' setzen und nochmals versuchen.";
+      }
+    }
+  }
+
+  employeeWorkingWeeks(entry: WeekShiftEntry) : string[] {
+    var workingWeeks: string[] = [];
+    if (entry.monday.status.valueOf() == "WORKING") {
+      workingWeeks.push("Montag");
+    } if (entry.tuesday.status.valueOf() === "WORKING") {
+      workingWeeks.push("Dienstag");
+    } if (entry.wednesday.status.valueOf() == "WORKING") {
+      workingWeeks.push("Mittwoch");
+    } if (entry.thursday.status.valueOf() == "WORKING") {
+      workingWeeks.push("Donnerstag");
+    } if (entry.friday.status.valueOf() == "WORKING") {
+      workingWeeks.push("Freitag");
+    } if (entry.saturday.status.valueOf() == "WORKING") {
+      workingWeeks.push("Samstag");
+    } 
+    return workingWeeks;
+  }
+
+  refresh() {
     this.getWeekShift(this.selectedYear, this.selectedWeek);
   }
 
@@ -44,8 +143,10 @@ export class SchedulerFormComponent implements OnInit {
     modalRef.componentInstance.weekShiftEntry = this.weekShift.entries[index];
     modalRef.componentInstance.weekShift = this.weekShift;
     modalRef.componentInstance.shiftEntryIndex = index;
+    modalRef.componentInstance["notifyParent"].subscribe(event => {
+      modalRef.close();
+     });
   }
-
 
   increaseWeek() {
     if (this.selectedWeek == 52) {

@@ -7,6 +7,8 @@ import { CarService } from '../shared/services/car-service';
 import { Car } from '../shared/models/car';
 import { RouteService } from '../shared/services/route-service';
 import { Route } from '../shared/models/route';
+import { StatsService } from '../shared/services/stats-service';
+import { AuthService } from '../shared/services/auth-service';
 
 @Component({
   selector: 'app-statistik',
@@ -18,13 +20,16 @@ export class StatistikComponent {
   deliveryService: DeliveryService;
   carService: CarService;
   routeService: RouteService;
+  statsService: StatsService;
 
   employeeList: Employee[];
   deliveryList: Delivery[];
   carList: Car[];
   routeList: Route[];
 
-  constructor(eService: EmployeeService, dService: DeliveryService, cService: CarService, rService: RouteService) {
+  turnover: number;
+
+  constructor(eService: EmployeeService, dService: DeliveryService, cService: CarService, rService: RouteService, aService : AuthService) {
     this.employeeService = eService;
     this.deliveryService = dService;
     this.carService = cService;
@@ -33,9 +38,12 @@ export class StatistikComponent {
     this.carList = this.carService.getAllCarsStatistik();
     this.routeList = this.routeService.getAllRoutes();
     this.deliveryList = this.deliveryService.getAllDeliveriesStatistik();
+    this.getToAsync();
   }
 
-
+  async getToAsync(){
+    this.turnover = await this.deliveryService.getTurnoverAsync();
+  }
 
   activeDriver(): number {
     var count = 0;

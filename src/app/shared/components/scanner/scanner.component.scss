@@ -1,9 +1,30 @@
 $distance-from-border: 30px;
 $width-aim: 45px;
 
+
+:host{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .video-outline {
     position: relative;
     border: 2px solid purple;
+    
+    height: 20vw;
+    aspect-ratio: 1/1;
+}
+
+.video-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+
+    height: 100%;
+    aspect-ratio: 1/1;
 }
 
 .corner-top-left {
@@ -52,16 +73,6 @@ $width-aim: 45px;
 
     border-bottom: solid red 2px;
     border-right: solid red 2px;
-}
-
-.video-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-
-    width: 30vw;
-    height: 20vw;
 }
 
 video {
