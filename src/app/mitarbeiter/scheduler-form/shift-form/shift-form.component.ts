@@ -100,7 +100,7 @@ export class ShiftFormComponent implements OnInit {
   propsToRemove = [
     "firstname",
     "lastname",
-    "group",
+    "groupname",
   ]
 
   changeShiftEntry() {
