@@ -15,8 +15,6 @@ export class RouteViewComponent implements OnInit {
   private waypoints: L.LatLng[] = [];
   private route: Route = new Route();
 
-
-
   constructor() { }
 
   ngOnInit(): void {
