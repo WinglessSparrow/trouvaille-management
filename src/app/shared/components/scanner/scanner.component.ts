@@ -40,6 +40,8 @@ export class ScannerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // TODO: ask for webcam permission in production not working
     //systemPreferences.getMediaAccessStatus("camera");
+    //systemPreferences.askForMediaAccess('camera');
+
   }
 
   ngOnDestroy() {
@@ -75,7 +77,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
     //start QR recognition
 
     // TODO: ADD THIS LINE FOR SCANNER!!!!
-    //requestAnimationFrame(this.scan.bind(this));
+    requestAnimationFrame(this.scan.bind(this));
 
   }
 
