@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { Route } from '../../shared/models/route';
-//import { RouteMarker } from 'leaflet/dist/images/marker-icon.png'
+
+
+import { Icon } from 'leaflet'
 
 @Component({
   selector: 'app-route-view',
@@ -60,15 +62,30 @@ export class RouteViewComponent implements OnInit {
 
     this.centroid = [route.nodes[0].latitude, route.nodes[0].longitude];
 
+    var myIcon = L.icon({
+      iconUrl: 'assets/marker-icon.png',
+      iconSize: [40, 60],
+      iconAnchor: [22, 94],
+      popupAnchor: [-3, -76],
+      shadowUrl: 'assets/marker-shadow.png',
+      shadowSize: [40, 60],
+      shadowAnchor: [22, 94]
+    });
     route.nodes.forEach(node => {
-      var marker = L.marker([node.latitude, node.longitude], { draggable: false }).addTo(this.map);
-      marker.dragging.disable;
       this.waypoints.push(new L.LatLng(node.latitude, node.longitude));
     });
 
     L.Routing.control({
       waypoints: this.waypoints,
+      plan: L.routing.plan(this.waypoints, {
+        createMarker: function (i, wp, nWps) {
+          return L.marker(wp.latLng, { icon: myIcon, draggable: false },);
+        },
+      })
     }).addTo(this.map);
+
+
+
 
     this.map.flyTo(this.centroid);
   }
