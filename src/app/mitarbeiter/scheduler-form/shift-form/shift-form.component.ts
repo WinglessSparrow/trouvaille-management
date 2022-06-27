@@ -54,7 +54,7 @@ export class ShiftFormComponent implements OnInit {
 
   shiftForm: FormGroup;
   schedulerService: SchedulerService;
-  constructor(sService: SchedulerService, private modalService: NgbModal, private viewContainerRef: ViewContainerRef) {
+  constructor(sService: SchedulerService, private modalService: NgbModal) {
     this.schedulerService = sService;
   }
 
@@ -83,14 +83,6 @@ export class ShiftFormComponent implements OnInit {
      });
   }
 
-  private selfClose() {
-    this.viewContainerRef
-     .element
-     .nativeElement
-     .parentElement
-     .removeChild(this.viewContainerRef.element.nativeElement);
- }
-
   showRouteId(id : number) : boolean{
     if (id >= 1) {
       return true;
@@ -104,6 +96,12 @@ export class ShiftFormComponent implements OnInit {
     }
     return false;
   }
+
+  propsToRemove = [
+    "firstname",
+    "lastname",
+    "group",
+  ]
 
   changeShiftEntry() {
     //status
@@ -131,6 +129,9 @@ export class ShiftFormComponent implements OnInit {
       this.errorHidden = false;
     } else {
       this.weekShift.entries[this.shiftEntryIndex] = this.weekShiftEntry;
+      this.propsToRemove.forEach(element => {
+        delete this.weekShift[element];
+      });
       this.schedulerService.setWeekShift(this.weekShift);
 
       this.notifyParent.emit();
