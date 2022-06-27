@@ -4,6 +4,7 @@ import { ErrorPageComponent } from '../shared/components/error-page/error-page.c
 import { ScannerComponent } from '../shared/components/scanner/scanner.component';
 import { Delivery } from '../shared/models/delivery';
 import { BackendError } from '../shared/models/error-message';
+import { AuthService } from '../shared/services/auth-service';
 import { DeliveryService } from '../shared/services/delivery-service';
 import { DeliveryHistoryComponent } from './delivery-history/delivery-history.component';
 import { LieferungenFormComponent } from './lieferungen-form/lieferungen-form.component';
@@ -24,19 +25,20 @@ export class LieferungenComponent implements OnInit {
   buttonTitle2 = 'Paket scannen';
 
   deliveryService: DeliveryService;
+  authService: AuthService;
+
 
   showForm: boolean = true;
   showNewForm: boolean = false;
   showScanForm: boolean = false;
 
 
-  constructor(dService: DeliveryService, private modalService: NgbModal) {
+  constructor(dService: DeliveryService, private modalService: NgbModal, aService: AuthService) {
     this.deliveryService = dService;
-
+    this.authService = aService;
   }
 
   async refreshDeliveryList() {
-
     this.lieferungenList = await this.deliveryService.getAllDeliveries();
   }
 
