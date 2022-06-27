@@ -6,15 +6,16 @@
                 <input value={{car.idvehicle}} formControlName="idvehicle" type="text" class="form-control"
                     id="idvehicle" placeholder="12345" required readonly="readonly">
             </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="row">
             <div class="col-sm">
                 <label for="idvehicle">Kennzeichen</label>
                 <input value={{car.licenceplate}} readonly="readonly" formControlName="licenceplate" type="text"
                     class="form-control" id="licenceplate" placeholder="12345" required>
             </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+
             <div class="col-sm">
                 <label for="status">Verfügbar</label>
                 <select value={{car.status}} formControlName="status" class="form-control" id="status" required>
