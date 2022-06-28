@@ -97,6 +97,7 @@ export class LieferungenFormComponent implements OnInit {
     } else if (success) {
       this.modalService.open(SuccessPageComponent, { centered: true });
       this.changedDeliveryStateRefresh.emit(true);
+      this.delivery.currentState = newState;
     }
   }
 }

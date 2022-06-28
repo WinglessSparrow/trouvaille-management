@@ -77,7 +77,7 @@ export class ScannerComponent implements OnInit, OnDestroy {
     //start QR recognition
 
     // TODO: ADD THIS LINE FOR SCANNER!!!!
-    requestAnimationFrame(this.scan.bind(this));
+    //requestAnimationFrame(this.scan.bind(this));
 
   }
 
