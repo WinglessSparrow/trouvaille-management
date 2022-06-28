@@ -73,7 +73,7 @@ export class AutosComponent implements OnInit {
     document.getElementById("newCarForm").setAttribute("style", "display:none");
     document.getElementById("driverHistory").setAttribute("style", "display:none");
     this.carList = await this.carService.getAllCars();
-
+    if (this.carList.length < 1) return;
     this.itemDetails(this.carList[0]);
   }
 
