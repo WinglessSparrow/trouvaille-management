@@ -27,9 +27,9 @@ export class WorkerFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeForm = new FormGroup({
-      firstname: new FormControl(null,[Validators.required, Validators.minLength(3)]),
-      lastname: new FormControl(null,[Validators.required, Validators.minLength(3)]),
-      email: new FormControl(null,[Validators.required, Validators.email]),
+      firstname: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      lastname: new FormControl(null, [Validators.required, Validators.minLength(3)]),
+      email: new FormControl(null, [Validators.required, Validators.email]),
       phonenumber: new FormControl(null),
       targetweeklyworkinghours: new FormControl(null),
       password: new FormControl(null, [
@@ -39,13 +39,13 @@ export class WorkerFormComponent implements OnInit {
         CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
         CustomValidators.patternValidator(/\W|_/g, { hasSpecialCharacters: true }),
       ]),
-      confirmPassword: new FormControl(null,[Validators.minLength(8)]),
+      confirmPassword: new FormControl(null, [Validators.minLength(8)]),
       employeeStatus: new FormControl(null),
       birthday: new FormControl(null, [
         Validators.required,
         CustomValidators.patternValidator(/^\d{2}[.]\d{2}[.]\d{4}$/, { isDate: true }),
         CustomValidators.birthday({ ageCheck: true })]),
-      groupIdgroup: new FormControl(null,Validators.required)
+      groupIdgroup: new FormControl(null, Validators.required)
     }, {
       validators: [CustomValidators.match]
     });
@@ -63,12 +63,14 @@ export class WorkerFormComponent implements OnInit {
   get groupIdgroup() { return this.employeeForm.get('groupIdgroup'); }
 
   public changeEntrys(e: Employee) {
+    console.log(e.group.groupname);
+    console.log(e.groupIdgroup);
     if (this.employee != e) {
       this.employee = e;
       this.employeeForm = new FormGroup({
-        firstname: new FormControl(this.employee.firstname,[Validators.required, Validators.minLength(3)]),
-        lastname: new FormControl(this.employee.lastname,[Validators.required, Validators.minLength(3)]),
-        email: new FormControl(this.employee.email,[Validators.required, Validators.email]),
+        firstname: new FormControl(this.employee.firstname, [Validators.required, Validators.minLength(3)]),
+        lastname: new FormControl(this.employee.lastname, [Validators.required, Validators.minLength(3)]),
+        email: new FormControl(this.employee.email, [Validators.required, Validators.email]),
         phonenumber: new FormControl(this.employee.phonenumber),
         targetweeklyworkinghours: new FormControl(this.employee.targetweeklyworkinghours),
         password: new FormControl(null, [
@@ -78,12 +80,12 @@ export class WorkerFormComponent implements OnInit {
           CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
           CustomValidators.patternValidator(/\W|_/g, { hasSpecialCharacters: true }),
         ]),
-        confirmPassword: new FormControl(null,[Validators.minLength(8)]),
+        confirmPassword: new FormControl(null, [Validators.minLength(8)]),
         employeeStatus: new FormControl(null),
         birthday: new FormControl(this.employee.birthday, [
           Validators.required,
           CustomValidators.patternValidator(/^\d{2}[.]\d{2}[.]\d{4}$/, { isDate: true })]),
-        groupIdgroup: new FormControl(this.employee.groupIdgroup,Validators.required)
+        groupIdgroup: new FormControl(this.employee.groupIdgroup, Validators.required)
       }, {
         validators: [CustomValidators.match]
       });
@@ -118,7 +120,7 @@ export class WorkerFormComponent implements OnInit {
       }
     }
 
-    if(employeeForm.password){
+    if (employeeForm.password) {
       this.employee.password = employeeForm.password;
     }
 
@@ -130,10 +132,10 @@ export class WorkerFormComponent implements OnInit {
 
       this.employeeChangedEvent.emit();
     });
-    
+
   }
 
-  deleteEmployee() { 
+  deleteEmployee() {
     this.employeeService.deleteEmployee(this.employee).subscribe(() => {
       this.notifyParent.emit(this.employee);
     });;
@@ -147,9 +149,8 @@ export class WorkerFormComponent implements OnInit {
       this.phonenumber.invalid ||
       this.targetweeklyworkinghours.invalid ||
       this.employeeStatus.invalid ||
-      this.groupIdgroup.invalid)
-    {
-      return true;  
+      this.groupIdgroup.invalid) {
+      return true;
     }
     return false;
   }
