@@ -47,7 +47,6 @@ export class LieferungenComponent implements OnInit {
     document.getElementById("qrForm").setAttribute("style", "display:none");
     document.getElementById("neuesPaketForm").setAttribute("style", "display:none");
     document.getElementById("lieferungenForm").setAttribute("style", "display:inline");
-    console.log("openfirst")
     if (this.lieferungenList.length < 1) return;
     this.itemDetails(this.lieferungenList[0]);
   }
