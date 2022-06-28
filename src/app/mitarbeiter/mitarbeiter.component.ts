@@ -167,9 +167,11 @@ export class MitarbeiterComponent implements OnInit {
         clone.groupIdgroup = this.selectedGroup.idgroups;
       }
     }
-    //remove from current grouplist
-    this.groupEmployeeList = this.groupEmployeeList.filter(item => item !== this.selectedEmployee)
-    this.employeeService.changeEmployee(clone);
+
+    this.employeeService.changeEmployee(clone).subscribe(() => { 
+      //remove from current grouplist
+      this.groupEmployeeList = this.groupEmployeeList.filter(item => item !== this.selectedEmployee)
+    });
   }
 
 }
